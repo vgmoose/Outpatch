@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b0jysl7dtdj0t"]
+
+[ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://bs6yu1fowxgoo" path="res://Torrance.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
+
+[node name="Node2D" type="Node2D" unique_id=652498079]
+script = ExtResource("1_ig7tw")
+
+[node name="Map" type="TextureRect" parent="." unique_id=1249873357]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_1bvp3")
+
+[node name="CharBar" type="ColorRect" parent="." unique_id=1143133870]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.117696114, 0.18338013, 0.2172989, 1)
+
+[node name="Events" type="Control" parent="." unique_id=73113079]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
+visible = false

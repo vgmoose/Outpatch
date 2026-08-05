@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bvwyxixkaw1hg"]
+
+[ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://EventPrompt.gd" id="1_3owsw"]
+
+[node name="EventPrompt" type="ColorRect" unique_id=1860844478]
+offset_right = 369.0
+offset_bottom = 254.0
+color = Color(0, 0, 0, 0.6)
+script = ExtResource("1_3owsw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=965666329]
+layout_mode = 0
+offset_right = 367.0
+offset_bottom = 252.0
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/normal_font_size = 50
+text = "Hello there"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=100485756]
+layout_mode = 0
+offset_right = 367.0
+offset_bottom = 252.0
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/normal_font_size = 35
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit purus. Duis ullamcorper a diam ac malesuada. In mauris elit, ultrices quis sem at, ultrices elementum nulla. Sed maximus aliquet fringilla. Praesent eleifend, lorem nec cursus pellentesque, mauris nisl pharetra odio, sed fermentum dolor urna eget ex. Curabitur at enim varius, rutrum quam sit amet, facilisis metus. Vivamus gravida metus vitae dolor lacinia feugiat. Nunc sagittis sed enim mollis sollicitudin. Suspendisse at cursus turpis. Aliquam quis elit in augue blandit hendrerit. Ut eget libero commodo, imperdiet nisl laoreet, tristique felis. Sed condimentum risus et justo eleifend dapibus. Ut urna justo, ullamcorper vel malesuada vitae, ullamcorper sit amet urna. Sed sit amet ultricies ipsum. Fusce quis cursus quam."
+
+[node name="Button" type="Button" parent="." unique_id=1104459331]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 60
+text = "Start ->"
