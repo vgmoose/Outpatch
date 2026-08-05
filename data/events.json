@@ -1,0 +1,26 @@
+{
+	"events": [
+		{
+			"title": "Fire at the firemill",
+			"details": "This seems like something tha tneeds to be dealt with...",
+			"timing": 2.5,
+			"duration": 3.5,
+			"stats": [0, 0, 0, 0, 0],
+			"hints": [
+				"Someone who knows fire would be good",
+				"There are heavy objects"
+			]
+		},
+		{
+			"title": "Water at the watermill",
+			"details": "This seems like something tha tneeds to be dealt with...",
+			"timing": 5,
+			"duration": 7,
+			"stats": [0, 0, 0, 0, 0],
+			"hints": [
+				"Someone who knows water would be good",
+				"There are light objects"
+			]
+		}
+	]
+}

@@ -7,9 +7,11 @@ func _enter_tree():
 	var main = get_tree().current_scene
 	charBarHeight = main.get_node("CharBar").size.y
 
-func display(title):
+func display(title, details):
+	var main = get_tree().current_scene
 	get_node("RichTextLabel").text = title
 	var para = get_node("RichTextLabel2")
+	para.text = details
 	para.position.y = 150
 	para.position.x = 0.1 * self.size.x
 	para.size.x = self.size.x * 0.8
@@ -17,7 +19,11 @@ func display(title):
 	var button = get_node("Button")
 	button.position.x = self.size.x - get_node("Button").size.x - 250
 	button.position.y = self.size.y - get_node("Button").size.y - 90
-	
+	var cancel = get_node("Button2")
+	cancel.connect("pressed", func():
+		# unpause everything and return back to business
+		main.unpause.emit()
+	)
 	visible = true
 	
 #func removeChar(charName):

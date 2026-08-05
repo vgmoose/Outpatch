@@ -1,11 +1,15 @@
 extends TextureProgressBar
 class_name EventCircle
 
-var trueValue: float = 100.0
 var isPaused = false
 
 var eventId = 0
 var main: Main = null
+
+var eventTitle = "Unknown"
+var eventDetails = "???"
+var duration = 0.0
+var startDuration = 1.0
 
 static func makeSimpleColorTexture(color: Color):
 	var out = GradientTexture2D.new()
@@ -14,8 +18,15 @@ static func makeSimpleColorTexture(color: Color):
 	out.gradient.set_color(1, color)
 	return out
 
-func _init(eventId):
-	self.eventId = eventId
+func _init(eventPayload):
+	self.eventId = eventPayload.id
+	self.eventTitle = eventPayload["title"]
+	self.duration = eventPayload["duration"]
+	self.startDuration = duration
+	var hintString = ""
+	for hint in eventPayload["hints"]:
+		hintString += hint + "\n\nHints:\n"
+	self.eventDetails = eventPayload["details"] + "\n" + hintString
 	
 	self.size = Vector2(360, 360)
 	self.texture_under = makeSimpleColorTexture(Color.RED)
@@ -28,9 +39,9 @@ func _enter_tree():
 func _process(delta: float):
 	if isPaused:
 		return
-	trueValue -= delta * 10
-	self.value = trueValue
-	if trueValue <= 0:
+	duration -= delta
+	self.value = 100 * (duration / startDuration)
+	if duration <= 0:
 		queue_free()
 
 func _input(event):

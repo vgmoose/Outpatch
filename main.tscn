@@ -44,3 +44,8 @@ color = Color(1, 0, 1, 1)
 script = ExtResource("5_7mycd")
 myWeights = [0.6, 0.2, 0.8, 0.4, 0.4]
 metadata/_custom_type_script = "uid://ttk0cy3taef1"
+
+[node name="Clock" type="Label" parent="." unique_id=58676152]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 50

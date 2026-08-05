@@ -1,42 +1,57 @@
 extends Node2D
 class_name Main
 
-var charData = [
-	"Invisigal",
-	"Toxic",
-	"Armstrong",
-	"Coupe",
-	"Sonar",
-	"White_Lightning",
-	"Long",
-	"Khopesh"
-]
-
 var curId = 1
 
 signal event_selected
 signal choose_char
+signal unpause
 
 var isPaused = false
 
-#var cache = {}
-#
-#func _init():
-	#cache = preload 
-#
-#func lookupPreloadTexture(name: String):
-	#
+var charData =[] # populated via json load
+var eventStream = [] # ibid
+
+var curTime = 0.0
+
 func _init():
+	# initialize character data
+	var charFileData = FileAccess.get_file_as_string("res://data/chars.json")
+	var jsonCharData = JSON.parse_string(charFileData)
+	for charName in jsonCharData:
+		charData.append(charName)
+	
+	# initialize event data
+	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")
+	var jsonEventData = JSON.parse_string(eventFileData)
+	var curId = 0
+	for event in jsonEventData["events"]:
+		event.hasFired = false
+		event.id = curId
+		curId += 1
+		eventStream.append(event)
+
+	unpause.connect(func():
+		var events = get_node("Events")
+		for event in events.get_children():
+			event.isPaused = false
+		get_node("EventPrompt").visible = false
+		isPaused = false
+	)
 	event_selected.connect(func(eventId):
 		# pause all timers
 		var events = get_node("Events")
+		var chosenEvent = null
 		for event: EventCircle in events.get_children():
 			event.isPaused = true
+			if event.eventId == eventId:
+				chosenEvent = event
 		isPaused = true
 			# TODO: EXTRACT INTO COMMON PAUSE?
 		# display this event
 		var prompt = get_node("EventPrompt")
-		prompt.display("Event ID: " + str(eventId))
+		# TODO: instead of passing IDs and strings, just pass event everywhere
+		prompt.display(chosenEvent.eventTitle, chosenEvent.eventDetails)
 	)
 	choose_char.connect(func(charName, isChosen=true):
 		if not isChosen:
@@ -83,6 +98,11 @@ func _enter_tree() -> void:
 		curPos += charBar.size.y
 
 func _process(delta: float):
+	# advance our cur time!
+	if not isPaused:
+		curTime += delta
+		get_node("Clock").text = " %0.2f" % curTime
+	
 	var events = get_node("Events")
 	# decide if we should randomly create an event
 	var viewport = get_viewport_rect()
@@ -97,10 +117,18 @@ func _process(delta: float):
 	if isPaused:
 		return # no more events
 	
-	if randi_range(1, 100) == 27:
-		# make an event
-		var eventCircle = EventCircle.new(curId)
-		curId += 1
-		events.add_child(eventCircle)
-		eventCircle.position.y = playableArea.position.y + (randf() * playableArea.size.y)
-		eventCircle.position.x = playableArea.position.x + (randf() * playableArea.size.x)
+	# see if we have any events that need to fire
+	# TODO: don't check every event every frame? some other kind of data structure
+	for event in eventStream:
+		if event.hasFired:
+			continue # already done it!
+		if event.timing <= curTime:
+			event.hasFired = true # don't double process
+
+			# make an event circle from this event data
+			var eventCircle = EventCircle.new(event)
+			curId += 1
+			events.add_child(eventCircle)
+			# TODO: load x, y coors from the event data
+			eventCircle.position.y = playableArea.position.y + (randf() * playableArea.size.y)
+			eventCircle.position.x = playableArea.position.x + (randf() * playableArea.size.x)

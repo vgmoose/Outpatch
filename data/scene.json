@@ -1,0 +1,24 @@
+{
+	"scene": [
+		{
+			"type": "enter_char",
+			"name": "Sonar",
+			"position": "left"
+		},
+		{
+			"type": "speech",
+			"speaker": "Sonar",
+			"content": "Hello, how are you?"
+		},
+		{
+			"type": "enter_char",
+			"name": "Invisigal",
+			"position": "right",
+		},
+		{
+			"type": "speech",
+			"speaker": "Invisigal",
+			"content": "I don't know, man"
+		}
+	]
+}

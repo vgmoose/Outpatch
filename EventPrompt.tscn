@@ -10,7 +10,7 @@ script = ExtResource("1_3owsw")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=965666329]
 layout_mode = 0
-offset_right = 367.0
+offset_right = 938.0
 offset_bottom = 252.0
 theme_override_constants/shadow_outline_size = 1
 theme_override_font_sizes/normal_font_size = 50
@@ -30,3 +30,12 @@ offset_right = 64.0
 offset_bottom = 42.0
 theme_override_font_sizes/font_size = 60
 text = "Start ->"
+
+[node name="Button2" type="Button" parent="." unique_id=1421217615]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 1113.0
+offset_right = 285.0
+offset_bottom = 1204.0
+theme_override_font_sizes/font_size = 60
+text = "<- Back"
