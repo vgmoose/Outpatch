@@ -9,7 +9,7 @@ signal unpause
 
 var isPaused = false
 
-var charData =[] # populated via json load
+var charData ={} # populated via json load
 var eventStream = [] # ibid
 
 var curTime = 0.0
@@ -19,7 +19,7 @@ func _init():
 	var charFileData = FileAccess.get_file_as_string("res://data/chars.json")
 	var jsonCharData = JSON.parse_string(charFileData)
 	for charName in jsonCharData:
-		charData.append(charName)
+		charData[charName] = jsonCharData[charName]
 	
 	# initialize event data
 	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")
@@ -51,7 +51,7 @@ func _init():
 		# display this event
 		var prompt = get_node("EventPrompt")
 		# TODO: instead of passing IDs and strings, just pass event everywhere
-		prompt.display(chosenEvent.eventTitle, chosenEvent.eventDetails)
+		prompt.display(chosenEvent.eventTitle, chosenEvent.eventDetails, chosenEvent.stats)
 	)
 	choose_char.connect(func(charName, isChosen=true):
 		if not isChosen:
@@ -64,7 +64,7 @@ func _init():
 					csp.isChosen = false
 			return
 		var prompt = get_node("EventPrompt")
-		prompt.addChar(charName)
+		prompt.addChar(charName, charData[charName])
 	)
 
 func _enter_tree() -> void:
@@ -89,7 +89,7 @@ func _enter_tree() -> void:
 	prompt.size.y = 0.8 * screenHeight - charBar.size.y
 
 	for charName: String in charData:
-		var csp = CSP.new(charBar.size.y, charName)
+		var csp = CSP.new(charBar.size.y, charName, charData[charName])
 		charBar.add_child(csp)
 	
 	var curPos = screenWidth  / 2 - (charData.size() * charBar.size.y) / 2

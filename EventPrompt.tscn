@@ -39,3 +39,5 @@ offset_right = 285.0
 offset_bottom = 1204.0
 theme_override_font_sizes/font_size = 60
 text = "<- Back"
+
+[node name="StarGraphHolder" type="Node2D" parent="." unique_id=1729236773]

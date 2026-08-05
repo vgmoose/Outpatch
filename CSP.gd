@@ -6,13 +6,16 @@ var myTexture = null
 var myName = "Unknown"
 var isChosen = false
 
+var myWeights = [0,0,0,0,0]
+
 # if this CSP was chosen / is in the prompt
 var selectedPrompt = null
 
-func _init(dimen, charName):
+func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
 	myTexture = load("res://csps/" + charName + ".webp.png")
+	myWeights = charWeights
 
 func _enter_tree():
 	var csp = self

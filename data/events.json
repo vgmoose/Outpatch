@@ -4,8 +4,8 @@
 			"title": "Fire at the firemill",
 			"details": "This seems like something tha tneeds to be dealt with...",
 			"timing": 2.5,
-			"duration": 3.5,
-			"stats": [0, 0, 0, 0, 0],
+			"duration": 7,
+			"stats": [1.0, 0.5, 0.3, 0.7, 0.3],
 			"hints": [
 				"Someone who knows fire would be good",
 				"There are heavy objects"
@@ -15,8 +15,8 @@
 			"title": "Water at the watermill",
 			"details": "This seems like something tha tneeds to be dealt with...",
 			"timing": 5,
-			"duration": 7,
-			"stats": [0, 0, 0, 0, 0],
+			"duration": 14,
+			"stats": [0.4, 0.2, 0.6, 1.0, 0.4],
 			"hints": [
 				"Someone who knows water would be good",
 				"There are light objects"
