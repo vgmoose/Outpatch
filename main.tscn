@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bs6yu1fowxgoo" path="res://Torrance.png" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dfbley14h61f3" path="res://StarGraph.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://ttk0cy3taef1" path="res://StarGraph.gd" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
 
 [node name="Node2D" type="Node2D" unique_id=652498079]
@@ -29,3 +31,16 @@ offset_bottom = 40.0
 
 [node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
 visible = false
+
+[node name="StarGraph" parent="." unique_id=400449012 instance=ExtResource("4_1bvp3")]
+visible = false
+modulate = Color(0, 1, 1, 1)
+self_modulate = Color(0.09411765, 1, 1, 1)
+top_level = false
+
+[node name="MyAttrs" type="Polygon2D" parent="." unique_id=566622909]
+visible = false
+color = Color(1, 0, 1, 1)
+script = ExtResource("5_7mycd")
+myWeights = [0.6, 0.2, 0.8, 0.4, 0.4]
+metadata/_custom_type_script = "uid://ttk0cy3taef1"

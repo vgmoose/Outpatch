@@ -22,7 +22,7 @@ offset_right = 367.0
 offset_bottom = 252.0
 theme_override_constants/shadow_outline_size = 1
 theme_override_font_sizes/normal_font_size = 35
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit purus. Duis ullamcorper a diam ac malesuada. In mauris elit, ultrices quis sem at, ultrices elementum nulla. Sed maximus aliquet fringilla. Praesent eleifend, lorem nec cursus pellentesque, mauris nisl pharetra odio, sed fermentum dolor urna eget ex. Curabitur at enim varius, rutrum quam sit amet, facilisis metus. Vivamus gravida metus vitae dolor lacinia feugiat. Nunc sagittis sed enim mollis sollicitudin. Suspendisse at cursus turpis. Aliquam quis elit in augue blandit hendrerit. Ut eget libero commodo, imperdiet nisl laoreet, tristique felis. Sed condimentum risus et justo eleifend dapibus. Ut urna justo, ullamcorper vel malesuada vitae, ullamcorper sit amet urna. Sed sit amet ultricies ipsum. Fusce quis cursus quam."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit purus. Duis ullamcorper a diam ac malesuada. In mauris elit, ultrices quis sem at, ultrices elementum nulla. Sed maximus aliquet fringilla. Praesent eleifend, lorem nec cursus pellentesque, mauris nisl pharetra odio, sed fermentum dolor urna eget ex. Curabitur at enim varius, rutrum quam sit amet, facilisis metus. Vivamus gravida metus vitae dolor lacinia feugiat. Nunc sagittis sed enim mollis sollicitudin. Suspendisse at cursus turpis. Aliquam quis elit in augue blandit hendrerit. Ut eget libero commodo, imperdiet nisl laoreet, tristique felis. Sed condimentum risus et justo eleifend dapibus."
 
 [node name="Button" type="Button" parent="." unique_id=1104459331]
 layout_mode = 0
