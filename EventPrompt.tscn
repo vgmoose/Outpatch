@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://bvwyxixkaw1hg"]
 
 [ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://EventPrompt.gd" id="1_3owsw"]
+[ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://BouncyBall.tscn" id="2_m1l8p"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1l8p"]
 
 [node name="EventPrompt" type="ColorRect" unique_id=1860844478]
 offset_right = 369.0
@@ -41,3 +44,16 @@ theme_override_font_sizes/font_size = 60
 text = "<- Back"
 
 [node name="StarGraphHolder" type="Node2D" parent="." unique_id=1729236773]
+
+[node name="BouncyBall" parent="StarGraphHolder" unique_id=593039927 instance=ExtResource("2_m1l8p")]
+visible = false
+
+[node name="CollisionChart" type="StaticBody2D" parent="StarGraphHolder" unique_id=702026503]
+physics_material_override = SubResource("PhysicsMaterial_m1l8p")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StarGraphHolder/CollisionChart" unique_id=690965258]
+build_mode = 1
+polygon = PackedVector2Array(-1, -4, 213, -2, 215, 197, 5, 181, -3, 4)
+
+[node name="Polygon2D" type="Polygon2D" parent="StarGraphHolder/CollisionChart" unique_id=1318584226]
+visible = false

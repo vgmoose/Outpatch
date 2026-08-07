@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://by6vafkd15mbf"]
+
+[ext_resource type="Script" uid="uid://tdnxesch5otb" path="res://BouncyBall.gd" id="1_bc8qd"]
+[ext_resource type="Texture2D" uid="uid://cari7n1cqrc0r" path="res://icon.svg" id="2_jw557"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5cce5"]
+radius = 12.0
+
+[node name="BouncyBall" type="CharacterBody2D" unique_id=593039927]
+script = ExtResource("1_bc8qd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743321292]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_jw557")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=480261513]
+shape = SubResource("CircleShape2D_5cce5")

@@ -30,34 +30,67 @@ func display(title, details, eventWeights):
 			return
 		# remove the previously generated merged graph
 		# so that we can retween it in
-		var mergedGraph = starGraphHolder.get_children()[1]
+		var mergedGraph = starGraphHolder.get_children()[starGraphHolder.get_children().size()-1] # assume it's at the end
 		starGraphHolder.remove_child(mergedGraph)
 
 		# start the simulation, reveal true probabilities
 		var trueGraph = StarGraph.new(Color.DARK_RED)
 		trueGraph.update_graph(eventWeights)
+		var truePolygon = trueGraph.polygon # update_graph applies our weights to the actual polygon shape
 		starGraphHolder.add_child(trueGraph)
 		
 		# tween our actual probabilities back in
 		starGraphHolder.add_child(mergedGraph)
 		var tween = get_tree().create_tween()
-		var finalWeights = mergedGraph.polygon
-		mergedGraph.polygon = [0,0,0,0,0]
-		tween.tween_property(mergedGraph, "polygon", finalWeights, 2.5)
+		
+		var finalPolygon = mergedGraph.polygon
 		
 		# start physics simulation?
 		# first, find intersecting polygon
-		var commongons = Geometry2D.clip_polygons(trueGraph.polygon, finalWeights)
-		# get the area of the inner (overlap/clipped) polygon(s)
-		var inner = 0.0
-		for common in commongons:
-			inner += calculate_area(common)
+
 		# and then the area of the outer
-		var outer = calculate_area(trueGraph.polygon)
+		var outer = calculate_area(truePolygon)
 		# percent success is straightforwards
 		var label = Label.new()
+		label.text = "0%"
+		label.add_theme_font_size_override("font_size", 65)
 		starGraphHolder.add_child(label)
-		label.text = "%0.2f%%" % abs(100 - ((inner / outer) * 100))
+		
+		mergedGraph.polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+		trueGraph.polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+		
+		# tween in the base, then our merged, and update the percent along the way
+		tween.tween_property(trueGraph, "polygon", truePolygon, 2)
+		tween.tween_property(mergedGraph, "polygon", finalPolygon, 2)
+		tween.parallel().tween_method((func(cur):
+			# we ignore cur, because we're just going to use the polygon that's growing into place
+			# get the area of the inner (overlap/clipped) polygon(s)
+			var inner = 0.0
+			var commongons = Geometry2D.clip_polygons(trueGraph.polygon, mergedGraph.polygon)
+			for common in commongons:
+				inner += calculate_area(common)
+			label.text = "%0.2f%%" % abs(100 - ((inner / outer) * 100))
+		), 0, 0, 2)
+		
+		tween.tween_callback(func():
+			# this is called after the above animations are done, kick off the ball moving in a random direction
+			# with the collision of the merged polygon
+			var collisionChart = starGraphHolder.get_node("CollisionChart")
+			var collider = collisionChart.get_node("CollisionPolygon2D")
+			collider.polygon = truePolygon
+			# for visualizing only
+			#var siblinggon = collisionChart.get_node("Polygon2D")
+			#siblinggon.color = Color.BLUE
+			#siblinggon.polygon = truePolygon
+			var theBall = starGraphHolder.get_node("BouncyBall")
+			collisionChart.position = mergedGraph.position
+			theBall.position = mergedGraph.position # TODO: this assumes firstchild is the empty chart
+			theBall.velocity = Vector2(-640, -570)
+			starGraphHolder.remove_child(theBall)
+			starGraphHolder.add_child(theBall)
+			theBall.visible = true
+			
+		)
 		
 	)
 	
@@ -104,7 +137,8 @@ func position_csps(skipMe = null):
 	var starGraphHolder = get_node("StarGraphHolder")
 	starGraphHolder.position.x = self.size.x / 2
 	for oldGraph in starGraphHolder.get_children():
-		starGraphHolder.remove_child(oldGraph)
+		if oldGraph is StarGraph:
+			starGraphHolder.remove_child(oldGraph)
 	
 	# background of chart
 	var emptyGraph = StarGraph.new(Color.WEB_GRAY)
