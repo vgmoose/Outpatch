@@ -12,6 +12,8 @@ var duration = 0.0
 var startDuration = 1.0
 var stats: Array[float] = [0, 0, 0, 0, 0]
 
+var ogEvent = {}
+
 static func makeSimpleColorTexture(color: Color):
 	var out = GradientTexture2D.new()
 	out.gradient = Gradient.new()
@@ -20,6 +22,7 @@ static func makeSimpleColorTexture(color: Color):
 	return out
 
 func _init(eventPayload):
+	self.ogEvent = eventPayload
 	self.eventId = eventPayload.id
 	self.eventTitle = eventPayload["title"]
 	self.duration = eventPayload["duration"]
@@ -27,9 +30,9 @@ func _init(eventPayload):
 	self.stats = []
 	for stat in eventPayload["stats"]:
 		self.stats.append(stat)
-	var hintString = ""
+	var hintString = "\nHints:\n"
 	for hint in eventPayload["hints"]:
-		hintString += hint + "\n\nHints:\n"
+		hintString += "- " + hint + "\n"
 	self.eventDetails = eventPayload["details"] + "\n" + hintString
 	
 	self.size = Vector2(360, 360)

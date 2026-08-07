@@ -6,6 +6,7 @@ var curId = 1
 signal event_selected
 signal choose_char
 signal unpause
+signal event_finished
 
 var isPaused = false
 
@@ -38,6 +39,12 @@ func _init():
 		get_node("EventPrompt").visible = false
 		isPaused = false
 	)
+	event_finished.connect(func(eventId):
+		# stop the respective event circle
+		var events = get_node("Events")
+		for event in events.get_children():
+			event.queue_free() # TODO: another state for finished
+	)
 	event_selected.connect(func(eventId):
 		# pause all timers
 		var events = get_node("Events")
@@ -51,7 +58,8 @@ func _init():
 		# display this event
 		var prompt = get_node("EventPrompt")
 		# TODO: instead of passing IDs and strings, just pass event everywhere
-		prompt.display(chosenEvent.eventTitle, chosenEvent.eventDetails, chosenEvent.stats)
+		print("Passing: ", chosenEvent)
+		prompt.display(chosenEvent)
 	)
 	choose_char.connect(func(charName, isChosen=true):
 		if not isChosen:
@@ -98,6 +106,12 @@ func _enter_tree() -> void:
 		curPos += charBar.size.y
 
 func _process(delta: float):
+	# Debug: loop time after 20 seconds
+	if curTime > 20:
+		curTime = float(int(curTime) % 20)
+		# also reset all events
+		for event in eventStream:
+			event.hasFired = false
 	# advance our cur time!
 	if not isPaused:
 		curTime += delta

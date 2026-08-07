@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bvwyxixkaw1hg"]
 
 [ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://EventPrompt.gd" id="1_3owsw"]
+[ext_resource type="Script" uid="uid://7emhar3rl0ff" path="res://StarGraphHolder.gd" id="2_cef6o"]
 [ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://BouncyBall.tscn" id="2_m1l8p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1l8p"]
@@ -44,6 +45,7 @@ theme_override_font_sizes/font_size = 60
 text = "<- Back"
 
 [node name="StarGraphHolder" type="Node2D" parent="." unique_id=1729236773]
+script = ExtResource("2_cef6o")
 
 [node name="BouncyBall" parent="StarGraphHolder" unique_id=593039927 instance=ExtResource("2_m1l8p")]
 visible = false
