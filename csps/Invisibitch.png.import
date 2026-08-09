@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfh84q10e56so"
-path="res://.godot/imported/White_Lightning.webp.png-815e0bdc067ff84d8a0c22724e894a19.ctex"
+uid="uid://d4rub8bvfo8f"
+path="res://.godot/imported/Invisibitch.png-91f20247b01e7562f527395168cd8522.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/White_Lightning.webp.png"
-dest_files=["res://.godot/imported/White_Lightning.webp.png-815e0bdc067ff84d8a0c22724e894a19.ctex"]
+source_file="res://csps/Invisibitch.png"
+dest_files=["res://.godot/imported/Invisibitch.png-91f20247b01e7562f527395168cd8522.ctex"]
 
 [params]
 

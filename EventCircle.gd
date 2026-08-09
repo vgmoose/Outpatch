@@ -1,4 +1,4 @@
-extends TextureProgressBar
+extends Button
 class_name EventCircle
 
 var isPaused = false
@@ -21,7 +21,7 @@ static func makeSimpleColorTexture(color: Color):
 	out.gradient.set_color(1, color)
 	return out
 
-func _init(eventPayload):
+func updateEvent(eventPayload):
 	self.ogEvent = eventPayload
 	self.eventId = eventPayload.id
 	self.eventTitle = eventPayload["title"]
@@ -35,19 +35,28 @@ func _init(eventPayload):
 		hintString += "- " + hint + "\n"
 	self.eventDetails = eventPayload["details"] + "\n" + hintString
 	
-	self.size = Vector2(360, 360)
-	self.texture_under = makeSimpleColorTexture(Color.RED)
-	self.texture_progress = makeSimpleColorTexture(Color.GREEN)
-	self.fill_mode = FILL_CLOCKWISE
-
+	self.size = Vector2(100, 100)
+	#var styleBoxRef = load("res://radial_crop.tres")
+	#self.add_theme_stylebox_override("normal", styleBoxRef)
+	
 func _enter_tree():
 	self.main = get_tree().current_scene
+	
+	var circleBar = get_node("CircleBar")
+	circleBar.position = Vector2(18, 18)
+	circleBar.size = size
+	circleBar.texture_under = makeSimpleColorTexture(Color.RED)
+	circleBar.texture_progress = makeSimpleColorTexture(Color.GREEN)
+	circleBar.fill_mode = TextureProgressBar.FILL_CLOCKWISE
+	
 	
 func _process(delta: float):
 	if isPaused:
 		return
 	duration -= delta
-	self.value = 100 * (duration / startDuration)
+	
+	var circleBar = get_node("CircleBar")
+	circleBar.value = 100 * (duration / startDuration)
 	if duration <= 0:
 		queue_free()
 

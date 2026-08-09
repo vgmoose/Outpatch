@@ -14,7 +14,10 @@ var selectedPrompt = null
 func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
-	myTexture = load("res://csps/" + charName + ".webp.png")
+	myTexture = load("res://csps/" + charName + ".png")
+	if not myTexture:
+		# fallback
+		myTexture = load("res://csps/Unknown.jpg")
 	myWeights = charWeights
 
 func _enter_tree():
@@ -33,6 +36,12 @@ func _enter_tree():
 		if main.isPaused:
 			csp.position.y += 20
 	)
+	var button = Button.new()
+	csp.add_child(button)
+	button.text = myName.to_upper()
+	button.size.x = csp.size.x
+	button.mouse_filter =Control.MOUSE_FILTER_PASS
+	button.add_theme_font_size_override("font_size", 24)	
 
 func _input(event):
 	var main = get_tree().current_scene

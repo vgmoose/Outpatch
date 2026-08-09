@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0b5yj53q2k2p"
-path="res://.godot/imported/Khopesh.webp.png-4ae84482a72bd9ac61a745e0b12e9c82.ctex"
+uid="uid://wco77xup7dpr"
+path="res://.godot/imported/check_round_color.png-b0df68fc0c536f3af0b1b37b639b696e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Khopesh.webp.png"
-dest_files=["res://.godot/imported/Khopesh.webp.png-4ae84482a72bd9ac61a745e0b12e9c82.ctex"]
+source_file="res://icons/check_round_color.png"
+dest_files=["res://.godot/imported/check_round_color.png-b0df68fc0c536f3af0b1b37b639b696e.ctex"]
 
 [params]
 

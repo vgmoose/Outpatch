@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f71sduu8210o"
-path="res://.godot/imported/Spiderlegs.webp.png-0f185b851b999c3d096623710b58f77a.ctex"
+uid="uid://b72qnkppjmiet"
+path="res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Spiderlegs.webp.png"
-dest_files=["res://.godot/imported/Spiderlegs.webp.png-0f185b851b999c3d096623710b58f77a.ctex"]
+source_file="res://csps/Toxic.png"
+dest_files=["res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"]
 
 [params]
 

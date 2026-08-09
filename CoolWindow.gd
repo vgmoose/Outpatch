@@ -1,7 +1,10 @@
 extends Node2D
+class_name CoolWindow
 
 @export var title = "This is a Test"
 @export var size = Vector2(1000, 900)
+
+var canBeMoved = false
 
 var isBeingDragged = false
 var isBeingResized = false
@@ -54,7 +57,6 @@ func _enter_tree():
 	var titleText = get_node("TitleText")
 	var titleBg = get_node("TitleBg")
 	var windowBg = get_node("WindowBg")
-	titleText.text = "Test Window"
 	titleText.size.y = 74
 	
 	windowBg.position = Vector2(0, 64)
@@ -64,6 +66,7 @@ func _enter_tree():
 func adjustBounds():
 	var titleText = get_node("TitleText")
 	titleText.size.x = size.x
+	titleText.text = title
 	var titleBg = get_node("TitleBg")
 	var windowBg = get_node("WindowBg")
 	# resize and update our tile layers based on teh requested size
@@ -71,6 +74,9 @@ func adjustBounds():
 	resize_tilemap(Vector2(size.x, size.y), windowBg)
 	
 func _input(event):
+	if not canBeMoved:
+		# block any changes to window pos/size
+		return
 	if event is InputEventMouseMotion:
 		if isBeingDragged:
 			position = get_viewport().get_mouse_position() - dragGrabOffset

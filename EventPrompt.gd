@@ -22,7 +22,10 @@ func display(mainEvent):
 	var eventWeights = mainEvent.stats
 	
 	var main = get_tree().current_scene
-	get_node("RichTextLabel").text = title
+	var window: CoolWindow = get_node("CoolWindow")
+	window.title = title
+	window.size = size # same as parent colored rect
+	window.adjustBounds()
 	var para = get_node("RichTextLabel2")
 	para.text = details
 	para.position.y = 150
@@ -97,17 +100,15 @@ func display(mainEvent):
 		# and then the area of the outer
 		var outer = calculate_area(truePolygon)
 		# percent success is straightforwards
-		var label = Label.new()
+		var label = Button.new()
 		label.text = "0%"
 		label.add_theme_font_size_override("font_size", 65)
 		starGraphHolder.add_child(label)
 		
-		mergedGraph.polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
-		trueGraph.polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
-		
 		# tween in the base, then our merged, and update the percent along the way
-		tween.tween_property(trueGraph, "polygon", truePolygon, 2)
-		tween.tween_property(mergedGraph, "polygon", finalPolygon, 2)
+		trueGraph.start_animation(tween)
+		mergedGraph.start_animation(tween)
+		
 		tween.parallel().tween_method((func(cur):
 			# we ignore cur, because we're just going to use the polygon that's growing into place
 			# get the area of the inner (overlap/clipped) polygon(s)
@@ -234,7 +235,7 @@ func position_csps(skipMe = null):
 			starGraphHolder.remove_child(oldGraph)
 	
 	# background of chart
-	var emptyGraph = StarGraph.new(Color.WEB_GRAY)
+	var emptyGraph = StarGraph.new(Color.WEB_GRAY, true)
 	starGraphHolder.add_child(emptyGraph)
 
 	# merging logic

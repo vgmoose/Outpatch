@@ -3,22 +3,17 @@
 [ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://EventPrompt.gd" id="1_3owsw"]
 [ext_resource type="Script" uid="uid://7emhar3rl0ff" path="res://StarGraphHolder.gd" id="2_cef6o"]
 [ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://BouncyBall.tscn" id="2_m1l8p"]
+[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://CoolWindow.tscn" id="2_x5xuu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1l8p"]
 
 [node name="EventPrompt" type="ColorRect" unique_id=1860844478]
 offset_right = 369.0
 offset_bottom = 254.0
-color = Color(0, 0, 0, 0.6)
+color = Color(1, 1, 1, 0)
 script = ExtResource("1_3owsw")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=965666329]
-layout_mode = 0
-offset_right = 938.0
-offset_bottom = 252.0
-theme_override_constants/shadow_outline_size = 1
-theme_override_font_sizes/normal_font_size = 50
-text = "Hello there"
+[node name="CoolWindow" parent="." unique_id=2013251664 instance=ExtResource("2_x5xuu")]
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=100485756]
 layout_mode = 0
@@ -31,8 +26,8 @@ text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit
 [node name="Button" type="Button" parent="." unique_id=1104459331]
 visible = false
 layout_mode = 0
-offset_right = 64.0
-offset_bottom = 42.0
+offset_right = 218.0
+offset_bottom = 91.0
 theme_override_font_sizes/font_size = 60
 text = "Start ->"
 
@@ -60,3 +55,5 @@ polygon = PackedVector2Array(-1, -4, 213, -2, 215, 197, 5, 181, -3, 4)
 
 [node name="Polygon2D" type="Polygon2D" parent="StarGraphHolder/CollisionChart" unique_id=1318584226]
 visible = false
+polygon = PackedVector2Array(163, -77, 32, 22, 241, 9, 213, -5, 213, -5, 213, -5, 167, -76)
+uv = PackedVector2Array(163, -77, 32, 22, 241, 9, 213, -5, 213, -5, 213, -5, 167, -76)

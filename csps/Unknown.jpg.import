@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dotoxn2ivqcfw"
-path="res://.godot/imported/Toxic.webp.png-a75c1d8889fa8e3a346b27fa7eaf5782.ctex"
+uid="uid://6jcui1he1pe8"
+path="res://.godot/imported/Unknown.jpg-b43d5b9ce84bd4c42a392d98ce01724f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Toxic.webp.png"
-dest_files=["res://.godot/imported/Toxic.webp.png-a75c1d8889fa8e3a346b27fa7eaf5782.ctex"]
+source_file="res://csps/Unknown.jpg"
+dest_files=["res://.godot/imported/Unknown.jpg-b43d5b9ce84bd4c42a392d98ce01724f.ctex"]
 
 [params]
 

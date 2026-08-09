@@ -1,11 +1,21 @@
 [gd_scene format=3 uid="uid://dqwehbdem1q5s"]
 
 [ext_resource type="Script" uid="uid://cdd643wxw0t2m" path="res://EventCircle.gd" id="1_agga5"]
+[ext_resource type="StyleBox" uid="uid://d1rf3alwantq3" path="res://radial_crop.tres" id="1_fs1eh"]
 
-[node name="EventCircle" type="TextureProgressBar" unique_id=1683898103]
+[sub_resource type="Theme" id="Theme_agga5"]
+
+[node name="EventCircle" type="Button" unique_id=411880080]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/normal = ExtResource("1_fs1eh")
+script = ExtResource("1_agga5")
+
+[node name="CircleBar" type="TextureProgressBar" parent="." unique_id=1683898103]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_agga5")
+theme = SubResource("Theme_agga5")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btbp3deiclfdk"
-path="res://.godot/imported/Shroud.webp.png-392d8f76e66733a118e2d5752d43eb30.ctex"
+uid="uid://cfvbpbs1nmooo"
+path="res://.godot/imported/Psychic.png-c004229b3219f6cda5ab1a5a8f452852.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Shroud.webp.png"
-dest_files=["res://.godot/imported/Shroud.webp.png-392d8f76e66733a118e2d5752d43eb30.ctex"]
+source_file="res://csps/Psychic.png"
+dest_files=["res://.godot/imported/Psychic.png-c004229b3219f6cda5ab1a5a8f452852.ctex"]
 
 [params]
 

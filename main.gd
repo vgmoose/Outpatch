@@ -68,6 +68,8 @@ func _init():
 			for csp in get_node("CharBar").get_children():
 				if csp.myName == charName:
 					for child in csp.get_children():
+						if child is Button:
+							continue # their nametag
 						child.queue_free()
 					csp.isChosen = false
 			return
@@ -140,7 +142,9 @@ func _process(delta: float):
 			event.hasFired = true # don't double process
 
 			# make an event circle from this event data
-			var eventCircle = EventCircle.new(event)
+			var eventCircleScene = preload("res://EventCircle.tscn")
+			var eventCircle = eventCircleScene.instantiate()
+			eventCircle.updateEvent(event)
 			curId += 1
 			events.add_child(eventCircle)
 			# TODO: load x, y coors from the event data
