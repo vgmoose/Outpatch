@@ -31,8 +31,9 @@ func _process(delta):
 		# a collision occurred, reflect our new velocity along the collision's normal
 		velocity = velocity.bounce(res.get_normal())
 	# tick down by our friction value
-	velocity *= 0.99
-	if abs(velocity.x) < 15 and abs(velocity.y) < 15:
+	var reduceBy = 0.4
+	velocity *= (1 - reduceBy*delta)
+	if abs(velocity.x) <= 20 and abs(velocity.y) <= 20:
 		isMoving = false
 		velocity = Vector2(0, 0)
 		# we're done! signal up so we can evaluate it

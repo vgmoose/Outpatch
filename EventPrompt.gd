@@ -6,7 +6,7 @@ var wasPressed = false
 var allDone = false
 
 var ogEvent = {}
-
+var counter = 0
 signal finishedBallBouncing
 
 func _enter_tree():
@@ -20,6 +20,7 @@ func display(mainEvent):
 	var title = mainEvent.eventTitle
 	var details = mainEvent.eventDetails
 	var eventWeights = mainEvent.stats
+	
 	var main = get_tree().current_scene
 	get_node("RichTextLabel").text = title
 	var para = get_node("RichTextLabel2")
@@ -34,6 +35,7 @@ func display(mainEvent):
 		main.unpause.emit()
 	)
 	var button = get_node("Button")
+	button.visible = false
 	button.position.x = self.size.x - get_node("Button").size.x - 250
 	button.position.y = self.size.y - get_node("Button").size.y - 90
 	cancel.position.y = button.position.y
@@ -72,7 +74,13 @@ func display(mainEvent):
 		starGraphHolder.remove_child(mergedGraph)
 
 		# start the simulation, reveal true probabilities
-		var trueGraph = StarGraph.new(Color.DARK_RED)
+		var trueGraph = null
+		if counter == 1:
+			trueGraph = StarGraph.new(Color.DARK_RED)
+		else:
+			trueGraph = StarGraph.new(Color.DARK_BLUE)
+		counter += 1
+		print("Counter, ", counter, " ", eventWeights)
 		trueGraph.update_graph(eventWeights)
 		var truePolygon = trueGraph.polygon # update_graph applies our weights to the actual polygon shape
 		starGraphHolder.add_child(trueGraph)
@@ -201,6 +209,13 @@ func position_csps(skipMe = null):
 	for curCsp in get_children():
 		if curCsp is CSP and curCsp != skipMe:
 			cspCount += 1
+	
+	if cspCount > 0:
+		# enable start button
+		var button = get_node("Button")
+		button.visible = true
+		remove_child(button)
+		add_child(button)
 	
 	var curWeights = [] # array of array of weights for each selected char
 	var curOff = self.size.x / 2 - (cspCount * charBarHeight) / 2

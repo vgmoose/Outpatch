@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://7jcx8pl7jrf"]
 
 [ext_resource type="Texture2D" uid="uid://cari7n1cqrc0r" path="res://icon.svg" id="1_c0dwi"]
+[ext_resource type="Script" uid="uid://c2slkabvlg6b" path="res://JsonTree.gd" id="2_ax32a"]
 
 [node name="Title" type="Node2D" unique_id=236249760]
 
@@ -8,3 +9,10 @@
 visible = false
 texture = ExtResource("1_c0dwi")
 centered = false
+
+[node name="Tree" type="Tree" parent="." unique_id=548297622]
+offset_right = 470.0
+offset_bottom = 872.0
+columns = 2
+script = ExtResource("2_ax32a")
+jsonPath = "res://data/events.json"
