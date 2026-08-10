@@ -55,20 +55,16 @@ func _init():
 		prompt.display(chosenEvent)
 	)
 	choose_char.connect(func(charName, isChosen=true):
-		if not isChosen:
-			# it's an unselect event!
-			# delete the overlay child
-			for csp in get_node("CharBar").get_children():
-				if csp.myName == charName:
-					for child in csp.get_children():
-						if child is Button:
-							continue # their nametag
-						child.queue_free()
-					csp.isChosen = false
-			return
-		var prompt = get_node("EventPrompt")
 		var charBar = get_node("CharBar")
-		prompt.addChar(charName, charBar.getStats(charName))
+		var prompt = get_node("EventPrompt")
+		if not isChosen:
+			# this is a removal event! remove it from the charBar
+			# and update the char's status
+			prompt.chosenChars.erase(charName)
+			charBar.updateStatus(charName, "READY")
+			prompt.position_csps(charBar)
+			return
+		prompt.addChar(charBar, charName)
 	)
 		
 

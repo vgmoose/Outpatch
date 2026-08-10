@@ -9,6 +9,9 @@ var ogEvent = {}
 var counter = 0
 signal finishedBallBouncing
 
+# current chars that are chosen for this prompt
+var chosenChars = []
+
 func _enter_tree():
 	var main = get_tree().current_scene
 	charBarHeight = main.get_node("CharBar").size.y
@@ -62,7 +65,7 @@ func display(mainEvent):
 		# unpause everything and return back to business
 		dismiss()
 	)
-	position_csps()
+	position_csps(null)
 	
 	var button = window.get_node("Button")
 	button.visible = false
@@ -259,28 +262,37 @@ func dismiss():
 		main.unpause.emit()
 	)
 	
-func position_csps(skipMe = null):
-	var cspCount = 0
-	for curCsp in get_children():
-		if curCsp is CSP and curCsp != skipMe:
-			cspCount += 1
-	
-	if cspCount > 0:
+func position_csps(charBar):
+	var button = get_node("MainWindow/Button")
+	if chosenChars.size() > 0:
 		# enable start button
-		var button = get_node("MainWindow/Button")
 		button.visible = true
 		remove_child(button)
 		add_child(button)
+	else:
+		button.visible = false
 	
 	var window = get_node("MissionWindow")
-	var curWeights = [] # array of array of weights for each selected char
-	var curOff = window.size.x - (cspCount * charBarHeight) / 2
-	for curCsp in get_children():
-		if curCsp is CSP and curCsp != skipMe:
-			curCsp.position.x = window.position.x + curOff
-			curCsp.position.y = window.position.y + window.size.y * 3 + 15
+	var curWeights = []
+	if charBar: # if null, it's the first init
+		for charName in chosenChars:
+			curWeights.append(charBar.getStats(charName))
+		
+		var curOff = window.size.x - (chosenChars.size() * charBar.size.y) / 2
+		
+		for child in window.get_children():
+			# clear any existing CSPs, sicne we're about to recreate them
+			if child is CSP:
+				child.queue_free()
+		
+		for charName in chosenChars:
+			var curCsp = CSP.new(charBar.size.y, charName, [])
+			curCsp.selectedPrompt = self
+			window.add_child(curCsp)
+			curCsp.position.x = curOff
+			curCsp.position.y = window.size.y * 3 + 15
 			curOff += charBarHeight
-			curWeights.append(curCsp.myWeights)
+			curWeights.append(charBar.getStats(charName)) # always source stats from CharBar ref
 	
 	# clear current star graphs and make new ones for each char
 	var starGraphHolder = get_node("MissionWindow/StarGraphHolder")
@@ -295,7 +307,7 @@ func position_csps(skipMe = null):
 	starGraphHolder.add_child(emptyGraph)
 
 	# merging logic
-	var gold = Color.GOLD
+	var gold = Color.YELLOW
 	gold.a = 0.6
 	var mergedGraph = StarGraph.new(gold)
 	starGraphHolder.add_child(mergedGraph)
@@ -304,35 +316,12 @@ func position_csps(skipMe = null):
 		for wIdx in range(5):
 			mergedWeights[wIdx] = max(mergedWeights[wIdx], weights[wIdx])
 	mergedGraph.update_graph(mergedWeights)
-	
-	# individual char overlays
-	#var colorIdx = 0
-	#var colors = [Color.RED, Color.BLUE, Color.GREEN]
-	#for weights in curWeights:
-		#var newWeights: Array[float] = []
-		#for w in weights:
-			#newWeights.append(w) # TODO: handle typing issue a better way
-		#colors[colorIdx].a = 0.3
-		#var starGraph = StarGraph.new(colors[colorIdx])
-		#starGraphHolder.add_child(starGraph)
-		#colorIdx += 1
-		#colorIdx = colorIdx % 3 # TODO: load color from char prefs
-		#starGraph.update_graph(newWeights)
 
-func addChar(charName, charWeights):
-	# check if we exist first
-	var charCount = 0
-	for csp in get_children():
-		if csp is CSP and csp.myName == charName:
-			return
-		if csp is CSP:
-			charCount += 1
-	if charCount >= 2:
+func addChar(charBar, charName):
+	# if we have two chosen already, don 't allow more
+	if chosenChars.size() >= 2:
 		return
-	# create a CSP for this fella
-	var csp = CSP.new(charBarHeight, charName, charWeights)
-	add_child(csp)
-	csp.selectedPrompt = self
-	csp.position.y = self.position.y - charBarHeight
-	# update children
-	position_csps()
+	# accept the char and block it off
+	chosenChars.append(charName)
+	charBar.updateStatus(charName, "ASSIGNED")
+	position_csps(charBar)

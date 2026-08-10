@@ -4,13 +4,14 @@ class_name CSP
 var mySize = 0.0
 var myTexture = null
 var myName = "Unknown"
-var isChosen = false
+
+var overlay = null
 
 var myWeights = [0,0,0,0,0]
 var statusLabel = null
 var statusStyleRef = null
 
-var curState = "READY" # READY, ASSIGNED, TRAVELING, WORKING, RESTING
+var curState = "READY" # READY, TRAVELING, WORKING, RESTING
 
 # if this CSP was chosen / is in the prompt
 var selectedPrompt = null
@@ -48,6 +49,13 @@ func _enter_tree():
 	button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_theme_font_size_override("font_size", 24)
 	
+	overlay = ColorRect.new()
+	overlay.color = Color.DIM_GRAY
+	overlay.color.a = 0.45
+	overlay.size = csp.size
+	overlay.visible = true
+	csp.add_child(overlay)
+	
 	statusLabel = Button.new()
 	csp.add_child(statusLabel)
 	statusLabel.size.x = csp.size.x
@@ -55,16 +63,16 @@ func _enter_tree():
 	statusStyleRef = StyleBoxFlat.new()
 	statusLabel.add_theme_font_size_override("font_size", 24)
 	statusLabel.add_theme_stylebox_override("normal", statusStyleRef)
-	
 	updateStatus()
 
 func updateStatus():
 	statusStyleRef.bg_color = Color.DARK_SLATE_BLUE
-	if curState == "READY":
+	if curState == "READY" or curState == "ASSIGNED":
 		statusLabel.visible = false
 	else:
 		statusLabel.visible = true
 	statusLabel.text = curState # READY, resting, traveling, working
+	overlay.visible = curState != "READY"
 
 func _input(event):
 	var main = get_tree().current_scene
@@ -72,18 +80,9 @@ func _input(event):
 		if event.is_pressed():
 			if self.get_global_rect().has_point(event.position):
 				if selectedPrompt:
-					selectedPrompt.position_csps(self)
 					main.choose_char.emit(myName, false)
-					queue_free() # delete us
 					return
-				if isChosen or not main.isPaused:
+				if curState != "READY" or not main.isPaused:
 					return # can't be chosen twice
-				isChosen = true
 				main.choose_char.emit(myName)
-				var overlay = ColorRect.new()
-				var transparentGray = Color.DIM_GRAY
-				transparentGray.a = 0.5
-				overlay.color = transparentGray
-				overlay.size = self.size
-				#overlay.position = self.position
-				self.add_child(overlay)
+				
