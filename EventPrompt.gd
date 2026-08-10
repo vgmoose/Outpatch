@@ -21,33 +21,66 @@ func display(mainEvent):
 	var details = mainEvent.eventDetails
 	var eventWeights = mainEvent.stats
 	
+	var viewport = get_viewport_rect()
+	var screenHeight = viewport.size.y
+	var screenWidth = viewport.size.x
+	
 	var main = get_tree().current_scene
-	var window: CoolWindow = get_node("CoolWindow")
-	window.title = title
-	window.size = size # same as parent colored rect
+	var window: CoolWindow = get_node("MainWindow")
+	var sideWindow: CoolWindow = get_node("MissionWindow")
+	window.title = "Mission Brief"
+	sideWindow.title = title
+	var mainWinWidth = screenWidth * 0.33
+	var mainWinHeight = screenHeight * 0.4
+	window.position.x = mainWinWidth * 0.3
+	window.position.y = (screenHeight - charBarHeight) * 0.25
+	window.size.x = mainWinWidth
+	window.size.y = mainWinHeight
+	
+	var sideWinWidth = screenWidth * 0.3
+	var sideWinHeight = (screenHeight - charBarHeight) * 0.8
+	sideWindow.position.x = screenWidth * 0.5
+	sideWindow.position.y =  (screenHeight - charBarHeight) * 0.075
+	sideWindow.size.x = sideWinWidth
+	sideWindow.size.y = sideWinHeight
+	
 	window.adjustBounds()
-	var para = get_node("RichTextLabel2")
+	sideWindow.adjustBounds()
+	
+	# animate this in to grow to the size of the parent
+	window.tweenIn(size)
+	sideWindow.tweenIn(size)
+	
+	var para = window.get_node("RichTextLabel2")
 	para.text = details
-	para.position.y = 150
-	para.position.x = 0.1 * self.size.x
-	para.size.x = self.size.x * 0.8
-	para.size.y = self.size.y * 0.8
-	var cancel = get_node("Button2")
+	para.position.y = 110
+	para.position.x = 0.05 * mainWinWidth
+	para.size.x = mainWinWidth * 0.9
+	para.size.y = mainWinHeight * 0.9
+	var cancel = window.get_node("Button2")
 	cancel.connect("pressed", func():
 		# unpause everything and return back to business
 		main.unpause.emit()
 	)
-	var button = get_node("Button")
+	position_csps()
+	
+	var button = sideWindow.get_node("Button")
 	button.visible = false
-	button.position.x = self.size.x - get_node("Button").size.x - 250
-	button.position.y = self.size.y - get_node("Button").size.y - 90
-	cancel.position.y = button.position.y
+	button.position.x = self.size.x - button.size.x - 250
+	button.position.y = self.size.y - button.size.y - 90
+	
+	# TODO: attach these buttons directly to the dialog instead of externally managing them
+	cancel.position.y = mainWinHeight - cancel.size.y - 16
+	cancel.position.x = int(mainWinWidth / 32) * 32 / 2 - cancel.size.x / 2
+	
+	button.position.y = sideWinHeight - button.size.y - 16
+	button.position.x = int(sideWinWidth / 32) * 32 / 2 - button.size.x / 2
+	
 	button.connect("pressed", func():
-		var starGraphHolder = get_node("StarGraphHolder")
+		var starGraphHolder = sideWindow.get_node("StarGraphHolder")
 		if wasPressed:
 			return
 		if allDone:
-			print("We done, dog")
 			# this is the done press! dismiss everything (like cancel)
 			# unassign all CSPs (actually, enter the busy state?)
 			# TODO: ^ that
@@ -57,7 +90,7 @@ func display(mainEvent):
 			starGraphHolder.cleanup()
 			main.event_finished.emit(ogEvent.id)
 			main.unpause.emit()
-			button.text = "Start ->"
+			button.set_text("Start")
 			return # important! stop!
 		# hide our CSPs
 		for child in get_children():
@@ -106,6 +139,8 @@ func display(mainEvent):
 		starGraphHolder.add_child(label)
 		
 		# tween in the base, then our merged, and update the percent along the way
+		trueGraph.visible = false
+		mergedGraph.visible = false
 		trueGraph.start_animation(tween)
 		mergedGraph.start_animation(tween)
 		
@@ -172,9 +207,9 @@ func display(mainEvent):
 			
 			# show the success or failure text
 			if res:
-				button.text = ogEvent["success"]
+				button.set_text(ogEvent["success"])
 			else:
-				button.text = ogEvent["failure"]
+				button.set_text(ogEvent["failure"])
 				
 			button.visible = true
 			# also bring the button to front
@@ -213,23 +248,27 @@ func position_csps(skipMe = null):
 	
 	if cspCount > 0:
 		# enable start button
-		var button = get_node("Button")
+		var button = get_node("MissionWindow/Button")
 		button.visible = true
 		remove_child(button)
 		add_child(button)
 	
+	var window = get_node("MissionWindow")
 	var curWeights = [] # array of array of weights for each selected char
-	var curOff = self.size.x / 2 - (cspCount * charBarHeight) / 2
+	var miniHeight = charBarHeight * 0.5
+	var curOff = window.size.x - (cspCount * miniHeight) / 2
 	for curCsp in get_children():
 		if curCsp is CSP and curCsp != skipMe:
-			curCsp.position.x = curOff
-			curCsp.position.y = self.position.y + self.size.y - 2*charBarHeight
-			curOff += charBarHeight
+			curCsp.scale = Vector2(0.5, 0.5)
+			curCsp.position.x = window.position.x + curOff
+			curCsp.position.y = window.position.y + window.size.y * 3 - 10
+			curOff += miniHeight
 			curWeights.append(curCsp.myWeights)
 	
 	# clear current star graphs and make new ones for each char
-	var starGraphHolder = get_node("StarGraphHolder")
-	starGraphHolder.position.x = self.size.x / 2
+	var starGraphHolder = get_node("MissionWindow/StarGraphHolder")
+	starGraphHolder.position.x = 80
+	starGraphHolder.position.y = 160
 	for oldGraph in starGraphHolder.get_children():
 		if oldGraph is StarGraph:
 			starGraphHolder.remove_child(oldGraph)

@@ -13,11 +13,12 @@ config_version=5
 config/name="Outpatch"
 run/main_scene="uid://b0jysl7dtdj0t"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=2560
+window/size/viewport_width=3413
 window/size/viewport_height=1920
 mouse_cursor/custom_image="uid://d3vwxoahmfkxj"
 mouse_cursor/custom_image_hotspot=Vector2(5, 5)

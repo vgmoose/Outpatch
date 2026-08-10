@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://7emhar3rl0ff" path="res://StarGraphHolder.gd" id="2_cef6o"]
 [ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://BouncyBall.tscn" id="2_m1l8p"]
 [ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://CoolWindow.tscn" id="2_x5xuu"]
+[ext_resource type="PackedScene" uid="uid://c2e1mlcq1byjs" path="res://CoolButton.tscn" id="3_fvi1r"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1l8p"]
 
@@ -13,47 +14,41 @@ offset_bottom = 254.0
 color = Color(1, 1, 1, 0)
 script = ExtResource("1_3owsw")
 
-[node name="CoolWindow" parent="." unique_id=2013251664 instance=ExtResource("2_x5xuu")]
+[node name="MainWindow" parent="." unique_id=2013251664 instance=ExtResource("2_x5xuu")]
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=100485756]
-layout_mode = 0
+[node name="RichTextLabel2" type="RichTextLabel" parent="MainWindow" unique_id=100485756]
 offset_right = 367.0
 offset_bottom = 252.0
 theme_override_constants/shadow_outline_size = 1
 theme_override_font_sizes/normal_font_size = 35
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit purus. Duis ullamcorper a diam ac malesuada. In mauris elit, ultrices quis sem at, ultrices elementum nulla. Sed maximus aliquet fringilla. Praesent eleifend, lorem nec cursus pellentesque, mauris nisl pharetra odio, sed fermentum dolor urna eget ex. Curabitur at enim varius, rutrum quam sit amet, facilisis metus. Vivamus gravida metus vitae dolor lacinia feugiat. Nunc sagittis sed enim mollis sollicitudin. Suspendisse at cursus turpis. Aliquam quis elit in augue blandit hendrerit. Ut eget libero commodo, imperdiet nisl laoreet, tristique felis. Sed condimentum risus et justo eleifend dapibus."
 
-[node name="Button" type="Button" parent="." unique_id=1104459331]
-visible = false
-layout_mode = 0
-offset_right = 218.0
-offset_bottom = 91.0
-theme_override_font_sizes/font_size = 60
-text = "Start ->"
+[node name="Button2" parent="MainWindow" unique_id=1904036096 instance=ExtResource("3_fvi1r")]
+offset_right = 384.0
+offset_bottom = 78.0
+initialLabel = "Dismiss"
 
-[node name="Button2" type="Button" parent="." unique_id=1421217615]
-layout_mode = 0
-offset_left = 69.0
-offset_top = 1113.0
-offset_right = 285.0
-offset_bottom = 1204.0
-theme_override_font_sizes/font_size = 60
-text = "<- Back"
+[node name="MissionWindow" parent="." unique_id=1294376694 instance=ExtResource("2_x5xuu")]
 
-[node name="StarGraphHolder" type="Node2D" parent="." unique_id=1729236773]
+[node name="Button" parent="MissionWindow" unique_id=499889202 instance=ExtResource("3_fvi1r")]
+offset_right = 384.0
+offset_bottom = 78.0
+initialLabel = "Start"
+
+[node name="StarGraphHolder" type="Node2D" parent="MissionWindow" unique_id=1729236773]
 script = ExtResource("2_cef6o")
 
-[node name="BouncyBall" parent="StarGraphHolder" unique_id=593039927 instance=ExtResource("2_m1l8p")]
+[node name="BouncyBall" parent="MissionWindow/StarGraphHolder" unique_id=593039927 instance=ExtResource("2_m1l8p")]
 visible = false
 
-[node name="CollisionChart" type="StaticBody2D" parent="StarGraphHolder" unique_id=702026503]
+[node name="CollisionChart" type="StaticBody2D" parent="MissionWindow/StarGraphHolder" unique_id=702026503]
 physics_material_override = SubResource("PhysicsMaterial_m1l8p")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StarGraphHolder/CollisionChart" unique_id=690965258]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MissionWindow/StarGraphHolder/CollisionChart" unique_id=690965258]
 build_mode = 1
 polygon = PackedVector2Array(-1, -4, 213, -2, 215, 197, 5, 181, -3, 4)
 
-[node name="Polygon2D" type="Polygon2D" parent="StarGraphHolder/CollisionChart" unique_id=1318584226]
+[node name="Polygon2D" type="Polygon2D" parent="MissionWindow/StarGraphHolder/CollisionChart" unique_id=1318584226]
 visible = false
 polygon = PackedVector2Array(163, -77, 32, 22, 241, 9, 213, -5, 213, -5, 213, -5, 167, -76)
 uv = PackedVector2Array(163, -77, 32, 22, 241, 9, 213, -5, 213, -5, 213, -5, 167, -76)

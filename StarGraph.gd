@@ -2,7 +2,7 @@ extends Polygon2D
 class_name StarGraph
 
 @export var myWeights: Array[float]
-@export 	var R = 500 # radius
+@export 	var R = 300 # radius
 
 @export var thickBordered = false
 
@@ -25,9 +25,18 @@ func start_animation(tweenChain):
 	var dest = polygon
 	polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
 	lineSegment.points =  [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
-	
-	tweenChain.tween_property(self, "polygon", dest, 2)
-	tweenChain.parallel().tween_property(lineSegment, "points", dest, 2)
+	for jp in jointPoints:
+		jp.position = Vector2(0, 0)
+	# animate each point individually
+	tweenChain.tween_interval(2)
+	for idx in range(5):
+		tweenChain.parallel().tween_method((func(cur):
+			visible = true
+			polygon[idx] = cur
+			lineSegment.points[idx] = cur
+			jointPoints[idx].position = cur
+		), Vector2(0, 0), dest[idx], 2)
+
 	return tweenChain
 
 func update_graph(weights: Array[float] = []):

@@ -7,6 +7,10 @@ var myName = "Unknown"
 var isChosen = false
 
 var myWeights = [0,0,0,0,0]
+var statusLabel = null
+var statusStyleRef = null
+
+var curState = "READY"
 
 # if this CSP was chosen / is in the prompt
 var selectedPrompt = null
@@ -40,8 +44,27 @@ func _enter_tree():
 	csp.add_child(button)
 	button.text = myName.to_upper()
 	button.size.x = csp.size.x
-	button.mouse_filter =Control.MOUSE_FILTER_PASS
-	button.add_theme_font_size_override("font_size", 24)	
+	#button.position.y = csp.size.y - button.size.y
+	button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	button.add_theme_font_size_override("font_size", 24)
+	
+	statusLabel = Button.new()
+	csp.add_child(statusLabel)
+	statusLabel.size.x = csp.size.x
+	statusLabel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	statusStyleRef = StyleBoxFlat.new()
+	statusLabel.add_theme_font_size_override("font_size", 24)
+	statusLabel.add_theme_stylebox_override("normal", statusStyleRef)
+	
+	updateStatus()
+
+func updateStatus():
+	statusStyleRef.bg_color = Color.DARK_SLATE_BLUE
+	if curState == "READY":
+		statusLabel.visible = false
+	else:
+		statusLabel.visible = true
+	statusLabel.text = curState # READY, resting, traveling, working
 
 func _input(event):
 	var main = get_tree().current_scene

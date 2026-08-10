@@ -73,6 +73,15 @@ func adjustBounds():
 	resize_tilemap(Vector2(size.x, 96), titleBg)
 	resize_tilemap(Vector2(size.x, size.y), windowBg)
 	
+func tweenIn(size):
+	var windowTween = get_tree().create_tween()
+	self.size = size 
+	self.scale = Vector2(0.25, 0.25) # start at half size, half transparency
+	self.modulate.a = 0.5
+	windowTween.tween_property(self, "scale", Vector2(1, 1), 0.25)
+	var alpha = Color.WHITE
+	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
+	
 func _input(event):
 	if not canBeMoved:
 		# block any changes to window pos/size

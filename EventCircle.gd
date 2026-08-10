@@ -30,7 +30,7 @@ func updateEvent(eventPayload):
 	self.stats = []
 	for stat in eventPayload["stats"]:
 		self.stats.append(stat)
-	var hintString = "\nHints:\n"
+	var hintString = "\nDetails:\n"
 	for hint in eventPayload["hints"]:
 		hintString += "- " + hint + "\n"
 	self.eventDetails = eventPayload["details"] + "\n" + hintString

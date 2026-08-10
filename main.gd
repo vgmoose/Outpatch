@@ -93,11 +93,7 @@ func _enter_tree() -> void:
 	map.size.y = screenHeight - charBar.size.y
 	
 	var prompt = get_node("EventPrompt")
-	prompt.position.x = 0.1 * screenWidth
-	prompt.position.y = 0.1 * screenHeight
-	prompt.size.x = 0.8 * screenWidth
-	prompt.size.y = 0.8 * screenHeight - charBar.size.y
-
+	
 	for charName: String in charData:
 		var csp = CSP.new(charBar.size.y, charName, charData[charName])
 		charBar.add_child(csp)
