@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bs6yu1fowxgoo" path="res://Torrance.png" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://CharBar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
 
 [node name="Node2D" type="Node2D" unique_id=652498079]
@@ -20,6 +21,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.117696114, 0.18338013, 0.2172989, 1)
+script = ExtResource("3_1bvp3")
 
 [node name="Events" type="Control" parent="." unique_id=73113079]
 layout_mode = 3

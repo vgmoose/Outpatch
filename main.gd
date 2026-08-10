@@ -10,18 +10,11 @@ signal event_finished
 
 var isPaused = false
 
-var charData ={} # populated via json load
 var eventStream = [] # ibid
 
 var curTime = 0.0
 
 func _init():
-	# initialize character data
-	var charFileData = FileAccess.get_file_as_string("res://data/chars.json")
-	var jsonCharData = JSON.parse_string(charFileData)
-	for charName in jsonCharData:
-		charData[charName] = jsonCharData[charName]
-	
 	# initialize event data
 	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")
 	var jsonEventData = JSON.parse_string(eventFileData)
@@ -36,8 +29,8 @@ func _init():
 		var events = get_node("Events")
 		for event in events.get_children():
 			event.isPaused = false
-		get_node("EventPrompt").visible = false
 		isPaused = false
+		
 	)
 	event_finished.connect(func(eventId):
 		# stop the respective event circle
@@ -74,16 +67,23 @@ func _init():
 					csp.isChosen = false
 			return
 		var prompt = get_node("EventPrompt")
-		prompt.addChar(charName, charData[charName])
+		var charBar = get_node("CharBar")
+		prompt.addChar(charName, charBar.getStats(charName))
 	)
+		
 
 func _enter_tree() -> void:
+	# initialize character data
+	var charFileData = FileAccess.get_file_as_string("res://data/chars.json")
+	var jsonCharData = JSON.parse_string(charFileData)
+	var charBar: Control = get_node("CharBar")
+	charBar.loadChars(jsonCharData)
+	
 	var viewport = get_viewport_rect()
 	var screenHeight = viewport.size.y
 	var screenWidth = viewport.size.x
 	
 	# create each CSP icon centered along the bottom
-	var charBar: Control = get_node("CharBar")
 	charBar.size.x = screenWidth
 	charBar.size.y = 200
 	charBar.position.y = screenHeight - charBar.size.y
@@ -94,8 +94,9 @@ func _enter_tree() -> void:
 	
 	var prompt = get_node("EventPrompt")
 	
+	var charData = charBar.getChars()
 	for charName: String in charData:
-		var csp = CSP.new(charBar.size.y, charName, charData[charName])
+		var csp = CSP.new(charBar.size.y, charName, charBar.getStats(charName))
 		charBar.add_child(csp)
 	
 	var curPos = screenWidth  / 2 - (charData.size() * charBar.size.y) / 2

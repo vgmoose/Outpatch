@@ -81,7 +81,15 @@ func tweenIn(size):
 	windowTween.tween_property(self, "scale", Vector2(1, 1), 0.25)
 	var alpha = Color.WHITE
 	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
-	
+
+func tweenOut():
+	var windowTween = get_tree().create_tween()
+	windowTween.tween_property(self, "scale", Vector2(0.25, 0.25), 0.25)
+	var alpha = Color.WHITE
+	alpha.a = 0.5
+	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
+	#windowTween.tween_callback(func(): queue_free())
+
 func _input(event):
 	if not canBeMoved:
 		# block any changes to window pos/size

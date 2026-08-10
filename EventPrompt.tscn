@@ -23,17 +23,13 @@ theme_override_constants/shadow_outline_size = 1
 theme_override_font_sizes/normal_font_size = 35
 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in velit purus. Duis ullamcorper a diam ac malesuada. In mauris elit, ultrices quis sem at, ultrices elementum nulla. Sed maximus aliquet fringilla. Praesent eleifend, lorem nec cursus pellentesque, mauris nisl pharetra odio, sed fermentum dolor urna eget ex. Curabitur at enim varius, rutrum quam sit amet, facilisis metus. Vivamus gravida metus vitae dolor lacinia feugiat. Nunc sagittis sed enim mollis sollicitudin. Suspendisse at cursus turpis. Aliquam quis elit in augue blandit hendrerit. Ut eget libero commodo, imperdiet nisl laoreet, tristique felis. Sed condimentum risus et justo eleifend dapibus."
 
+[node name="Button" parent="MainWindow" unique_id=499889202 instance=ExtResource("3_fvi1r")]
+initialLabel = "Start"
+
 [node name="Button2" parent="MainWindow" unique_id=1904036096 instance=ExtResource("3_fvi1r")]
-offset_right = 384.0
-offset_bottom = 78.0
 initialLabel = "Dismiss"
 
 [node name="MissionWindow" parent="." unique_id=1294376694 instance=ExtResource("2_x5xuu")]
-
-[node name="Button" parent="MissionWindow" unique_id=499889202 instance=ExtResource("3_fvi1r")]
-offset_right = 384.0
-offset_bottom = 78.0
-initialLabel = "Start"
 
 [node name="StarGraphHolder" type="Node2D" parent="MissionWindow" unique_id=1729236773]
 script = ExtResource("2_cef6o")

@@ -10,7 +10,7 @@ var myWeights = [0,0,0,0,0]
 var statusLabel = null
 var statusStyleRef = null
 
-var curState = "READY"
+var curState = "READY" # READY, ASSIGNED, TRAVELING, WORKING, RESTING
 
 # if this CSP was chosen / is in the prompt
 var selectedPrompt = null

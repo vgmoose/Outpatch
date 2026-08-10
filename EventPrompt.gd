@@ -32,14 +32,14 @@ func display(mainEvent):
 	sideWindow.title = title
 	var mainWinWidth = screenWidth * 0.33
 	var mainWinHeight = screenHeight * 0.4
-	window.position.x = mainWinWidth * 0.3
+	window.position.x = mainWinWidth * 0.4
 	window.position.y = (screenHeight - charBarHeight) * 0.25
 	window.size.x = mainWinWidth
 	window.size.y = mainWinHeight
 	
 	var sideWinWidth = screenWidth * 0.3
 	var sideWinHeight = (screenHeight - charBarHeight) * 0.8
-	sideWindow.position.x = screenWidth * 0.5
+	sideWindow.position.x = screenWidth * 0.525
 	sideWindow.position.y =  (screenHeight - charBarHeight) * 0.075
 	sideWindow.size.x = sideWinWidth
 	sideWindow.size.y = sideWinHeight
@@ -60,21 +60,21 @@ func display(mainEvent):
 	var cancel = window.get_node("Button2")
 	cancel.connect("pressed", func():
 		# unpause everything and return back to business
-		main.unpause.emit()
+		dismiss()
 	)
 	position_csps()
 	
-	var button = sideWindow.get_node("Button")
+	var button = window.get_node("Button")
 	button.visible = false
 	button.position.x = self.size.x - button.size.x - 250
 	button.position.y = self.size.y - button.size.y - 90
 	
 	# TODO: attach these buttons directly to the dialog instead of externally managing them
 	cancel.position.y = mainWinHeight - cancel.size.y - 16
-	cancel.position.x = int(mainWinWidth / 32) * 32 / 2 - cancel.size.x / 2
+	cancel.position.x = int(mainWinWidth / 32) * 32 / 2 - cancel.size.x - 40
 	
-	button.position.y = sideWinHeight - button.size.y - 16
-	button.position.x = int(sideWinWidth / 32) * 32 / 2 - button.size.x / 2
+	button.position.y = mainWinHeight - button.size.y - 16
+	button.position.x = int(sideWinWidth / 32) * 32 / 2 + 40
 	
 	button.connect("pressed", func():
 		var starGraphHolder = sideWindow.get_node("StarGraphHolder")
@@ -86,11 +86,8 @@ func display(mainEvent):
 			# TODO: ^ that
 			wasPressed = true # next event display sets this up again
 			allDone = false
-			cancel.visible = true
-			starGraphHolder.cleanup()
+			dismiss()
 			main.event_finished.emit(ogEvent.id)
-			main.unpause.emit()
-			button.set_text("Start")
 			return # important! stop!
 		# hide our CSPs
 		for child in get_children():
@@ -116,7 +113,7 @@ func display(mainEvent):
 		else:
 			trueGraph = StarGraph.new(Color.DARK_BLUE)
 		counter += 1
-		print("Counter, ", counter, " ", eventWeights)
+
 		trueGraph.update_graph(eventWeights)
 		var truePolygon = trueGraph.polygon # update_graph applies our weights to the actual polygon shape
 		starGraphHolder.add_child(trueGraph)
@@ -240,6 +237,28 @@ func calculate_area(mesh_vertices: PackedVector2Array) -> float:
 		#if child is CSP and child.myName = charName:
 			#
 
+func dismiss():
+	# animate oureslves disappearing
+	var mainWindow = get_node("MainWindow")
+	var sideWindow = get_node("MissionWindow")
+	var cancel = mainWindow.get_node("Button2")
+	var button = mainWindow.get_node("Button")
+	var starGraphHolder = sideWindow.get_node("StarGraphHolder")
+	var main = get_tree().current_scene
+	cancel.visible = true
+	starGraphHolder.cleanup()
+	button.set_text("Start")
+	
+	mainWindow.tweenOut()
+	sideWindow.tweenOut()
+	
+	var tween = get_tree().create_tween()
+	tween.tween_interval(0.25) #  TODO: matches inner window dismiss speed
+	tween.tween_callback(func():
+		visible = false
+		main.unpause.emit()
+	)
+	
 func position_csps(skipMe = null):
 	var cspCount = 0
 	for curCsp in get_children():
@@ -248,27 +267,25 @@ func position_csps(skipMe = null):
 	
 	if cspCount > 0:
 		# enable start button
-		var button = get_node("MissionWindow/Button")
+		var button = get_node("MainWindow/Button")
 		button.visible = true
 		remove_child(button)
 		add_child(button)
 	
 	var window = get_node("MissionWindow")
 	var curWeights = [] # array of array of weights for each selected char
-	var miniHeight = charBarHeight * 0.5
-	var curOff = window.size.x - (cspCount * miniHeight) / 2
+	var curOff = window.size.x - (cspCount * charBarHeight) / 2
 	for curCsp in get_children():
 		if curCsp is CSP and curCsp != skipMe:
-			curCsp.scale = Vector2(0.5, 0.5)
 			curCsp.position.x = window.position.x + curOff
-			curCsp.position.y = window.position.y + window.size.y * 3 - 10
-			curOff += miniHeight
+			curCsp.position.y = window.position.y + window.size.y * 3 + 15
+			curOff += charBarHeight
 			curWeights.append(curCsp.myWeights)
 	
 	# clear current star graphs and make new ones for each char
 	var starGraphHolder = get_node("MissionWindow/StarGraphHolder")
 	starGraphHolder.position.x = 80
-	starGraphHolder.position.y = 160
+	starGraphHolder.position.y = 155
 	for oldGraph in starGraphHolder.get_children():
 		if oldGraph is StarGraph:
 			starGraphHolder.remove_child(oldGraph)
@@ -304,9 +321,14 @@ func position_csps(skipMe = null):
 
 func addChar(charName, charWeights):
 	# check if we exist first
+	var charCount = 0
 	for csp in get_children():
 		if csp is CSP and csp.myName == charName:
 			return
+		if csp is CSP:
+			charCount += 1
+	if charCount >= 2:
+		return
 	# create a CSP for this fella
 	var csp = CSP.new(charBarHeight, charName, charWeights)
 	add_child(csp)
