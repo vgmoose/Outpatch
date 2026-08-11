@@ -4,10 +4,12 @@ class_name EventPrompt
 var charBarHeight = 0
 var wasPressed = false
 var allDone = false
+var isRunningProbabilityAnimation = false
 
 var ogEvent = {}
 var counter = 0
 signal finishedBallBouncing
+var mainEvent = null
 
 # current chars that are chosen for this prompt
 var chosenChars = []
@@ -18,6 +20,7 @@ func _enter_tree():
 
 func display(mainEvent):
 	self.ogEvent = mainEvent.ogEvent
+	self.mainEvent = mainEvent
 	wasPressed = false # init vars
 	chosenChars = []
 	
@@ -95,17 +98,18 @@ func display(mainEvent):
 		button.disconnect("pressed", connection["callable"])
 	
 	button.connect("pressed", func():
+		if allDone:
+			# clean up for next go around
+			mainEvent.queue_free() # TODO: increase score
+			dismiss()
+			allDone = false
+			wasPressed = false
+			isRunningProbabilityAnimation = false
+			return
+		if isRunningProbabilityAnimation:
+			return
 		var eventDest = mainEvent.position
-		# update states (for target event, and chosen chars) and then dismiss
-		for char in chosenChars:
-			charBar.updateStatus(char, "TRAVELING")
-			# create the actual character icon, at their current coors (TODO: don't hardcode)
-			var gridIconScene = preload("res://CharGridIcon.tscn")
-			var gridIcon: CharGridIcon = gridIconScene.instantiate()
-			gridIcon.dest = eventDest
-			gridIcon.updateImg(charBar, char)
-			var map = main.get_node("Events")
-			map.add_child(gridIcon)
+		charBar.startTravelling(chosenChars, mainEvent, Vector2(500, 500), eventDest)
 		mainEvent.updateStatus("BEING_TRAVELED_TO")
 		# also, we will store the chosen chars _with_ this event
 		mainEvent.chosenChars = chosenChars
@@ -116,23 +120,19 @@ func display(mainEvent):
 	visible = true
 	
 func playProbabilityAnimation(targetEvent):
-	if wasPressed:
-		return
-	if allDone:
-		# this is the done press! dismiss everything (like cancel)
-		# unassign all CSPs (actually, enter the busy state?)
-		# TODO: ^ that
-		wasPressed = true # next event display sets this up again
-		allDone = false
-		dismiss()
-		var main = get_tree().current_scene
-		main.event_finished.emit(targetEvent.id)
-		return # important! stop!
+	# for some reason, removing below breaks chart animation even hough this func is called once
+	# TODO: figure that out
+	#if isRunningProbabilityAnimation: # no double presses
+		#return
+	isRunningProbabilityAnimation = true
 	# hide our CSPs
 	for child in get_children():
 		if child is CSP:
 			child.queue_free()
-	wasPressed = true
+	
+	chosenChars = targetEvent.chosenChars
+	var charBar = get_tree().current_scene.get_node("CharBar")
+	position_csps(charBar)
 	var mainWindow = get_node("MainWindow")
 	var button = mainWindow.get_node("Button")
 	var cancel = mainWindow.get_node("Button2")
@@ -350,6 +350,9 @@ func position_csps(charBar):
 	mergedGraph.update_graph(mergedWeights)
 
 func addChar(charBar, charName):
+	# we can only add if the event is in the tikcing state
+	if not mainEvent or mainEvent.curStatus != "TICKING":
+		return
 	# if we have two chosen already, don 't allow more
 	if chosenChars.size() >= 2:
 		return

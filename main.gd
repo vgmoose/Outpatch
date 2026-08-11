@@ -55,6 +55,11 @@ func _init():
 		# TODO: instead of passing IDs and strings, just pass event everywhere
 		print("Passing: ", chosenEvent)
 		prompt.display(chosenEvent)
+		
+		if isReview:
+			# copy over chosen characters
+			prompt.chosenChars = chosenEvent.chosenChars
+			prompt.playProbabilityAnimation(chosenEvent)
 	)
 	choose_char.connect(func(charName, isChosen=true):
 		var charBar = get_node("CharBar")

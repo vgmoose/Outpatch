@@ -24,10 +24,19 @@ static func makeSimpleColorTexture(color: Color):
 	return out
 
 func updateStatus(newStatus):
+	var circleBar = get_node("CircleBar")
+	if newStatus == "BEING_WORKED_ON":
+		duration = 0 # we're going to count up
+		# show the thing
+		circleBar.visible = true
+	else:
+		# also, stop ticking at this point, since tahts' the initial state
+		circleBar.visible = false
+		
 	curStatus = newStatus
-	# also, stop ticking at this point, since tahts' the initial state
-	get_node("CircleBar").visible = false
-
+	
+	# TODO: update symbol on circlebar
+	
 func updateEvent(eventPayload):
 	self.ogEvent = eventPayload
 	self.eventId = eventPayload.id
@@ -57,22 +66,37 @@ func _enter_tree():
 	circleBar.fill_mode = TextureProgressBar.FILL_CLOCKWISE
 
 func _process(delta: float):
-	if isPaused or curStatus != "TICKING":
+	if isPaused:
 		return
-	duration -= delta
-	
+		
 	var circleBar = get_node("CircleBar")
-	circleBar.value = 100 * (duration / startDuration)
-	if duration <= 0:
-		queue_free()
+	if curStatus == "TICKING":
+		duration -= delta
+		
+		circleBar.value = 100 * (duration / startDuration)
+		if duration <= 0:
+			# TODO: log a miss?
+			queue_free()
+	
+	if curStatus == "BEING_WORKED_ON":
+		duration += delta
+		circleBar.value = 100 * (duration / 5.0) # hardcoded, always takes 5 seconds
+		if duration >= 5.0:
+			# WE'RE DONE! switch to the next state, and make a grid icon to go back and stuff
+			updateStatus("COMPLETED")
+			var charBar = get_tree().current_scene.get_node("CharBar")
+			# send them back
+			charBar.startTravelling(chosenChars, null, position + Vector2(40, 40), Vector2(460, 460))
+				
 
 func _input(event):
 	if event is InputEventMouseButton:
 		#print(get_rect(), event.position, self.get_rect().has_point(event.position))
 		if self.get_rect().has_point(event.position):
+			print(curStatus)
 			if curStatus == "TICKING":
 				main.event_selected.emit(eventId)
-			if curStatus == "COMPLETE":
+			if curStatus == "COMPLETED":
 				# review it / play animation
 				main.event_selected.emit(eventId, true)
 			

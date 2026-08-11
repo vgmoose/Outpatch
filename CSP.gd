@@ -6,15 +6,19 @@ var myTexture = null
 var myName = "Unknown"
 
 var overlay = null
+var restMeter = 5
 
 var myWeights = [0,0,0,0,0]
 var statusLabel = null
 var statusStyleRef = null
+var main = null
 
 var curState = "READY" # READY, TRAVELING, WORKING, RESTING
 
+var charBarRef = null
 # if this CSP was chosen / is in the prompt
 var selectedPrompt = null
+var recoveryBar = null
 
 func _init(dimen, charName, charWeights):
 	mySize = dimen
@@ -27,7 +31,8 @@ func _init(dimen, charName, charWeights):
 
 func _enter_tree():
 	var csp = self
-	var main = get_tree().current_scene
+	main = get_tree().current_scene
+	charBarRef = main.get_node("CharBar")
 	csp.size.x = mySize
 	csp.size.y = mySize
 	csp.texture = myTexture
@@ -69,11 +74,23 @@ func _enter_tree():
 	statusLabel = Button.new()
 	csp.add_child(statusLabel)
 	statusLabel.size.x = csp.size.x
+	statusLabel.text = curState # so the height is right later
 	statusLabel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	statusStyleRef = StyleBoxFlat.new()
 	statusLabel.add_theme_font_size_override("font_size", 24)
 	statusLabel.add_theme_stylebox_override("normal", statusStyleRef)
 	updateStatus()
+	
+	# simple progress bar that will show their recovery status
+	recoveryBar = ProgressBar.new()
+	csp.add_child(recoveryBar)
+	recoveryBar.size.x = statusLabel.size.x
+	recoveryBar.size.y = statusLabel.size.y
+	recoveryBar.show_percentage = false
+	recoveryBar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	recoveryBar.value = 0.5
+	recoveryBar.visible = false
+
 
 func updateStatus():
 	statusStyleRef.bg_color = Color.DARK_SLATE_BLUE
@@ -95,4 +112,20 @@ func _input(event):
 				if curState != "READY" or not main.isPaused:
 					return # can't be chosen twice
 				main.choose_char.emit(myName)
-				
+
+func _process(delta):
+	if not charBarRef:
+		return
+	if main.isPaused:
+		return
+	# if resting, tick down our restMeter
+	if charBarRef.getStatus(myName) == "RESTING":
+		recoveryBar.visible = true
+		restMeter -= delta
+		recoveryBar.value = 100 * (restMeter / 5.0)
+		if restMeter <= 0:
+			# we're recovered!
+			restMeter = 5 # for next time
+			charBarRef.updateStatus(myName, "READY")
+			recoveryBar.visible = false
+			

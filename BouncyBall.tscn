@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://c40byybdyl4a0" path="res://icons/button_round_flat.png" id="2_bc8qd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5cce5"]
-radius = 12.0
+radius = 9.0
 
 [node name="BouncyBall" type="CharacterBody2D" unique_id=593039927]
 script = ExtResource("1_bc8qd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1743321292]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_bc8qd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=480261513]

@@ -22,6 +22,7 @@ func _enter_tree():
 	update_graph()
 
 func start_animation(tweenChain):
+	print("we are here", polygon)
 	var dest = polygon
 	polygon = [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
 	lineSegment.points =  [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]

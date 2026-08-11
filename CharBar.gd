@@ -10,6 +10,9 @@ func _init():
 func getColor(charName):
 	return charStates[charName]["color"]
 
+func getStatus(charName):
+	return charStates[charName]["status"]
+
 func loadChars(charPayload):
 	for key in charPayload:
 		charStates[key] = {
@@ -20,6 +23,21 @@ func loadChars(charPayload):
 		}
 func getChars():
 	return charStates.keys()
+
+func startTravelling(chosenChars, mainEvent, fromDest, toDest):
+	# update states (for target event, and chosen chars) and then dismiss
+	for char in chosenChars:
+		updateStatus(char, "TRAVELING")
+		# create the actual character icon, at their current coors (TODO: don't hardcode)
+		var gridIconScene = preload("res://CharGridIcon.tscn")
+		var gridIcon: CharGridIcon = gridIconScene.instantiate()
+		gridIcon.position = fromDest
+		gridIcon.dest = toDest
+		gridIcon.eventParent = mainEvent
+		gridIcon.updateImg(self, char)
+		var main = get_tree().current_scene
+		var map = main.get_node("Events")
+		map.add_child(gridIcon)
 	
 func updateStatus(charName, newStatus):
 	var charTarget = null

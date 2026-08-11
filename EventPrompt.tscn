@@ -38,6 +38,7 @@ script = ExtResource("2_cef6o")
 visible = false
 
 [node name="CollisionChart" type="StaticBody2D" parent="MissionWindow/StarGraphHolder" unique_id=702026503]
+visible = false
 physics_material_override = SubResource("PhysicsMaterial_m1l8p")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MissionWindow/StarGraphHolder/CollisionChart" unique_id=690965258]
