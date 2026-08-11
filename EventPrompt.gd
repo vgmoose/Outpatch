@@ -120,6 +120,10 @@ func display(mainEvent):
 	visible = true
 	
 func playProbabilityAnimation(targetEvent):
+	# if we don't have chosen chars, don't even bother, dog
+	if chosenChars.size() == 0:
+		print("Somehow, there were no chosen chars")
+		return
 	# for some reason, removing below breaks chart animation even hough this func is called once
 	# TODO: figure that out
 	#if isRunningProbabilityAnimation: # no double presses
