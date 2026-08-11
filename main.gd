@@ -28,7 +28,8 @@ func _init():
 	unpause.connect(func():
 		var events = get_node("Events")
 		for event in events.get_children():
-			event.isPaused = false
+			if event is EventCircle:
+				event.isPaused = false
 		isPaused = false
 		
 	)
@@ -38,14 +39,15 @@ func _init():
 		for event in events.get_children():
 			event.queue_free() # TODO: another state for finished
 	)
-	event_selected.connect(func(eventId):
+	event_selected.connect(func(eventId, isReview = false):
 		# pause all timers
 		var events = get_node("Events")
 		var chosenEvent = null
-		for event: EventCircle in events.get_children():
-			event.isPaused = true
-			if event.eventId == eventId:
-				chosenEvent = event
+		for event in events.get_children():
+			if event is EventCircle:
+				event.isPaused = true
+				if event.eventId == eventId:
+					chosenEvent = event
 		isPaused = true
 			# TODO: EXTRACT INTO COMMON PAUSE?
 		# display this event

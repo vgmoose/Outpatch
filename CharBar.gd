@@ -7,11 +7,15 @@ var charStates = {}
 func _init():
 	pass
 
+func getColor(charName):
+	return charStates[charName]["color"]
+
 func loadChars(charPayload):
 	for key in charPayload:
 		charStates[key] = {
 			"name": key,
-			"stats": charPayload[key],
+			"stats": charPayload[key]["stats"],
+			"color": Color.from_string(charPayload[key]["color"], Color.YELLOW),
 			"status": "READY"
 		}
 func getChars():

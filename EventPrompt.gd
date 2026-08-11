@@ -19,18 +19,24 @@ func _enter_tree():
 func display(mainEvent):
 	self.ogEvent = mainEvent.ogEvent
 	wasPressed = false # init vars
+	chosenChars = []
+	
+	var sideWindow: CoolWindow = get_node("MissionWindow")
+	var starGraphHolder = sideWindow.get_node("StarGraphHolder")
+	var theBall = starGraphHolder.get_node("BouncyBall")
+	theBall.visible = false
 	
 	var title = mainEvent.eventTitle
 	var details = mainEvent.eventDetails
 	var eventWeights = mainEvent.stats
 	
 	var viewport = get_viewport_rect()
+	#var viewport = Vector2(3413, 1920)
 	var screenHeight = viewport.size.y
 	var screenWidth = viewport.size.x
 	
 	var main = get_tree().current_scene
 	var window: CoolWindow = get_node("MainWindow")
-	var sideWindow: CoolWindow = get_node("MissionWindow")
 	window.title = "Mission Brief"
 	sideWindow.title = title
 	var mainWinWidth = screenWidth * 0.33
@@ -60,8 +66,13 @@ func display(mainEvent):
 	para.position.x = 0.05 * mainWinWidth
 	para.size.x = mainWinWidth * 0.9
 	para.size.y = mainWinHeight * 0.9
+	var charBar = get_tree().current_scene.get_node("CharBar")
+	
 	var cancel = window.get_node("Button2")
 	cancel.connect("pressed", func():
+		# free any assigned units
+		for char in chosenChars:
+			charBar.updateStatus(char, "READY")
 		# unpause everything and return back to business
 		dismiss()
 	)
@@ -79,149 +90,170 @@ func display(mainEvent):
 	button.position.y = mainWinHeight - button.size.y - 16
 	button.position.x = int(sideWinWidth / 32) * 32 / 2 + 40
 	
+	# clear old button events
+	for connection in button.get_signal_connection_list("pressed"):
+		button.disconnect("pressed", connection["callable"])
+	
 	button.connect("pressed", func():
-		var starGraphHolder = sideWindow.get_node("StarGraphHolder")
-		if wasPressed:
-			return
-		if allDone:
-			# this is the done press! dismiss everything (like cancel)
-			# unassign all CSPs (actually, enter the busy state?)
-			# TODO: ^ that
-			wasPressed = true # next event display sets this up again
-			allDone = false
-			dismiss()
-			main.event_finished.emit(ogEvent.id)
-			return # important! stop!
-		# hide our CSPs
-		for child in get_children():
-			if child is CSP:
-				child.queue_free()
-		wasPressed = true
-		# hide our buttons while our main event is running
-		# TODO: don't just do this all here?
-		button.visible = false
-		cancel.visible = false
-		if starGraphHolder.get_children().size() < 2:
-			# we don't have any heroes added
-			return
-		# remove the previously generated merged graph
-		# so that we can retween it in
-		var mergedGraph = starGraphHolder.get_children()[starGraphHolder.get_children().size()-1] # assume it's at the end
-		starGraphHolder.remove_child(mergedGraph)
-
-		# start the simulation, reveal true probabilities
-		var trueGraph = null
-		if counter == 1:
-			trueGraph = StarGraph.new(Color.DARK_RED)
-		else:
-			trueGraph = StarGraph.new(Color.DARK_BLUE)
-		counter += 1
-
-		trueGraph.update_graph(eventWeights)
-		var truePolygon = trueGraph.polygon # update_graph applies our weights to the actual polygon shape
-		starGraphHolder.add_child(trueGraph)
+		var eventDest = mainEvent.position
+		# update states (for target event, and chosen chars) and then dismiss
+		for char in chosenChars:
+			charBar.updateStatus(char, "TRAVELING")
+			# create the actual character icon, at their current coors (TODO: don't hardcode)
+			var gridIconScene = preload("res://CharGridIcon.tscn")
+			var gridIcon: CharGridIcon = gridIconScene.instantiate()
+			gridIcon.dest = eventDest
+			gridIcon.updateImg(charBar, char)
+			var map = main.get_node("Events")
+			map.add_child(gridIcon)
+		mainEvent.updateStatus("BEING_TRAVELED_TO")
+		# also, we will store the chosen chars _with_ this event
+		mainEvent.chosenChars = chosenChars
 		
-		# tween our actual probabilities back in
-		starGraphHolder.add_child(mergedGraph)
-		var tween = get_tree().create_tween()
-		
-		var finalPolygon = mergedGraph.polygon
-		
-		# start physics simulation?
-		# first, find intersecting polygon
-
-		# and then the area of the outer
-		var outer = calculate_area(truePolygon)
-		# percent success is straightforwards
-		var label = Button.new()
-		label.text = "0%"
-		label.add_theme_font_size_override("font_size", 65)
-		starGraphHolder.add_child(label)
-		
-		# tween in the base, then our merged, and update the percent along the way
-		trueGraph.visible = false
-		mergedGraph.visible = false
-		trueGraph.start_animation(tween)
-		mergedGraph.start_animation(tween)
-		
-		tween.parallel().tween_method((func(cur):
-			# we ignore cur, because we're just going to use the polygon that's growing into place
-			# get the area of the inner (overlap/clipped) polygon(s)
-			var inner = 0.0
-			var commongons = Geometry2D.intersect_polygons(trueGraph.polygon, mergedGraph.polygon)
-			for common in commongons:
-				inner += calculate_area(common)
-			label.text = "%0.2f%%" % abs((inner / outer) * 100)
-		), 0, 0, 2)
-		
-		var theBall = starGraphHolder.get_node("BouncyBall")
-		tween.tween_callback(func():
-			# show the ball
-			theBall.position = mergedGraph.position # TODO: this assumes firstchild is the empty chart
-			theBall.visible = true
-			
-			# move it to the front
-			starGraphHolder.remove_child(theBall)
-			starGraphHolder.add_child(theBall)
-		)
-		tween.tween_interval(0.4)
-		tween.tween_callback(func():
-			# this is called after the above animations are done, kick off the ball moving in a random direction
-			# with the collision of the merged polygon
-			var collisionChart = starGraphHolder.get_node("CollisionChart")
-			var collider = collisionChart.get_node("CollisionPolygon2D")
-			collider.polygon = truePolygon
-			# for visualizing only
-			#var siblinggon = collisionChart.get_node("Polygon2D")
-			#siblinggon.color = Color.BLUE
-			#siblinggon.polygon = truePolygon
-			collisionChart.position = mergedGraph.position
-			
-			theBall.startMoving()
-		)
-		
-		# remove old connections
-		for conn in finishedBallBouncing.get_connections():
-			finishedBallBouncing.disconnect(conn.callable)
-		print("Totalconns ", finishedBallBouncing.get_connections())
-		finishedBallBouncing.connect(func():
-			print("We're done moving, are we inside?")
-			# aka, is the ball's point within our merged graph's polygon
-			var ogBallPos = theBall.position - mergedGraph.position # polygon coors are not relative, so we need to offset by ball's visual position
-			var res = Geometry2D.is_point_in_polygon(ogBallPos, mergedGraph.polygon)
-			print("We are: " + str(res), " ", ogBallPos, mergedGraph.polygon)
-			
-			# re-get and re-draw the _final_ state of the commongons (the common area)
-			# so that we can properly highlight the mixed/overlap at this stage
-			var commongons = Geometry2D.intersect_polygons(trueGraph.polygon, mergedGraph.polygon)
-			for commongon in commongons:
-				var chartSegment = Polygon2D.new()
-				chartSegment.polygon = commongon
-				starGraphHolder.add_child(chartSegment)
-				chartSegment.position = mergedGraph.position
-				if res:
-					chartSegment.color = Color.GREEN
-				else:
-					chartSegment.color = Color.RED
-				chartSegment.color.a = 0.5
-			
-			# show the success or failure text
-			if res:
-				button.set_text(ogEvent["success"])
-			else:
-				button.set_text(ogEvent["failure"])
-				
-			button.visible = true
-			# also bring the button to front
-			remove_child(button)
-			add_child(button)
-			wasPressed = false
-			allDone = true # next press will dismiss
-		)
-		
+		dismiss()
 	)
 	
 	visible = true
+	
+func playProbabilityAnimation(targetEvent):
+	if wasPressed:
+		return
+	if allDone:
+		# this is the done press! dismiss everything (like cancel)
+		# unassign all CSPs (actually, enter the busy state?)
+		# TODO: ^ that
+		wasPressed = true # next event display sets this up again
+		allDone = false
+		dismiss()
+		var main = get_tree().current_scene
+		main.event_finished.emit(targetEvent.id)
+		return # important! stop!
+	# hide our CSPs
+	for child in get_children():
+		if child is CSP:
+			child.queue_free()
+	wasPressed = true
+	var mainWindow = get_node("MainWindow")
+	var button = mainWindow.get_node("Button")
+	var cancel = mainWindow.get_node("Button2")
+	var starGraphHolder = get_node("MissionWindow/StarGraphHolder")
+	var theBall = starGraphHolder.get_node("BouncyBall")
+	# hide our buttons while our main event is running
+	# TODO: don't just do this all here?
+	button.visible = false
+	cancel.visible = false
+	if starGraphHolder.get_children().size() < 2:
+		# we don't have any heroes added
+		return
+	# remove the previously generated merged graph
+	# so that we can retween it in
+	var mergedGraph = starGraphHolder.get_children()[starGraphHolder.get_children().size()-1] # assume it's at the end
+	starGraphHolder.remove_child(mergedGraph)
+
+	# start the simulation, reveal true probabilities
+	var trueGraph = StarGraph.new(Color.DARK_BLUE)
+
+	var eventWeights = targetEvent.stats
+	trueGraph.update_graph(eventWeights)
+	var truePolygon = trueGraph.polygon # update_graph applies our weights to the actual polygon shape
+	starGraphHolder.add_child(trueGraph)
+	
+	# tween our actual probabilities back in
+	starGraphHolder.add_child(mergedGraph)
+	var tween = get_tree().create_tween()
+	
+	var finalPolygon = mergedGraph.polygon
+	
+	# start physics simulation?
+	# first, find intersecting polygon
+
+	# and then the area of the outer
+	var outer = calculate_area(truePolygon)
+	# percent success is straightforwards
+	var label = Button.new()
+	label.text = "0%"
+	label.add_theme_font_size_override("font_size", 65)
+	starGraphHolder.add_child(label)
+	
+	# tween in the base, then our merged, and update the percent along the way
+	trueGraph.visible = false
+	mergedGraph.visible = false
+	trueGraph.start_animation(tween)
+	mergedGraph.start_animation(tween)
+	
+	tween.parallel().tween_method((func(cur):
+		# we ignore cur, because we're just going to use the polygon that's growing into place
+		# get the area of the inner (overlap/clipped) polygon(s)
+		var inner = 0.0
+		var commongons = Geometry2D.intersect_polygons(trueGraph.polygon, mergedGraph.polygon)
+		for common in commongons:
+			inner += calculate_area(common)
+		label.text = "%0.2f%%" % abs((inner / outer) * 100)
+	), 0, 0, 2)
+	
+	tween.tween_callback(func():
+		# show the ball
+		theBall.position = mergedGraph.position # TODO: this assumes firstchild is the empty chart
+		theBall.visible = true
+		
+		# move it to the front
+		starGraphHolder.remove_child(theBall)
+		starGraphHolder.add_child(theBall)
+	)
+	tween.tween_interval(0.4)
+	tween.tween_callback(func():
+		# this is called after the above animations are done, kick off the ball moving in a random direction
+		# with the collision of the merged polygon
+		var collisionChart = starGraphHolder.get_node("CollisionChart")
+		var collider = collisionChart.get_node("CollisionPolygon2D")
+		collider.polygon = truePolygon
+		# for visualizing only
+		#var siblinggon = collisionChart.get_node("Polygon2D")
+		#siblinggon.color = Color.BLUE
+		#siblinggon.polygon = truePolygon
+		collisionChart.position = mergedGraph.position
+		
+		theBall.startMoving()
+	)
+	
+	# remove old connections
+	for conn in finishedBallBouncing.get_connections():
+		finishedBallBouncing.disconnect(conn.callable)
+	print("Totalconns ", finishedBallBouncing.get_connections())
+	finishedBallBouncing.connect(func():
+		print("We're done moving, are we inside?")
+		# aka, is the ball's point within our merged graph's polygon
+		var ogBallPos = theBall.position - mergedGraph.position # polygon coors are not relative, so we need to offset by ball's visual position
+		var res = Geometry2D.is_point_in_polygon(ogBallPos, mergedGraph.polygon)
+		print("We are: " + str(res), " ", ogBallPos, mergedGraph.polygon)
+		
+		# re-get and re-draw the _final_ state of the commongons (the common area)
+		# so that we can properly highlight the mixed/overlap at this stage
+		var commongons = Geometry2D.intersect_polygons(trueGraph.polygon, mergedGraph.polygon)
+		for commongon in commongons:
+			var chartSegment = Polygon2D.new()
+			chartSegment.polygon = commongon
+			starGraphHolder.add_child(chartSegment)
+			chartSegment.position = mergedGraph.position
+			if res:
+				chartSegment.color = Color.GREEN
+			else:
+				chartSegment.color = Color.RED
+			chartSegment.color.a = 0.5
+		
+		# show the success or failure text
+		if res:
+			button.set_text(ogEvent["success"])
+		else:
+			button.set_text(ogEvent["failure"])
+			
+		button.visible = true
+		# also bring the button to front
+		remove_child(button)
+		add_child(button)
+		wasPressed = false
+		allDone = true # next press will dismiss
+	)
 	
 # Gauss's shoelace formula, to get the area of a polygon
 # https://gamedev.stackexchange.com/a/211635
@@ -271,20 +303,20 @@ func position_csps(charBar):
 		add_child(button)
 	else:
 		button.visible = false
-	
+		
 	var window = get_node("MissionWindow")
+	for child in window.get_children():
+		# clear any existing CSPs, sicne we're about to recreate them
+		if child is CSP:
+			child.queue_free()
+	
 	var curWeights = []
 	if charBar: # if null, it's the first init
 		for charName in chosenChars:
 			curWeights.append(charBar.getStats(charName))
 		
 		var curOff = window.size.x - (chosenChars.size() * charBar.size.y) / 2
-		
-		for child in window.get_children():
-			# clear any existing CSPs, sicne we're about to recreate them
-			if child is CSP:
-				child.queue_free()
-		
+			
 		for charName in chosenChars:
 			var curCsp = CSP.new(charBar.size.y, charName, [])
 			curCsp.selectedPrompt = self
@@ -307,7 +339,7 @@ func position_csps(charBar):
 	starGraphHolder.add_child(emptyGraph)
 
 	# merging logic
-	var gold = Color.YELLOW
+	var gold = Color.DARK_RED
 	gold.a = 0.6
 	var mergedGraph = StarGraph.new(gold)
 	starGraphHolder.add_child(mergedGraph)

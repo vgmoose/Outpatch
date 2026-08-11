@@ -76,17 +76,17 @@ func adjustBounds():
 func tweenIn(size):
 	var windowTween = get_tree().create_tween()
 	self.size = size 
-	self.scale = Vector2(0.25, 0.25) # start at half size, half transparency
-	self.modulate.a = 0.5
+	self.scale = Vector2(0.1, 0.1) # start at half size, half transparency
+	self.modulate.a = 0
 	windowTween.tween_property(self, "scale", Vector2(1, 1), 0.25)
 	var alpha = Color.WHITE
 	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
 
 func tweenOut():
 	var windowTween = get_tree().create_tween()
-	windowTween.tween_property(self, "scale", Vector2(0.25, 0.25), 0.25)
+	windowTween.tween_property(self, "scale", Vector2(0.1, 0.1), 0.25)
 	var alpha = Color.WHITE
-	alpha.a = 0.5
+	alpha.a = 0
 	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
 	#windowTween.tween_callback(func(): queue_free())
 

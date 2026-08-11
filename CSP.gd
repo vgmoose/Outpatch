@@ -34,12 +34,22 @@ func _enter_tree():
 	csp.expand_mode = TextureRect.ExpandMode.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	csp.connect("mouse_entered", func():
+		if curState != "READY":
+			return
 		if main.isPaused:
-			csp.position.y -= 20
+			var dest = Vector2(position.x, position.y - 20)
+			var tween = get_tree().create_tween()
+			tween.tween_property(csp, "position", dest, 0.1)
 	)
 	csp.connect("mouse_exited", func():
+		if csp.position.y == 0:
+			return
+		var dest = Vector2(position.x, 0)
+		if selectedPrompt:
+			dest = Vector2(position.x, position.y + 20) # has to be relative, for mini icon
 		if main.isPaused:
-			csp.position.y += 20
+			var tween = get_tree().create_tween()
+			tween.tween_property(csp, "position", dest, 0.1)
 	)
 	var button = Button.new()
 	csp.add_child(button)
@@ -72,7 +82,7 @@ func updateStatus():
 	else:
 		statusLabel.visible = true
 	statusLabel.text = curState # READY, resting, traveling, working
-	overlay.visible = curState != "READY"
+	overlay.visible = curState == "ASSIGNED"
 
 func _input(event):
 	var main = get_tree().current_scene
