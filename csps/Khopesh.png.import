@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b72qnkppjmiet"
-path="res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"
+uid="uid://c286uv0gsx7q0"
+path="res://.godot/imported/Khopesh.png-0554f7b5c9f440f0e54408002e676978.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Toxic.png"
-dest_files=["res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"]
+source_file="res://csps/Khopesh.png"
+dest_files=["res://.godot/imported/Khopesh.png-0554f7b5c9f440f0e54408002e676978.ctex"]
 
 [params]
 

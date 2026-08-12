@@ -40,6 +40,10 @@ func _init():
 			event.queue_free() # TODO: another state for finished
 	)
 	event_selected.connect(func(eventId, isReview = false):
+		# if we're paused, don't display anoteh event
+		var main = get_tree().current_scene
+		if main.isPaused:
+			return
 		# pause all timers
 		var events = get_node("Events")
 		var chosenEvent = null
@@ -47,7 +51,14 @@ func _init():
 			if event is EventCircle:
 				event.isPaused = true
 				if event.eventId == eventId:
-					chosenEvent = event
+					if isReview:
+						if event.curStatus == "COMPLETED":
+							chosenEvent = event
+						else:
+							continue # can only review completed events (prevents ID collision on duplicated/looped/repeating events)
+					else:
+						# not a review, just consider it found
+						chosenEvent = event
 		isPaused = true
 			# TODO: EXTRACT INTO COMMON PAUSE?
 		# display this event
@@ -73,7 +84,6 @@ func _init():
 			return
 		prompt.addChar(charBar, charName)
 	)
-		
 
 func _enter_tree() -> void:
 	# initialize character data

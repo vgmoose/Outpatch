@@ -16,6 +16,8 @@ var ogEvent = {}
 var curStatus = "TICKING" # ticking, being_traveled_to, being_worked_on, completed
 var chosenChars = [] # list of names of chars assigned to this event
 
+var arrivedCount = 0
+
 static func makeSimpleColorTexture(color: Color):
 	var out = GradientTexture2D.new()
 	out.gradient = Gradient.new()

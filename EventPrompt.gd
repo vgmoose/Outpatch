@@ -316,8 +316,8 @@ func position_csps(charBar):
 	
 	var curWeights = []
 	if charBar: # if null, it's the first init
-		for charName in chosenChars:
-			curWeights.append(charBar.getStats(charName))
+		#for charName in chosenChars:
+			#curWeights.append(charBar.getStats(charName))
 		
 		var curOff = window.size.x - (chosenChars.size() * charBar.size.y) / 2
 			
@@ -350,7 +350,10 @@ func position_csps(charBar):
 	var mergedWeights: Array[float] = [0.0,0.0,0.0,0.0,0.0]
 	for weights in curWeights:
 		for wIdx in range(5):
-			mergedWeights[wIdx] = max(mergedWeights[wIdx], weights[wIdx])
+			mergedWeights[wIdx] += weights[wIdx]
+			mergedWeights[wIdx] = min(1, mergedWeights[wIdx])
+	#print(curWeights, chosenChars)
+	#print("FINAL ", mergedWeights)
 	mergedGraph.update_graph(mergedWeights)
 
 func addChar(charBar, charName):
@@ -363,4 +366,5 @@ func addChar(charBar, charName):
 	# accept the char and block it off
 	chosenChars.append(charName)
 	charBar.updateStatus(charName, "ASSIGNED")
+	
 	position_csps(charBar)

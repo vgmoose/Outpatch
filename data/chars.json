@@ -1,34 +1,38 @@
 {
-	"Toxic": {
-		"stats": [0.5, 0.5, 0.5, 0.5, 0.7],
+	"Toxic-1": {
+		"stats": [1, 5, 1, 6, 2],
+		"color": "green"
+	},
+	"Toxic-2": {
+		"stats": [3, 5, 4, 1, 2],
 		"color": "green"
 	},
 	"Invisibitch": {
-		"stats": [0.2, 0.2, 0.1, 0.2, 0.3],
+		"stats": [3, 2, 5, 1, 2],
 		"color": "purple"
 	},
 	"Komodo": {
-		"stats": [0.7, 0.3, 0.1, 0.1, 0.3],
+		"stats": [6, 6, 1, 1, 1],
 		"color": "orange"
 	},
 	"Whiplash": {
-		"stats": [0.7, 0.6, 0.1, 0.2, 0.7],
+		"stats": [3, 1, 5, 4, 2],
 		"color": "gray"
 	},
 	"Mantis": {
-		"stats": [0.6, 0.5, 0.2, 0.2, 0.7],
+		"stats": [5, 2, 3, 4, 1],
 		"color": "darkgreen"
 	},
-	"Blob": {
-		"stats": [0.3, 0.3, 0.7, 0.7, 0.5],
+	"Glob": {
+		"stats": [3, 6, 1, 1, 4],
 		"color": "pink"
 	},
 	"Psychic": {
-		"stats": [0.4, 0.4, 0.6, 0.6, 0.5],
+		"stats": [2, 1, 5, 2, 5],
 		"color": "lightblue"
 	},
 	"Khopesh": {
-		"stats": [0.6, 0.6, 0.3, 0.1, 0.2],
+		"stats": [5, 2, 2, 1, 5],
 		"color": "red"
 	}
 }

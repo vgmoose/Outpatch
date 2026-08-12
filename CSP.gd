@@ -6,7 +6,7 @@ var myTexture = null
 var myName = "Unknown"
 
 var overlay = null
-var restMeter = 5
+var restMeter = 15
 
 var myWeights = [0,0,0,0,0]
 var statusLabel = null
@@ -40,7 +40,7 @@ func _enter_tree():
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	csp.connect("mouse_entered", func():
 		if curState != "READY":
-			return
+			return			
 		if main.isPaused:
 			var dest = Vector2(position.x, position.y - 20)
 			var tween = get_tree().create_tween()
@@ -122,10 +122,10 @@ func _process(delta):
 	if charBarRef.getStatus(myName) == "RESTING":
 		recoveryBar.visible = true
 		restMeter -= delta
-		recoveryBar.value = 100 * (restMeter / 5.0)
+		recoveryBar.value = 100 * (restMeter / 15.0)
 		if restMeter <= 0:
 			# we're recovered!
-			restMeter = 5 # for next time
+			restMeter = 15 # for next time
 			charBarRef.updateStatus(myName, "READY")
 			recoveryBar.visible = false
 			

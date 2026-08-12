@@ -27,8 +27,15 @@ func _process(delta):
 			# we've arrived, update the corresponding event
 			var charBar = get_tree().current_scene.get_node("CharBar") # TODO: get a static helper to obtain these refs
 			if eventParent:
-				eventParent.updateStatus("BEING_WORKED_ON")
-				charBar.updateStatus(myCharName, "WORKING")
+				# if there's 2 characters, we need them both to arrive
+				eventParent.arrivedCount += 1
+				if eventParent.arrivedCount == eventParent.chosenChars.size():
+					eventParent.updateStatus("BEING_WORKED_ON")
+					for charName in eventParent.chosenChars:
+						charBar.updateStatus(charName, "WORKING")
+				else:
+					charBar.updateStatus(myCharName, "WAITING")
+				
 			else:
 				# this was a going home tween, no event
 				charBar.updateStatus(myCharName, "RESTING")

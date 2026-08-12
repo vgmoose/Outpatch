@@ -15,9 +15,10 @@ func getStatus(charName):
 
 func loadChars(charPayload):
 	for key in charPayload:
+		var normalizedStats = charPayload[key]["stats"].map(func(val): return val / 10.0)
 		charStates[key] = {
 			"name": key,
-			"stats": charPayload[key]["stats"],
+			"stats": normalizedStats,
 			"color": Color.from_string(charPayload[key]["color"], Color.YELLOW),
 			"status": "READY"
 		}
@@ -39,7 +40,7 @@ func startTravelling(chosenChars, mainEvent, fromDest, toDest):
 		var map = main.get_node("Events")
 		map.add_child(gridIcon)
 	
-func updateStatus(charName, newStatus):
+func updateStatus(charName, newStatus, checkCounterparts=true):
 	var charTarget = null
 	for char in get_children():
 		if char is CSP and char.myName == charName:
@@ -51,6 +52,17 @@ func updateStatus(charName, newStatus):
 	charStates[charName]["status"] = newStatus
 	charTarget.curState = newStatus
 	charTarget.updateStatus()
+	
+	# TODO: handle transformation characters, until then, mark counterpart unavailable
+	if checkCounterparts and (newStatus == "ASSIGNED" or newStatus == "READY"):
+		var counterStatus = "UNAVAILABLE"
+		if newStatus == "READY":
+			counterStatus = "READY"
+
+		if charName == "Toxic-1":
+			updateStatus("Toxic-2", counterStatus, false)
+		if charName == "Toxic-2":
+			updateStatus("Toxic-1", counterStatus, false)
 
 
 func getStats(charName):
