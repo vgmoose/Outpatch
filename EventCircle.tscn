@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cdd643wxw0t2m" path="res://EventCircle.gd" id="1_agga5"]
 [ext_resource type="StyleBox" uid="uid://d1rf3alwantq3" path="res://radial_crop.tres" id="1_fs1eh"]
+[ext_resource type="Texture2D" uid="uid://wco77xup7dpr" path="res://icons/check_round_color.png" id="3_b6siq"]
+[ext_resource type="Texture2D" uid="uid://bj07oucqmm73c" path="res://icons/exclaim.png" id="3_uq7yo"]
 
 [sub_resource type="Theme" id="Theme_agga5"]
 
@@ -19,3 +21,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_agga5")
+texture_under = ExtResource("3_b6siq")
+texture_progress = ExtResource("3_b6siq")
+tint_under = Color(1, 0.16862746, 0.3764706, 1)
+tint_progress = Color(0, 0.88235295, 0.5137255, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1614660104]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 11.0
+offset_bottom = 11.933333
+texture = ExtResource("3_uq7yo")
+expand_mode = 4

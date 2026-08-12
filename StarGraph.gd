@@ -21,6 +21,32 @@ func _init(color, isThickBordered=false):
 func _enter_tree():
 	update_graph()
 
+func draw_metrics():
+	# draw lines from each corner of the polygon (each point) to the center
+	for point in polygon:
+		var ruler = Line2D.new()
+		ruler.width = 1
+		ruler.default_color = Color.DARK_GRAY
+		ruler.points = [point, Vector2(0, 0)]
+		add_child(ruler)
+	# and now, successively larger polygons every even number
+	for radius in [2, 4, 6, 8]:
+		var marker = Line2D.new()
+		marker.width = 1
+		marker.default_color = Color.DARK_GRAY
+		# TODO: copypasta'd from below, to draw the pentagons
+		var curAngle = -90
+		var points = []
+		for idx in range(0, 5):
+			points.append(Vector2(
+				R * myWeights[idx] * (radius / 10.0) * cos(deg_to_rad(curAngle)),
+				R * myWeights[idx] * (radius / 10.0) * sin(deg_to_rad(curAngle))
+			))
+			curAngle += 360 / 5 # degrees? 
+		marker.points = points
+		marker.closed = true
+		add_child(marker)
+
 func start_animation(tweenChain):
 	print("we are here", polygon)
 	var dest = polygon

@@ -21,7 +21,7 @@ func _input(event):
 
 func startMoving():
 	isMoving = true
-	velocity = 800 * Vector2(randi_range(-100, 100), randi_range(-100, 100)).normalized() # TODO: do a random direction + decide on speed
+	velocity = 1240 * Vector2(randi_range(-100, 100), randi_range(-100, 100)).normalized() # TODO: do a random direction + decide on speed
 
 func _process(delta):
 	if not isMoving:
@@ -31,7 +31,7 @@ func _process(delta):
 		# a collision occurred, reflect our new velocity along the collision's normal
 		velocity = velocity.bounce(res.get_normal())
 	# tick down by our friction value
-	var reduceBy = 0.4
+	var reduceBy = 0.8
 	velocity *= (1 - reduceBy*delta)
 	if abs(velocity.x) <= 20 and abs(velocity.y) <= 20:
 		isMoving = false

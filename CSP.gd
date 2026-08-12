@@ -39,8 +39,8 @@ func _enter_tree():
 	csp.expand_mode = TextureRect.ExpandMode.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	csp.connect("mouse_entered", func():
-		if curState != "READY":
-			return			
+		if curState != "READY" and curState != "ASSIGNED":
+			return
 		if main.isPaused:
 			var dest = Vector2(position.x, position.y - 20)
 			var tween = get_tree().create_tween()
@@ -69,6 +69,7 @@ func _enter_tree():
 	overlay.color.a = 0.45
 	overlay.size = csp.size
 	overlay.visible = true
+	overlay.mouse_filter = MOUSE_FILTER_IGNORE
 	csp.add_child(overlay)
 	
 	statusLabel = Button.new()
@@ -99,15 +100,18 @@ func updateStatus():
 	else:
 		statusLabel.visible = true
 	statusLabel.text = curState # READY, resting, traveling, working
-	overlay.visible = curState == "ASSIGNED"
+	overlay.visible = curState == "ASSIGNED" or curState == "UNAVAILABLE"
 
 func _input(event):
 	var main = get_tree().current_scene
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if self.get_global_rect().has_point(event.position):
-				if selectedPrompt:
-					main.choose_char.emit(myName, false)
+				if selectedPrompt or curState == "ASSIGNED":
+					# unassaign!
+					# actually, make sure that our char name is assigned in the first place
+					if charBarRef.getStatus(myName) == "ASSIGNED":
+						main.choose_char.emit(myName, false)
 					return
 				if curState != "READY" or not main.isPaused:
 					return # can't be chosen twice

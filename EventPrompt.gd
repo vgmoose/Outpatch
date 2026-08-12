@@ -341,6 +341,7 @@ func position_csps(charBar):
 	# background of chart
 	var emptyGraph = StarGraph.new(Color.WEB_GRAY, true)
 	starGraphHolder.add_child(emptyGraph)
+	emptyGraph.draw_metrics()
 
 	# merging logic
 	var gold = Color.DARK_RED
@@ -355,7 +356,8 @@ func position_csps(charBar):
 	#print(curWeights, chosenChars)
 	#print("FINAL ", mergedWeights)
 	mergedGraph.update_graph(mergedWeights)
-
+	#mergedGraph.draw_metrics()
+	
 func addChar(charBar, charName):
 	# we can only add if the event is in the tikcing state
 	if not mainEvent or mainEvent.curStatus != "TICKING":

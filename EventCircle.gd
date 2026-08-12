@@ -17,6 +17,7 @@ var curStatus = "TICKING" # ticking, being_traveled_to, being_worked_on, complet
 var chosenChars = [] # list of names of chars assigned to this event
 
 var arrivedCount = 0
+var tooltip = null
 
 static func makeSimpleColorTexture(color: Color):
 	var out = GradientTexture2D.new()
@@ -34,6 +35,12 @@ func updateStatus(newStatus):
 	else:
 		# also, stop ticking at this point, since tahts' the initial state
 		circleBar.visible = false
+	
+	var label = get_node("TextureRect")
+	if newStatus == "COMPLETED":
+		label.texture = preload("res://icons/checked.png")
+	else:
+		label.texture = preload("res://icons/wip.png") # TODO: more symbols
 		
 	curStatus = newStatus
 	
@@ -63,9 +70,28 @@ func _enter_tree():
 	var circleBar = get_node("CircleBar")
 	circleBar.position = Vector2(8, 8)
 	circleBar.size = size
-	circleBar.texture_under = makeSimpleColorTexture(Color.RED)
-	circleBar.texture_progress = makeSimpleColorTexture(Color.GREEN)
+	#circleBar.texture_under = makeSimpleColorTexture(Color.RED)
+	#circleBar.texture_progress = makeSimpleColorTexture(Color.GREEN)
 	circleBar.fill_mode = TextureProgressBar.FILL_CLOCKWISE
+	
+	var label = get_node("TextureRect")
+	label.size = size - Vector2(24, 24)
+	label.position = Vector2(12, 12)
+	
+	#self.connect("mouse_entered", func():
+		#var tooltipScene = preload("res://CoolWindow.tscn")
+		#tooltip = tooltipScene.instantiate()
+		#tooltip.title = eventTitle
+		#add_child(tooltip)
+		#tooltip.position = Vector2(100, 0)
+		#tooltip.size = Vector2(650, 100)
+		#tooltip.adjustBounds()
+		#tooltip.tweenIn(Vector2(650, 100))
+	#)
+	#self.connect("mouse_exited", func():
+		#if tooltip:
+			#tooltip.tweenOut()
+	#)
 
 func _process(delta: float):
 	if isPaused:
