@@ -16,13 +16,13 @@ func updateImg(charBar: CharBar, charName: String):
 	var border = get_node("Border")
 	border.modulate = charBar.getColor(charName).darkened(0.2)
 	
-	speed = 200 + 300 * charBar.getStats(charName)[2] # mobility
+	speed = 50 + 125 * charBar.getStats(charName)[2] # mobility
 	myCharName = charName
 	
 	isWalker = not charBar.getFlying(myCharName)
 	if not isWalker:
 		# little speed boost for flyers
-		speed += 75
+		speed += 25
 
 func _process(delta):
 	var main = get_tree().current_scene
@@ -32,14 +32,10 @@ func _process(delta):
 			# we've arrived, update the corresponding event
 			var charBar = get_tree().current_scene.get_node("CharBar") # TODO: get a static helper to obtain these refs
 			if eventParent:
-				# if there's 2 characters, we need them both to arrive
+				# if there's 2 characters, start ticking but at half speed
 				eventParent.arrivedCount += 1
-				if eventParent.arrivedCount == eventParent.chosenChars.size():
-					eventParent.updateStatus("BEING_WORKED_ON")
-					for charName in eventParent.chosenChars:
-						charBar.updateStatus(charName, "WORKING")
-				else:
-					charBar.updateStatus(myCharName, "WAITING")
+				eventParent.updateStatus("BEING_WORKED_ON")
+				charBar.updateStatus(myCharName, "WORKING")
 				
 			else:
 				# this was a going home tween, no event

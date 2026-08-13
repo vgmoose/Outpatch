@@ -32,7 +32,10 @@ func getChars():
 func startTravelling(chosenChars, mainEvent, fromDest, toDest):
 	# update states (for target event, and chosen chars) and then dismiss
 	for char in chosenChars:
-		updateStatus(char, "TRAVELING")
+		var newStatus = "RETURNING" # assume on the way back
+		if mainEvent:
+			newStatus = "TRAVELING" # on the way there
+		updateStatus(char, newStatus)
 		# create the actual character icon, at their current coors (TODO: don't hardcode)
 		var gridIconScene = preload("res://CharGridIcon.tscn")
 		var gridIcon: CharGridIcon = gridIconScene.instantiate()

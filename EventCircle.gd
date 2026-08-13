@@ -29,7 +29,8 @@ static func makeSimpleColorTexture(color: Color):
 func updateStatus(newStatus):
 	var circleBar = get_node("CircleBar")
 	if newStatus == "BEING_WORKED_ON":
-		duration = 0 # we're going to count up
+		if arrivedCount == 1:
+			duration = 0 # we're going to count up, only reset for the first arrival
 		# show the thing
 		circleBar.visible = true
 	else:
@@ -130,9 +131,14 @@ func _process(delta: float):
 			queue_free()
 	
 	if curStatus == "BEING_WORKED_ON":
-		duration += delta
+		if chosenChars.size() == 0:
+			# this shouldn't happen TODO: error
+			print("Event is being worked on, but chosenChars is empty!")
+			return
+		var arrivedPercent = float(arrivedCount) / chosenChars.size()
+		duration += delta * arrivedPercent # slower by the amount of who has yet to come
 		circleBar.value = 100 * (duration / 5.0) # hardcoded, always takes 5 seconds
-		if duration >= 5.0:
+		if duration >= 5.0 and arrivedPercent >= 1:
 			# WE'RE DONE! switch to the next state, and make a grid icon to go back and stuff
 			updateStatus("COMPLETED")
 			var charBar = get_tree().current_scene.get_node("CharBar")
@@ -144,7 +150,6 @@ func _input(event):
 	if event is InputEventMouseButton:
 		#print(get_rect(), event.position, self.get_rect().has_point(event.position))
 		if self.get_rect().has_point(event.position):
-			print(curStatus)
 			if curStatus == "TICKING":
 				main.event_selected.emit(eventId)
 			if curStatus == "COMPLETED":

@@ -48,6 +48,12 @@ shadow_blur = 5.0
 [node name="Map" parent="." unique_id=188580742 instance=ExtResource("2_x26nf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 
+[node name="GestureDetector" type="Control" parent="." unique_id=252492725]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 2548.0
+offset_bottom = 1475.0
+
 [node name="GoBack" type="Button" parent="." unique_id=2135937096]
 offset_right = 8.0
 offset_bottom = 8.0
