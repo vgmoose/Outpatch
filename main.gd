@@ -96,6 +96,33 @@ func _enter_tree() -> void:
 	var screenHeight = viewport.size.y
 	var screenWidth = viewport.size.x
 	
+	var dimmer = get_node("Dimmer")
+	var tGray = Color.BLACK
+	tGray.a = 0.5
+	dimmer.texture = EventCircle.makeSimpleColorTexture(tGray)
+	dimmer.size = viewport.size
+	
+	var buttonBar = get_node("ButtonBar")
+	buttonBar.size = viewport.size
+	var sceneChange = buttonBar.get_node("Button")
+	sceneChange.connect("pressed", func():
+		if isPaused:
+			return # can't do while paused
+		isPaused = true
+		var subviewContainer = get_node("ExternalScene")
+		var subview = subviewContainer.get_node("SubViewport")
+		var hackingScene = preload("res://hacking/main2.tscn")
+		var hacking = hackingScene.instantiate()
+		subviewContainer.visible = true
+		subview.add_child(hacking)
+		subviewContainer.position = Vector2(viewport.size.x / 2.0 - subview.size.x / 2.0, viewport.size.y + subview.size.y / 2.0)
+		dimmer.modulate.a = 0
+		var tween = get_tree().create_tween()
+		tween.tween_property(subviewContainer, "position", viewport.size / 2.0 - subview.size / 2.0, 0.4)
+		tween.parallel().tween_property(dimmer, "modulate:a", 1, 0.4)
+		dimmer.visible = true
+	)
+	
 	# create each CSP icon centered along the bottom
 	charBar.size.x = screenWidth
 	charBar.size.y = 200

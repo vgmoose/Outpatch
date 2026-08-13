@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bos25d8yv3mbq"]
+
+[ext_resource type="Script" uid="uid://shsumejoj0w4" path="res://hacking/Map.gd" id="1_6mvxg"]
+[ext_resource type="Texture2D" uid="uid://c40byybdyl4a0" path="res://icons/button_round_flat.png" id="1_7sdx0"]
+[ext_resource type="PackedScene" uid="uid://cjaix40u31aam" path="res://hacking/Dot.tscn" id="2_gcn1o"]
+[ext_resource type="PackedScene" uid="uid://cad3lpkgkuvu7" path="res://hacking/Line.tscn" id="3_6mvxg"]
+
+[node name="Map" type="Node3D" unique_id=188580742]
+script = ExtResource("1_6mvxg")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=176928951]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = false
+modulate = Color(0.63211, 0.00063246215, 0.00034630075, 1)
+texture = ExtResource("1_7sdx0")
+
+[node name="Dot" parent="." unique_id=2040040469 instance=ExtResource("2_gcn1o")]
+visible = false
+
+[node name="Line" parent="." unique_id=1575479784 instance=ExtResource("3_6mvxg")]
+visible = false

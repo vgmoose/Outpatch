@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dska3auftrt5e"]
+
+[ext_resource type="Script" uid="uid://rrtg3aen8ebn" path="res://hacking/Dice.gd" id="1_d733f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d733f"]
+albedo_color = Color(0.6256039, 0, 0.004992555, 1)
+emission_enabled = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_hnsy1"]
+material = SubResource("StandardMaterial3D_d733f")
+radial_segments = 10
+rings = 4
+
+[node name="Dice" type="CharacterBody3D" unique_id=665609252]
+script = ExtResource("1_d733f")
+
+[node name="Model" type="MeshInstance3D" parent="." unique_id=1662650315]
+mesh = SubResource("SphereMesh_hnsy1")

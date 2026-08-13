@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c58pnbcaokh83"]
+
+[ext_resource type="Script" uid="uid://dgykr2noifwjw" path="res://hacking/Main2.gd" id="1_6sufk"]
+[ext_resource type="PackedScene" uid="uid://dska3auftrt5e" path="res://hacking/Dice.tscn" id="1_y6ciw"]
+[ext_resource type="PackedScene" uid="uid://bos25d8yv3mbq" path="res://hacking/Map.tscn" id="2_x26nf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y6ciw"]
+size = Vector3(100, 0.1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6ciw"]
+albedo_color = Color(0.33331102, 5.5350364e-07, 1.5642495e-07, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y6ciw"]
+material = SubResource("StandardMaterial3D_y6ciw")
+
+[sub_resource type="Environment" id="Environment_y6ciw"]
+
+[node name="Main2" type="Node3D" unique_id=1846093601]
+script = ExtResource("1_6sufk")
+
+[node name="Dice" parent="." unique_id=1634481007 instance=ExtResource("1_y6ciw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0576508, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Dice" unique_id=192943755]
+transform = Transform3D(1, 0, 0, 0, 0.5798785, 0.814703, 0, -0.814703, 0.5798785, 0, 4.5056906, 4.4509015)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1123899922]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.663928, 0)
+omni_range = 1000.0
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=172481653]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=826445746]
+shape = SubResource("BoxShape3D_y6ciw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1829476679]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_y6ciw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1248688673]
+environment = SubResource("Environment_y6ciw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1431316139]
+transform = Transform3D(1, 0, 0, 0, -0.02928248, 0.9995712, 0, -0.9995712, -0.02928248, 0, 19.616837, 0)
+shadow_enabled = true
+shadow_blur = 5.0
+
+[node name="Map" parent="." unique_id=188580742 instance=ExtResource("2_x26nf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="GoBack" type="Button" parent="." unique_id=2135937096]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 32
+text = "Close"

@@ -38,6 +38,43 @@ offset_bottom = 40.0
 [node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
 visible = false
 
+[node name="ButtonBar" type="Control" parent="." unique_id=1403474837]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1284.0
+offset_bottom = 727.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="ButtonBar" unique_id=2012863711]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_bottom = 75.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 32
+text = "Hacking Scene"
+
+[node name="Dimmer" type="TextureRect" parent="." unique_id=1101558067]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ExternalScene" type="SubViewportContainer" parent="." unique_id=1804668217]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="SubViewport" type="SubViewport" parent="ExternalScene" unique_id=503204171]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
+
 [node name="Clock" type="Label" parent="." unique_id=58676152]
 offset_right = 40.0
 offset_bottom = 23.0
