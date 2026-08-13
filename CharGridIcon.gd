@@ -16,10 +16,13 @@ func updateImg(charBar: CharBar, charName: String):
 	var border = get_node("Border")
 	border.modulate = charBar.getColor(charName).darkened(0.2)
 	
-	speed = 500 * charBar.getStats(charName)[2] # mobility
+	speed = 200 + 300 * charBar.getStats(charName)[2] # mobility
 	myCharName = charName
 	
 	isWalker = not charBar.getFlying(myCharName)
+	if not isWalker:
+		# little speed boost for flyers
+		speed += 75
 
 func _process(delta):
 	var main = get_tree().current_scene

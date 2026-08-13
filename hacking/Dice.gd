@@ -7,20 +7,41 @@ var friction = 0.9
 
 var zeroVec = Vector3(0, 0, 0)
 
+var lookup = {} # Vector2(x, y) -> true
+var conns = {} # "id" -> "next": ["id"]
+
+var curPos = Vector2(0, 0)
+var curId = "start" # start at start
+
 func _enter_tree():
 	model = get_node("Model")
 
 var speed = 12
 
 func _input(event):
-	if event.is_action_pressed("ui_down"):
-		velocity += Vector3(0, 0, speed)
-	if event.is_action_pressed("ui_up"):
-		velocity += Vector3(0, 0, -speed)
-	if event.is_action_pressed("ui_left"):
-		velocity += Vector3(-speed, 0, 0)
-	if event.is_action_pressed("ui_right"):
-		velocity += Vector3(speed, 0, 0)
+	# lookup next potential IDs
+	var nexts = conns[curId]["next"]
+	var buttons = ["ui_down", "ui_up", "ui_left", "ui_right"]
+	var velocities = [Vector2(0, 1), Vector2(0, -1), Vector2(-1, 0), Vector2(1, 0)]
+
+	#print(nexts)
+	#print(lookup)
+	#print(curId)
+	for idx in range(4):
+		var button = buttons[idx]
+		var x = velocities[idx].x
+		var y = velocities[idx].y
+		if event.is_action_pressed(button):
+			# must be "true", to be a valid space
+			var newPos = curPos + velocities[idx]
+			#print(newPos, newPos in lookup)
+			if newPos in lookup:
+				#print("in", lookup[newPos])
+				# also, we need to have a bridge to this dest too
+				if lookup[newPos] in nexts:
+					velocity += Vector3(x*speed, 0, y*speed)
+					curPos = newPos
+					curId = lookup[newPos]
 	
 func _physics_process(delta):
 	if not model:

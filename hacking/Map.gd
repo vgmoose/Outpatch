@@ -22,6 +22,19 @@ func _enter_tree():
 		}
 	}
 	
+	# build a simple look up by coordinate (node ID if valid pos)
+	var lookup = {}
+	
+	# convert the next lists into sets, and also make vectors
+	for key in conns:
+		var oldPos = conns[key]["pos"]
+		var oldNext = conns[key]["next"]
+		conns[key]["pos"] = Vector2(oldPos[0], oldPos[1])
+		conns[key]["next"] = {}
+		for n in oldNext:
+			conns[key]["next"][n] = true
+		lookup[conns[key]["pos"]] = key
+	
 	var seen = {}
 	var to_process = ["start"]
 	while to_process.size() > 0:
@@ -32,24 +45,29 @@ func _enter_tree():
 		var circle = circleScene.instantiate()
 		add_child(circle)
 		var pos = cur["pos"]
-		circle.position = Vector3(pos[0], 0, pos[1]) * 2
+		circle.position = Vector3(pos.x, 0, pos.y) * 2
 		# link up neighbors
 		for n in cur["next"]:
 			if n in seen:
 				continue
 			to_process.append(n)
 			seen[n] = true
+			# always back link, in case the original data was one way
+			conns[n]["next"][curId] = true
 			# draw the actual line
 			var lineScene = preload("res://hacking/Line.tscn")
 			var line = lineScene.instantiate()
 			add_child(line)
 			var nPos = conns[n]["pos"]
-			var v1 = Vector2(nPos[0], nPos[1])
-			var v2 = Vector2(pos[0], pos[1])
-			var newPos = (v1 + v2) / 2.0
-			line.position = Vector3(newPos[0], 0, newPos[1]) * 2
+			var newPos = (nPos + pos) / 2.0
+			line.position = Vector3(newPos.x, 0, newPos.y) * 2
 			# rotate the line as needed
-			var normed = abs(v2 - v1).normalized()
+			var normed = abs(pos - nPos).normalized()
 			if normed.x == 1:
 				line.rotation += Vector3(0, PI/2, 0)
+	
+	# assign these maps to the dice
+	var dice = get_node("../Dice")
+	dice.conns = conns
+	dice.lookup = lookup
 		

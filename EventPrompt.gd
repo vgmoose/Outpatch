@@ -63,6 +63,9 @@ func display(mainEvent):
 	window.tweenIn(size)
 	sideWindow.tweenIn(size)
 	
+	# also, animate the dimmer
+	main.animateDimmer(true, false)
+	
 	var para = window.get_node("RichTextLabel2")
 	para.text = details
 	para.position.y = 110
@@ -291,12 +294,15 @@ func dismiss():
 	mainWindow.tweenOut()
 	sideWindow.tweenOut()
 	
+	main.animateDimmer(false, false)
+	
 	var tween = get_tree().create_tween()
 	tween.tween_interval(0.25) #  TODO: matches inner window dismiss speed
 	tween.tween_callback(func():
 		visible = false
 		main.unpause.emit()
 	)
+	
 	
 func position_csps(charBar):
 	var button = get_node("MainWindow/Button")

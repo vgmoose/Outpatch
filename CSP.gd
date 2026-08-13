@@ -44,6 +44,7 @@ func _enter_tree():
 		if selectedPrompt and charBarRef.getStatus(myName) != "ASSIGNED":
 			return # no mouse over events for mini CSP's if not on the assignment phase
 		if main.isPaused:
+			z_index = 2
 			var dest = Vector2(position.x, position.y - 20)
 			var tween = get_tree().create_tween()
 			tween.tween_property(csp, "position", dest, 0.1)
@@ -59,6 +60,7 @@ func _enter_tree():
 		if main.isPaused:
 			var tween = get_tree().create_tween()
 			tween.tween_property(csp, "position", dest, 0.1)
+			tween.tween_callback(func(): z_index = 0)
 	)
 	var button = Button.new()
 	csp.add_child(button)

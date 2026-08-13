@@ -100,10 +100,19 @@ func _enter_tree() -> void:
 	var tGray = Color.BLACK
 	tGray.a = 0.5
 	dimmer.texture = EventCircle.makeSimpleColorTexture(tGray)
-	dimmer.size = viewport.size
 	
 	var buttonBar = get_node("ButtonBar")
 	buttonBar.size = viewport.size
+	
+	var fullscreen = buttonBar.get_node("Button2")
+	fullscreen.connect("pressed", func():
+		if DisplayServer.window_get_mode() != DisplayServer.WINDOW_MODE_FULLSCREEN:
+			fullscreen.text = "Exit Fullscreen"
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		else:
+			fullscreen.text = "Fullscreen"
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	)
 	var sceneChange = buttonBar.get_node("Button")
 	sceneChange.connect("pressed", func():
 		if isPaused:
@@ -116,11 +125,11 @@ func _enter_tree() -> void:
 		subviewContainer.visible = true
 		subview.add_child(hacking)
 		subviewContainer.position = Vector2(viewport.size.x / 2.0 - subview.size.x / 2.0, viewport.size.y + subview.size.y / 2.0)
-		dimmer.modulate.a = 0
+		
+		animateDimmer(true, true)
+		
 		var tween = get_tree().create_tween()
 		tween.tween_property(subviewContainer, "position", viewport.size / 2.0 - subview.size / 2.0, 0.4)
-		tween.parallel().tween_property(dimmer, "modulate:a", 1, 0.4)
-		dimmer.visible = true
 	)
 	
 	# create each CSP icon centered along the bottom
@@ -143,6 +152,26 @@ func _enter_tree() -> void:
 	for child: CSP in charBar.get_children():
 		child.position.x = curPos
 		curPos += charBar.size.y
+
+func animateDimmer(isIncoming, isFullscreen):
+	var tween = get_tree().create_tween()
+	var dimmer = get_node("Dimmer")
+	var viewport = get_viewport_rect()
+	dimmer.size = viewport.size
+	if not isFullscreen:
+		var charBar = get_node("CharBar")
+		dimmer.size.y -= charBar.size.y
+	var startA = 0.0
+	var destA = 1.0
+	if not isIncoming:
+		var tmp = startA
+		startA = destA
+		destA = tmp
+	dimmer.modulate.a = startA
+	tween.tween_property(dimmer, "modulate:a", destA, 0.4)
+	dimmer.visible = true
+	if not isIncoming:
+		tween.tween_callback(func(): dimmer.visible = false)
 
 func _process(delta: float):
 	# Debug: loop time after 20 seconds

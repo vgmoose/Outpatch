@@ -35,9 +35,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
-visible = false
-
 [node name="ButtonBar" type="Control" parent="." unique_id=1403474837]
 layout_mode = 3
 anchors_preset = 15
@@ -47,7 +44,20 @@ offset_right = 1284.0
 offset_bottom = 727.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_behavior_recursive = 1
 mouse_filter = 2
+
+[node name="Button2" type="Button" parent="ButtonBar" unique_id=775650165]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_right = 125.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Fullscreen"
 
 [node name="Button" type="Button" parent="ButtonBar" unique_id=2012863711]
 layout_mode = 1
@@ -60,10 +70,18 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Hacking Scene"
 
+[node name="Clock" type="Label" parent="." unique_id=58676152]
+offset_right = 40.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 50
+
 [node name="Dimmer" type="TextureRect" parent="." unique_id=1101558067]
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
+visible = false
 
 [node name="ExternalScene" type="SubViewportContainer" parent="." unique_id=1804668217]
 visible = false
@@ -74,8 +92,3 @@ offset_bottom = 1080.0
 handle_input_locally = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 0
-
-[node name="Clock" type="Label" parent="." unique_id=58676152]
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 50
