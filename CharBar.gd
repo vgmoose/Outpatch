@@ -13,6 +13,9 @@ func getColor(charName):
 func getStatus(charName):
 	return charStates[charName]["status"]
 
+func getFlying(charName):
+	return charStates[charName]["flying"]
+
 func loadChars(charPayload):
 	for key in charPayload:
 		var normalizedStats = charPayload[key]["stats"].map(func(val): return val / 10.0)
@@ -20,7 +23,8 @@ func loadChars(charPayload):
 			"name": key,
 			"stats": normalizedStats,
 			"color": Color.from_string(charPayload[key]["color"], Color.YELLOW),
-			"status": "READY"
+			"status": "READY",
+			"flying": "flying" in charPayload[key]
 		}
 func getChars():
 	return charStates.keys()

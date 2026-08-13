@@ -44,6 +44,13 @@ func updateStatus(newStatus):
 		
 	curStatus = newStatus
 	
+	var circle = get_node("FlatCircle")
+	if curStatus == "BEING_TRAVELED_TO" or curStatus == "BEING_WORKED_ON":
+		circle.modulate = Color.WEB_GRAY
+	
+	if curStatus == "COMPLETED":
+		circle.modulate = Color.DODGER_BLUE
+	
 	# TODO: update symbol on circlebar
 	
 func updateEvent(eventPayload):
@@ -68,8 +75,8 @@ func _enter_tree():
 	self.main = get_tree().current_scene
 	
 	var circleBar = get_node("CircleBar")
-	circleBar.position = Vector2(8, 8)
-	circleBar.size = size
+	circleBar.position = Vector2(-8, -8)
+	circleBar.size = size 
 	#circleBar.texture_under = makeSimpleColorTexture(Color.RED)
 	#circleBar.texture_progress = makeSimpleColorTexture(Color.GREEN)
 	circleBar.fill_mode = TextureProgressBar.FILL_CLOCKWISE
@@ -77,8 +84,19 @@ func _enter_tree():
 	var label = get_node("TextureRect")
 	label.size = size - Vector2(24, 24)
 	label.position = Vector2(12, 12)
+	label.mouse_filter = MOUSE_FILTER_IGNORE
 	
-	#self.connect("mouse_entered", func():
+	var circle = get_node("FlatCircle")
+	circle.size = label.size + Vector2(12, 12)
+	circle.position = label.position - Vector2(6, 6)
+	circle.modulate = Color.ORANGE
+		
+	circle.connect("mouse_entered", func():
+		if curStatus == "BEING_TRAVELED_TO" or curStatus == "BEING_WORKED_ON":
+			return
+		circle.modulate = Color.DARK_ORANGE
+		if curStatus == "COMPLETED":
+			circle.modulate = Color.DEEP_SKY_BLUE
 		#var tooltipScene = preload("res://CoolWindow.tscn")
 		#tooltip = tooltipScene.instantiate()
 		#tooltip.title = eventTitle
@@ -87,11 +105,16 @@ func _enter_tree():
 		#tooltip.size = Vector2(650, 100)
 		#tooltip.adjustBounds()
 		#tooltip.tweenIn(Vector2(650, 100))
-	#)
-	#self.connect("mouse_exited", func():
+	)
+	circle.connect("mouse_exited", func():
+		if curStatus == "BEING_TRAVELED_TO" or curStatus == "BEING_WORKED_ON":
+			return
 		#if tooltip:
 			#tooltip.tweenOut()
-	#)
+		circle.modulate = Color.ORANGE
+		if curStatus == "COMPLETED":
+			circle.modulate = Color.DODGER_BLUE
+	)
 
 func _process(delta: float):
 	if isPaused:

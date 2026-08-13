@@ -16,6 +16,11 @@ texture = ExtResource("1_gjhv5")
 clip_children = 2
 texture = ExtResource("1_gjhv5")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharGridIcon" unique_id=1938796766]
+[node name="Texture2D" type="TextureRect" parent="CharGridIcon" unique_id=1726131252]
+offset_left = -239.99998
+offset_top = -175.99998
+offset_right = 932.0
+offset_bottom = 740.0
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_7eakk")
+expand_mode = 5

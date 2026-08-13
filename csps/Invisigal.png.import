@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4rub8bvfo8f"
-path="res://.godot/imported/Invisibitch.png-91f20247b01e7562f527395168cd8522.ctex"
+uid="uid://bualvs0etjhwn"
+path="res://.godot/imported/Invisigal.png-e539eefd84ca1b9829d9d6a722158859.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Invisibitch.png"
-dest_files=["res://.godot/imported/Invisibitch.png-91f20247b01e7562f527395168cd8522.ctex"]
+source_file="res://csps/Invisigal.png"
+dest_files=["res://.godot/imported/Invisigal.png-e539eefd84ca1b9829d9d6a722158859.ctex"]
 
 [params]
 

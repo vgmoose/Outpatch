@@ -41,6 +41,8 @@ func _enter_tree():
 	csp.connect("mouse_entered", func():
 		if curState != "READY" and curState != "ASSIGNED":
 			return
+		if selectedPrompt and charBarRef.getStatus(myName) != "ASSIGNED":
+			return # no mouse over events for mini CSP's if not on the assignment phase
 		if main.isPaused:
 			var dest = Vector2(position.x, position.y - 20)
 			var tween = get_tree().create_tween()
@@ -49,6 +51,8 @@ func _enter_tree():
 	csp.connect("mouse_exited", func():
 		if csp.position.y == 0:
 			return
+		if selectedPrompt and charBarRef.getStatus(myName) != "ASSIGNED":
+			return # no mouse over events for mini CSP's if not on the assignment phase
 		var dest = Vector2(position.x, 0)
 		if selectedPrompt:
 			dest = Vector2(position.x, position.y + 20) # has to be relative, for mini icon

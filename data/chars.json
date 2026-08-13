@@ -5,9 +5,10 @@
 	},
 	"Toxic-2": {
 		"stats": [3, 5, 4, 1, 2],
-		"color": "green"
+		"color": "green",
+		"flying": true
 	},
-	"Invisibitch": {
+	"Invisigal": {
 		"stats": [3, 2, 5, 1, 2],
 		"color": "purple"
 	},
@@ -29,7 +30,8 @@
 	},
 	"Psychic": {
 		"stats": [2, 1, 5, 2, 5],
-		"color": "lightblue"
+		"color": "lightblue",
+		"flying": true
 	},
 	"Khopesh": {
 		"stats": [5, 2, 2, 1, 5],
