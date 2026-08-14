@@ -3,37 +3,59 @@ class_name Map
 
 func _enter_tree():
 	position -= Vector3(0.03, 0, -0.025)
-	var conns = {
-		"start": {
-			"pos": [0, 0],
-			"next": ["1"]
-		},
-		"1": {
-			"pos": [1, 0],
-			"next": ["2", "3"]
-		},
-		"2": {
-			"pos": [2, 0],
-			"next": []
-		},
-		"3": {
-			"pos": [1, 1],
-			"next": []
-		}
-	}
-	
-	# build a simple look up by coordinate (node ID if valid pos)
+	var conns = {}
 	var lookup = {}
+	var passData = {}
 	
-	# convert the next lists into sets, and also make vectors
-	for key in conns:
-		var oldPos = conns[key]["pos"]
-		var oldNext = conns[key]["next"]
-		conns[key]["pos"] = Vector2(oldPos[0], oldPos[1])
-		conns[key]["next"] = {}
-		for n in oldNext:
-			conns[key]["next"][n] = true
-		lookup[conns[key]["pos"]] = key
+	# TODO:  load appropriate file for current mission
+	var mapFile = FileAccess.open("res://data/hacking1.csv", FileAccess.READ)
+	var content = mapFile.get_as_text()
+	var y = 0
+	var x = 0
+	var id = 0
+	for line in content.split("\n"):
+		var vals = line.split("\t")
+		if vals.size() == 0:
+			continue
+		if vals[0] == "pass":
+			passData[vals[1]] = vals[2]
+			continue
+		for c in vals:
+			x += 1
+			if c == "":
+				continue
+			id += 1
+			var curId = str(id)
+			if c == "s":
+				curId = "start"
+			conns[curId] = {
+				"pos": Vector2(x, y),
+				"next": {}
+			}
+			if c.begins_with("p"):
+				conns[curId]["pass"] = c[1]
+			if c.begins_with("l"):
+				conns[curId]["lock"] = c[1]
+			if c.begins_with("d"):
+				conns[curId]["isDoor"] = c[1]
+			if c == "g":
+				conns[curId]["isGoal"] = true
+			lookup[Vector2(x, y)] = curId
+		y += 1
+		x = 0
+
+	# for each entry, look up any neighbors, and link their cells
+	for pos in lookup:
+		var neighs = [Vector2(-1, 0), Vector2(1, 0), Vector2(0, 1), Vector2(0, -1)]
+		for n in neighs:
+			if pos + n in lookup:
+				# assume we have a connection between these two
+				conns[lookup[pos]]["next"][lookup[pos + n]] = true
+
+	# build a simple look up by coordinate (node ID if valid pos)
+	if "start" not in conns:
+		print("Missing [start] node")
+		return
 	
 	var seen = {}
 	var to_process = ["start"]
@@ -44,6 +66,10 @@ func _enter_tree():
 		var circleScene = preload("res://hacking/Dot.tscn")
 		var circle = circleScene.instantiate()
 		add_child(circle)
+		if "pass" in conns[curId]:
+			circle.mesh = circle.mesh.duplicate()
+			circle.mesh.material = circle.mesh.material.duplicate()
+			circle.mesh.material.albedo_color = Color.PURPLE
 		var pos = cur["pos"]
 		circle.position = Vector3(pos.x, 0, pos.y) * 2
 		# link up neighbors
@@ -70,4 +96,9 @@ func _enter_tree():
 	var dice = get_node("../Dice")
 	dice.conns = conns
 	dice.lookup = lookup
-		
+	
+	# also put it in its start pos
+	var startPos = conns["start"]["pos"]
+	dice.position = Vector3(startPos.x * 2, 0, startPos.y * 2)
+	dice.curPos = startPos
+	dice.passData = passData

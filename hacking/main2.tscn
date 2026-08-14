@@ -4,6 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://dska3auftrt5e" path="res://hacking/Dice.tscn" id="1_y6ciw"]
 [ext_resource type="PackedScene" uid="uid://bos25d8yv3mbq" path="res://hacking/Map.tscn" id="2_x26nf"]
 [ext_resource type="Script" uid="uid://bekaei3rgjrx1" path="res://hacking/GestureDetector.gd" id="4_futv2"]
+[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://CoolWindow.tscn" id="5_ie3xe"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ie3xe"]
+viewport_path = NodePath("Dice/Sprite2D/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y6ciw"]
 size = Vector3(100, 0.1, 100)
@@ -21,6 +25,18 @@ script = ExtResource("1_6sufk")
 
 [node name="Dice" parent="." unique_id=1634481007 instance=ExtResource("1_y6ciw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0576508, 0)
+
+[node name="Sprite2D" type="Sprite3D" parent="Dice" unique_id=1988778537]
+transform = Transform3D(0.5, 0, 0, 0, 0.4815625, 0.13452715, 0, -0.13452715, 0.4815625, 0, 1.1109989, -0.93741155)
+texture = SubResource("ViewportTexture_ie3xe")
+
+[node name="SubViewport" type="SubViewport" parent="Dice/Sprite2D" unique_id=75087482]
+transparent_bg = true
+size = Vector2i(700, 512)
+
+[node name="CoolWindow" parent="Dice/Sprite2D/SubViewport" unique_id=2013251664 instance=ExtResource("5_ie3xe")]
+visible = false
+size = Vector2(700, 250)
 
 [node name="Camera3D" type="Camera3D" parent="Dice" unique_id=192943755]
 transform = Transform3D(1, 0, 0, 0, 0.5798785, 0.814703, 0, -0.814703, 0.5798785, 0, 4.5056906, 4.4509015)

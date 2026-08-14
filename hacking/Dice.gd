@@ -9,6 +9,7 @@ var zeroVec = Vector3(0, 0, 0)
 
 var lookup = {} # Vector2(x, y) -> true
 var conns = {} # "id" -> "next": ["id"]
+var passData = {} # "pass id" -> "password"
 
 var curPos = Vector2(0, 0)
 var curId = "start" # start at start
@@ -42,6 +43,26 @@ func _input(event):
 					velocity += Vector3(x*speed, 0, y*speed)
 					curPos = newPos
 					curId = lookup[newPos]
+	
+		# if we're now on a password square, show the window (or hide if we're not)
+		var window = get_node("Sprite2D/SubViewport/CoolWindow")
+		if "pass" in conns[curId]:
+			var passId = conns[curId]["pass"]
+			window.visible = true
+			var titleText = window.get_node("TitleText")
+			titleText.text = "Password"
+			var bodyText = window.get_node("SimpleBody")
+			bodyText.visible = true
+			bodyText.text = passData[passId].to_upper()
+			bodyText.size.x = window.size.x
+			bodyText.add_theme_font_size_override("font_size", 70)
+			window.tweenIn(window.size)
+		else:
+			if window.visible:
+				# hide it
+				var tween = window.tweenOut()
+				tween.tween_callback(func(): window.visible = false)
+			
 	
 func _physics_process(delta):
 	if not model:

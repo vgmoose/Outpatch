@@ -60,7 +60,7 @@ func _enter_tree():
 	titleText.size.y = 74
 	
 	windowBg.position = Vector2(0, 64)
-
+	#size = Vector2()
 	adjustBounds()
 	
 func adjustBounds():
@@ -88,6 +88,7 @@ func tweenOut():
 	var alpha = Color.WHITE
 	alpha.a = 0
 	windowTween.parallel().tween_property(self, "modulate", alpha, 0.25)
+	return windowTween
 	#windowTween.tween_callback(func(): queue_free())
 
 func _input(event):
