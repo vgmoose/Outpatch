@@ -24,7 +24,7 @@ func _init():
 		event.id = curId
 		curId += 1
 		eventStream.append(event)
-
+	
 	unpause.connect(func():
 		var events = get_node("Events")
 		for event in events.get_children():
@@ -148,10 +148,7 @@ func _enter_tree() -> void:
 		var csp = CSP.new(charBar.size.y, charName, charBar.getStats(charName))
 		charBar.add_child(csp)
 	
-	var curPos = screenWidth  / 2 - (charData.size() * charBar.size.y) / 2
-	for child: CSP in charBar.get_children():
-		child.position.x = curPos
-		curPos += charBar.size.y
+	charBar.position_csps()
 
 func animateDimmer(isIncoming, isFullscreen):
 	var tween = get_tree().create_tween()

@@ -20,6 +20,10 @@ material = SubResource("StandardMaterial3D_y6ciw")
 
 [sub_resource type="Environment" id="Environment_y6ciw"]
 
+[sub_resource type="SystemFont" id="SystemFont_ie3xe"]
+font_names = PackedStringArray("Monospace")
+subpixel_positioning = 0
+
 [node name="Main2" type="Node3D" unique_id=1846093601]
 script = ExtResource("1_6sufk")
 
@@ -27,7 +31,7 @@ script = ExtResource("1_6sufk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0576508, 0)
 
 [node name="Sprite2D" type="Sprite3D" parent="Dice" unique_id=1988778537]
-transform = Transform3D(0.5, 0, 0, 0, 0.4815625, 0.13452715, 0, -0.13452715, 0.4815625, 0, 1.1109989, -0.93741155)
+transform = Transform3D(0.5, 0, 0, 0, 0.41702962, 0.27583754, 0, -0.27583754, 0.41702962, 0, 1.1109989, -0.93741155)
 texture = SubResource("ViewportTexture_ie3xe")
 
 [node name="SubViewport" type="SubViewport" parent="Dice/Sprite2D" unique_id=75087482]
@@ -77,3 +81,12 @@ offset_right = 8.0
 offset_bottom = 8.0
 theme_override_font_sizes/font_size = 32
 text = "Close"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1573682067]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.9977209, 0.49828553, 0.48279446, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_ie3xe")
+scroll_active = false
+scroll_following = true

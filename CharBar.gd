@@ -7,6 +7,11 @@ var charStates = {}
 func _init():
 	pass
 
+func getTrait(charName):
+	if "trait" in charStates[charName]:
+		return charStates[charName]["trait"]
+	return ""
+
 func getColor(charName):
 	return charStates[charName]["color"]
 
@@ -19,15 +24,49 @@ func getFlying(charName):
 func loadChars(charPayload):
 	for key in charPayload:
 		var normalizedStats = charPayload[key]["stats"].map(func(val): return val / 10.0)
+		# TODO: at this point, probably just make a real Character class
 		charStates[key] = {
 			"name": key,
 			"stats": normalizedStats,
 			"color": Color.from_string(charPayload[key]["color"], Color.YELLOW),
 			"status": "READY",
-			"flying": "flying" in charPayload[key]
+			"flying": "flying" in charPayload[key],
+			"isHidden": "altName" in charPayload[key],
 		}
-func getChars():
-	return charStates.keys()
+		if "trait" in charPayload[key]:
+			charStates[key]["trait"] = charPayload[key]["trait"]
+		
+		if "altName" in charPayload[key]:
+			var altName = charPayload[key]["altName"]
+			# doubly link alts
+			charPayload[key]["altName"] = altName
+			charStates[key]["altName"] = altName
+			charStates[altName]["altName"] = key
+			# store the original name as the display name for later (one way)
+			charStates[key]["displayName"] = altName
+
+func markSeenHidden(oldName, newName):
+	charStates[oldName]["isHidden"] = true
+	charStates[newName]["isHidden"] = false
+	position_csps() # redraws our bottom bar
+
+func position_csps():
+	var curPos = size.x  / 2 - (getChars(true).size() * size.y) / 2
+	for child: CSP in get_children():
+		if charStates[child.myName]["isHidden"]:
+			child.visible = false
+			continue
+		child.visible = true
+		child.position.x = curPos
+		curPos += size.y
+		
+func getChars(skipHidden=false):
+	var keys = []
+	for key in charStates.keys():
+		if skipHidden and charStates[key]["isHidden"]:
+			continue
+		keys.append(key)
+	return keys
 
 func startTravelling(chosenChars, mainEvent, fromDest, toDest):
 	# update states (for target event, and chosen chars) and then dismiss
@@ -42,7 +81,7 @@ func startTravelling(chosenChars, mainEvent, fromDest, toDest):
 		gridIcon.position = fromDest
 		gridIcon.dest = toDest
 		gridIcon.eventParent = mainEvent
-		gridIcon.updateImg(self, char)
+		gridIcon.updateImg(self, char, chosenChars)
 		var main = get_tree().current_scene
 		var map = main.get_node("Events")
 		map.add_child(gridIcon)
@@ -59,17 +98,16 @@ func updateStatus(charName, newStatus, checkCounterparts=true):
 	charStates[charName]["status"] = newStatus
 	charTarget.curState = newStatus
 	charTarget.updateStatus()
-	
-	# TODO: handle transformation characters, until then, mark counterpart unavailable
+
 	if checkCounterparts and (newStatus == "ASSIGNED" or newStatus == "READY"):
 		var counterStatus = "UNAVAILABLE"
 		if newStatus == "READY":
 			counterStatus = "READY"
 
-		if charName == "Toxic-1":
-			updateStatus("Toxic-2", counterStatus, false)
-		if charName == "Toxic-2":
-			updateStatus("Toxic-1", counterStatus, false)
+		if charName == "Toxic":
+			updateStatus("Toxic-Acid", counterStatus, false)
+		if charName == "Toxic-Acid":
+			updateStatus("Toxic", counterStatus, false)
 
 
 func getStats(charName):

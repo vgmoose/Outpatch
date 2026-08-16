@@ -1,16 +1,18 @@
 {
-	"Toxic-1": {
+	"Toxic": {
 		"stats": [1, 5, 1, 6, 2],
 		"color": "green"
 	},
-	"Toxic-2": {
+	"Toxic-Acid": {
 		"stats": [3, 5, 4, 1, 2],
 		"color": "green",
+		"altName": "Toxic",
 		"flying": true
 	},
 	"Invisigal": {
 		"stats": [3, 2, 5, 1, 2],
-		"color": "purple"
+		"color": "purple",
+		"trait": "lone-wolf"
 	},
 	"Komodo": {
 		"stats": [6, 6, 1, 1, 1],

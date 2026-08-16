@@ -7,7 +7,7 @@ var eventParent = null
 var myCharName = "Unknown"
 var isWalker = true
 
-func updateImg(charBar: CharBar, charName: String):
+func updateImg(charBar: CharBar, charName: String, chosenChars):
 	var inner: TextureRect = get_node("CharGridIcon/Texture2D")
 	var texture = load("res://csps/" + charName + ".png")
 	if not texture:
@@ -23,6 +23,10 @@ func updateImg(charBar: CharBar, charName: String):
 	if not isWalker:
 		# little speed boost for flyers
 		speed += 25
+	
+	if charBar.getTrait(myCharName) == "lone-wolf":
+		if chosenChars.size() == 1:
+			speed += 100
 
 func _process(delta):
 	var main = get_tree().current_scene

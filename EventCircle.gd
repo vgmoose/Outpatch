@@ -136,12 +136,15 @@ func _process(delta: float):
 			print("Event is being worked on, but chosenChars is empty!")
 			return
 		var arrivedPercent = float(arrivedCount) / chosenChars.size()
+		# if we have one char, and it's a lone wolf, halve completion time
+		var charBar = get_tree().current_scene.get_node("CharBar")
+		if chosenChars.size() == 1 and charBar.getTrait(chosenChars[0]):
+			arrivedPercent *= 2
 		duration += delta * arrivedPercent # slower by the amount of who has yet to come
-		circleBar.value = 100 * (duration / 5.0) # hardcoded, always takes 5 seconds
-		if duration >= 5.0 and arrivedPercent >= 1:
+		circleBar.value = 100 * (duration / 10.0) # hardcoded, always takes 10 seconds TODO: make dynamic
+		if duration >= 10.0 and arrivedPercent >= 1:
 			# WE'RE DONE! switch to the next state, and make a grid icon to go back and stuff
 			updateStatus("COMPLETED")
-			var charBar = get_tree().current_scene.get_node("CharBar")
 			# send them back
 			charBar.startTravelling(chosenChars, null, position + Vector2(40, 40), Vector2(460, 460))
 				

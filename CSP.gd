@@ -4,6 +4,7 @@ class_name CSP
 var mySize = 0.0
 var myTexture = null
 var myName = "Unknown"
+var displayName = null
 
 var overlay = null
 var restMeter = 15
@@ -23,6 +24,7 @@ var recoveryBar = null
 func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
+	self.displayName = displayName
 	myTexture = load("res://csps/" + charName + ".png")
 	if not myTexture:
 		# fallback
@@ -38,6 +40,10 @@ func _enter_tree():
 	csp.texture = myTexture
 	csp.expand_mode = TextureRect.ExpandMode.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	
+	if "displayName" in charBarRef.charStates[myName]:
+		displayName = charBarRef.charStates[myName]["displayName"]
+	
 	csp.connect("mouse_entered", func():
 		if curState != "READY" and curState != "ASSIGNED":
 			return
@@ -65,10 +71,40 @@ func _enter_tree():
 	var button = Button.new()
 	csp.add_child(button)
 	button.text = myName.to_upper()
+	if displayName:
+		button.text = displayName.to_upper()
 	button.size.x = csp.size.x
 	#button.position.y = csp.size.y - button.size.y
 	button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	button.add_theme_font_size_override("font_size", 24)
+	
+	if selectedPrompt:
+		# this csp is being displayed in the selector prompt, if it has an altName, display a switcher buttone
+		var isAssignScreen = charBarRef.getStatus(myName) == "ASSIGNED"
+		if isAssignScreen and "altName" in charBarRef.charStates[myName]:
+			var swappa = Button.new()
+			csp.add_child(swappa)
+			swappa.text = "Change Form"
+			swappa.size.x = csp.size.x
+			swappa.position.y = csp.size.y
+			swappa.connect("pressed", func():
+				var altName = charBarRef.charStates[myName]["altName"]
+				#csp.texture = load("res://csps/" + altName + ".png")
+				charBarRef.markSeenHidden(myName, altName)
+				
+				var chosenChars = selectedPrompt.chosenChars.duplicate()
+				# remove all chars
+				for char in chosenChars:
+					main.choose_char.emit(char, false)
+				# then re-add all, but swapping out myName -> altName
+				for char in chosenChars:
+					if char == myName:
+						main.choose_char.emit(altName)
+					else:
+						main.choose_char.emit(char)
+			)
+			swappa.add_theme_font_size_override("font_size", 24)
+		#return
 	
 	overlay = ColorRect.new()
 	overlay.color = Color.DIM_GRAY
@@ -97,6 +133,8 @@ func _enter_tree():
 	recoveryBar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	recoveryBar.value = 0.5
 	recoveryBar.visible = false
+	
+	
 
 
 func updateStatus():
@@ -111,7 +149,7 @@ func updateStatus():
 func _input(event):
 	var main = get_tree().current_scene
 	if event is InputEventMouseButton:
-		if event.is_pressed():
+		if event.is_pressed() and visible:
 			if self.get_global_rect().has_point(event.position):
 				if selectedPrompt or curState == "ASSIGNED":
 					# unassaign!
