@@ -6,12 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://bj07oucqmm73c" path="res://icons/exclaim.png" id="3_uq7yo"]
 [ext_resource type="Texture2D" uid="uid://cobr6hedkf2mv" path="res://icons/circle_mask.png" id="4_mveov"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mveov"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="Theme" id="Theme_agga5"]
 
 [node name="EventCircle" type="Button" unique_id=411880080]
 offset_right = 12.0
 offset_bottom = 12.0
 theme_override_styles/normal = ExtResource("1_fs1eh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mveov")
 script = ExtResource("1_agga5")
 
 [node name="CircleBar" type="TextureProgressBar" parent="." unique_id=1683898103]

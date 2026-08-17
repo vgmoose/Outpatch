@@ -13,7 +13,7 @@ func _enter_tree():
 	
 	dice = get_node("Dice")
 	
-	var fullCodeText = FileAccess.get_file_as_string("res://main.gd")
+	var fullCodeText = FileAccess.get_file_as_string("res://generated/main.gd.csv")
 	for line in fullCodeText.split("\n"):
 		var lineStripped = line.strip_edges(true, true)
 		if lineStripped.begins_with("#") or lineStripped.begins_with("print"):

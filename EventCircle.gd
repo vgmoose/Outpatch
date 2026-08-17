@@ -2,6 +2,7 @@ extends Button
 class_name EventCircle
 
 var isPaused = false
+var wasFreed = false
 
 var eventId = 0
 var main: Main = null
@@ -93,29 +94,51 @@ func _enter_tree():
 	circle.modulate = Color.ORANGE
 		
 	circle.connect("mouse_entered", func():
-		if curStatus == "BEING_TRAVELED_TO" or curStatus == "BEING_WORKED_ON":
-			return
-		circle.modulate = Color.DARK_ORANGE
-		if curStatus == "COMPLETED":
-			circle.modulate = Color.DEEP_SKY_BLUE
-		#var tooltipScene = preload("res://CoolWindow.tscn")
-		#tooltip = tooltipScene.instantiate()
-		#tooltip.title = eventTitle
-		#add_child(tooltip)
-		#tooltip.position = Vector2(100, 0)
-		#tooltip.size = Vector2(650, 100)
-		#tooltip.adjustBounds()
-		#tooltip.tweenIn(Vector2(650, 100))
+		if curStatus != "BEING_TRAVELED_TO" and curStatus != "BEING_WORKED_ON":
+			circle.modulate = Color.DARK_ORANGE
+			if curStatus == "COMPLETED":
+				circle.modulate = Color.DEEP_SKY_BLUE
+
+		var tooltipScene = preload("res://CoolWindow.tscn")
+		tooltip = tooltipScene.instantiate()
+		tooltip.title = eventTitle
+		add_child(tooltip)
+		tooltip.position = Vector2(100, 0)
+		tooltip.size = Vector2(420, 140)
+		tooltip.z_index = 2 # above other events
+		if chosenChars.size() == 0:
+			# limit height if no chars are assigned
+			tooltip.size = Vector2(420, 60)
+		tooltip.adjustBounds()
+		
+		# add CSP stand ins for cur chars on this event,
+		# if any
+		for idx in range(chosenChars.size()):
+			var csp = CSP.new(97, chosenChars[idx], [])
+			csp.visualOnly = true
+			tooltip.add_child(csp)
+			csp.position.y = 80
+			csp.position.x = 20 + idx * 102
+		
+		tooltip.tweenIn(Vector2(650, 100))
 	)
 	circle.connect("mouse_exited", func():
-		if curStatus == "BEING_TRAVELED_TO" or curStatus == "BEING_WORKED_ON":
+		if wasFreed:
+			return # we were removed
+		if tooltip:
+			tooltip.tweenOut()
+		if curStatus != "BEING_TRAVELED_TO" and curStatus != "BEING_WORKED_ON":
 			return
-		#if tooltip:
-			#tooltip.tweenOut()
-		circle.modulate = Color.ORANGE
-		if curStatus == "COMPLETED":
-			circle.modulate = Color.DODGER_BLUE
+			circle.modulate = Color.ORANGE
+			if curStatus == "COMPLETED":
+				circle.modulate = Color.DODGER_BLUE
 	)
+func _exit_tree() -> void:
+	wasFreed = true
+
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		wasFreed = true
 
 func _process(delta: float):
 	if isPaused:

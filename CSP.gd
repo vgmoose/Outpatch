@@ -6,6 +6,8 @@ var myTexture = null
 var myName = "Unknown"
 var displayName = null
 
+var visualOnly = false
+
 var overlay = null
 var restMeter = 15
 
@@ -41,6 +43,8 @@ func _enter_tree():
 	csp.expand_mode = TextureRect.ExpandMode.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	
+	if visualOnly:
+		return # no text label in this case
 	if "displayName" in charBarRef.charStates[myName]:
 		displayName = charBarRef.charStates[myName]["displayName"]
 	
@@ -147,6 +151,8 @@ func updateStatus():
 	overlay.visible = curState == "ASSIGNED" or curState == "UNAVAILABLE"
 
 func _input(event):
+	if visualOnly:
+		return
 	var main = get_tree().current_scene
 	if event is InputEventMouseButton:
 		if event.is_pressed() and visible:
@@ -162,10 +168,14 @@ func _input(event):
 				main.choose_char.emit(myName)
 
 func _process(delta):
+	if visualOnly:
+		return
 	if not charBarRef:
 		return
 	if main.isPaused:
 		return
+	if selectedPrompt:
+		return # ON the Prompt screen, don't do any tick downs
 	# if resting, tick down our restMeter
 	if charBarRef.getStatus(myName) == "RESTING":
 		recoveryBar.visible = true

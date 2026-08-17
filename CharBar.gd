@@ -95,6 +95,17 @@ func updateStatus(charName, newStatus, checkCounterparts=true):
 	if not charTarget:
 		#couldn't find tthem
 		return
+	if newStatus == "READY":
+		# if we're marking them ready, ensure no event exists with them assigned to it
+		# since then we ahve to use waiting instead
+		var events = get_node("../Events")
+		for event in events.get_children():
+			if event is EventCircle and event.curStatus == "COMPLETED":
+				if event.chosenChars.has(charName):
+					# in an unreviewed job, mark waiting
+					updateStatus(charName, "WAITING")
+					return
+					
 	charStates[charName]["status"] = newStatus
 	charTarget.curState = newStatus
 	charTarget.updateStatus()

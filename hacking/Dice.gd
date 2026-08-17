@@ -81,6 +81,9 @@ func _input(event):
 				if "lock" in conns[curId]:
 					# TODO: copypasta from below
 					var passId = conns[curId]["lock"]
+					if passId in unlockedIds:
+						 # we don't have to danything
+						return
 					window.visible = true
 					var titleText = window.get_node("TitleText")
 					titleText.text = "Password"
@@ -115,10 +118,10 @@ func _input(event):
 func passToDirs(password_incoming, size):
 	var password = password_incoming.to_lower()
 	var dirs = {
-		"u": "↑",
-		"d": "↓",
-		"r": "→",
-		"l": "←"
+		"u": "U",
+		"d": "D",
+		"r": "R",
+		"l": "L"
 	}
 	var out = ""
 	for idx in range(size):

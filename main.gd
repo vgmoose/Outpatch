@@ -69,6 +69,7 @@ func _init():
 		
 		if isReview:
 			# copy over chosen characters
+			var prevChars = chosenEvent.chosenChars.duplicate()
 			prompt.chosenChars = chosenEvent.chosenChars
 			prompt.playProbabilityAnimation(chosenEvent)
 	)
@@ -83,6 +84,18 @@ func _init():
 			prompt.position_csps(charBar)
 			return
 		prompt.addChar(charBar, charName)
+		
+		# play a chatter for this character
+		var chatterBox = get_node("ChatterBox")
+		
+		# if we have a synergy set, do that too
+		if prompt.chosenChars.size() > 1:
+			var charCopies = prompt.chosenChars.duplicate()
+			charCopies.sort()
+			var synergyKey = "-".join(charCopies)
+			# always try to fire a synergy event (does nothing if missing)
+			chatterBox.toast("synergy", synergyKey)
+		chatterBox.toast("onAssign", charName)
 	)
 
 func _enter_tree() -> void:
@@ -91,6 +104,12 @@ func _enter_tree() -> void:
 	var jsonCharData = JSON.parse_string(charFileData)
 	var charBar: Control = get_node("CharBar")
 	charBar.loadChars(jsonCharData)
+	
+	# initialzie chatter data
+	var chatterFileData = FileAccess.get_file_as_string("res://data/chatters.json")
+	var jsonChatterData = JSON.parse_string(chatterFileData)
+	var chatterBox = get_node("ChatterBox")
+	chatterBox.ogData = jsonChatterData
 	
 	var viewport = get_viewport_rect()
 	var screenHeight = viewport.size.y
@@ -149,6 +168,10 @@ func _enter_tree() -> void:
 		charBar.add_child(csp)
 	
 	charBar.position_csps()
+	
+	var chatterBg = get_node("ChatterBox")
+	var chatterText = chatterBg.get_node("ChatterText")
+	chatterBg.position = Vector2(screenWidth/2.0 - chatterText.size.x/2.0, 50)
 
 func animateDimmer(isIncoming, isFullscreen):
 	var tween = get_tree().create_tween()

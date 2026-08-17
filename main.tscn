@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://CharBar.gd" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://icons/house.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://d2vuhvcgkucds" path="res://ChatterBox.gd" id="6_7mycd"]
 
 [node name="Node2D" type="Node2D" unique_id=652498079]
 script = ExtResource("1_ig7tw")
@@ -49,24 +50,26 @@ mouse_filter = 2
 
 [node name="Button2" type="Button" parent="ButtonBar" unique_id=775650165]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -125.0
-offset_right = 125.0
-offset_bottom = 75.0
-grow_horizontal = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+offset_right = 250.0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Fullscreen"
 
 [node name="Button" type="Button" parent="ButtonBar" unique_id=2012863711]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -250.0
-offset_bottom = 75.0
+offset_top = -75.0
 grow_horizontal = 0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Hacking Scene"
 
@@ -82,6 +85,31 @@ offset_bottom = 40.0
 
 [node name="EventPrompt" parent="." unique_id=1860844478 instance=ExtResource("5_lquwl")]
 visible = false
+
+[node name="ChatterBox" type="ColorRect" parent="." unique_id=146951820]
+visible = false
+offset_right = 1283.0
+offset_bottom = 77.0
+color = Color(0.080783345, 0.080783345, 0.080783345, 0.49411765)
+script = ExtResource("6_7mycd")
+
+[node name="ChatterText" type="RichTextLabel" parent="ChatterBox" unique_id=1273238168]
+layout_mode = 0
+offset_right = 1279.0
+offset_bottom = 75.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+text = "This page intentionally left blank"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ExternalScene" type="SubViewportContainer" parent="." unique_id=1804668217]
 visible = false

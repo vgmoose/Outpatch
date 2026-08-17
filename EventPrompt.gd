@@ -103,6 +103,14 @@ func display(mainEvent):
 	button.connect("pressed", func():
 		if allDone:
 			# clean up for next go around
+			var prevChars = mainEvent.chosenChars.duplicate()
+			mainEvent.chosenChars = []
+			
+			# if any chosen chars are in waiting, un-wait them
+			for charName in prevChars:
+				if charBar.getStatus(charName) == "WAITING":
+					charBar.updateStatus(charName, "READY")
+					
 			mainEvent.queue_free() # TODO: increase score
 			dismiss()
 			allDone = false
@@ -348,6 +356,17 @@ func position_csps(charBar):
 	var emptyGraph = StarGraph.new(Color.WEB_GRAY, true)
 	starGraphHolder.add_child(emptyGraph)
 	emptyGraph.draw_metrics()
+	
+	var labels = ["com", "vig", "mob", "cha", "int"]
+	for idx in range(5):
+		var point = emptyGraph.polygon[idx]
+		# create text labels for each stat, TODO: use icons
+		var label = Button.new()
+		emptyGraph.add_child(label)
+		label.text = labels[idx].to_upper()
+		label.add_theme_font_size_override("font_size", 28)
+		label.position = point - label.size / 2.0
+		label.z_index = 2
 
 	# merging logic
 	var gold = Color.DARK_RED
@@ -363,6 +382,7 @@ func position_csps(charBar):
 	#print("FINAL ", mergedWeights)
 	mergedGraph.update_graph(mergedWeights)
 	#mergedGraph.draw_metrics()
+
 	
 func addChar(charBar, charName):
 	# we can only add if the event is in the tikcing state

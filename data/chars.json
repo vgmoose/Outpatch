@@ -1,4 +1,9 @@
 {
+	"Shroud": {
+		"stats": [1, 2, 2, 3, 10],
+		"color": "darkred",
+		"altName": "Shroud"
+	},
 	"Toxic": {
 		"stats": [1, 5, 1, 6, 2],
 		"color": "green"
