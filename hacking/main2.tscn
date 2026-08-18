@@ -79,7 +79,7 @@ script = ExtResource("4_futv2")
 [node name="GoBack" type="Button" parent="." unique_id=2135937096]
 offset_right = 8.0
 offset_bottom = 8.0
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 50
 text = "Close"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1573682067]

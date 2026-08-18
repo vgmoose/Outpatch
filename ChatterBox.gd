@@ -74,18 +74,24 @@ func toast(chatterType, keyName):
 	self.size.y = oneLineHeight + 20
 	text.size.y = oneLineHeight + 20
 	
+	# update the global all text log, for future review
+	var allTextLog = get_node("../AllTextLog")
+	allTextLog.log(formatMsgs[0], true)
+	
 	self.modulate = Color.TRANSPARENT
 	visible = true
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate", Color.WHITE, 0.25)
 	var delayTime = 3.0
 	if formatMsgs.size() > 1:
-		delayTime -= 1.0 # minus 1 sec if we haved more msgs
+		delayTime /= 2.0 # half time if we haved more msgs
 	tween.tween_interval(delayTime)
+	
 	# for any repeat messages, enqueue them with 3 sec spacing
 	for idx in range(1, formatMsgs.size()):
 		tween.tween_callback(func():
 			text.text += "\n" + formatMsgs[idx]
+			allTextLog.log(formatMsgs[idx])
 			# extend the height of the bg
 			size.y = 20 + oneLineHeight * (idx+1)
 			text.position.y += 10
@@ -94,7 +100,7 @@ func toast(chatterType, keyName):
 			self.position.x,
 			initialYPos-(oneLineHeight/2.0)*idx
 		), 0.25)
-		tween.parallel().tween_interval(3)
+		tween.parallel().tween_interval(3.5) # extra half second for multimsg TODO: 3-part msgs?
 	# hide it at teh end
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 0.25)
 	tween.tween_callback(func():

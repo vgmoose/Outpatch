@@ -115,6 +115,12 @@ func _enter_tree() -> void:
 	var screenHeight = viewport.size.y
 	var screenWidth = viewport.size.x
 	
+	# position AllTextLog
+	var allTextLog = get_node("AllTextLog")
+	allTextLog.size = Vector2(1100, viewport.size.y)
+	allTextLog.position.x = viewport.size.x - allTextLog.size.x
+	allTextLog.z_index = 4
+	
 	var dimmer = get_node("Dimmer")
 	var tGray = Color.BLACK
 	tGray.a = 0.5
@@ -151,10 +157,18 @@ func _enter_tree() -> void:
 		tween.tween_property(subviewContainer, "position", viewport.size / 2.0 - subview.size / 2.0, 0.4)
 	)
 	
+	var showChatLog = buttonBar.get_node("Button3")
+	showChatLog.connect("pressed", func():
+		allTextLog.showLog()
+	)
+	
 	# create each CSP icon centered along the bottom
 	charBar.size.x = screenWidth
 	charBar.size.y = 200
 	charBar.position.y = screenHeight - charBar.size.y
+
+	showChatLog.position.y -= charBar.size.y
+	showChatLog.position.y += showChatLog.size.y
 
 	var map = get_node("Map")
 	map.size.x = screenWidth

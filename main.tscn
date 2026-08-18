@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://icons/house.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://d2vuhvcgkucds" path="res://ChatterBox.gd" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://c3l1yws6orhgy" path="res://AllTextLog.gd" id="7_272bh"]
 
 [node name="Node2D" type="Node2D" unique_id=652498079]
 script = ExtResource("1_ig7tw")
@@ -73,6 +74,20 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Hacking Scene"
 
+[node name="Button3" type="Button" parent="ButtonBar" unique_id=1047266661]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -75.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Chat Log"
+
 [node name="Clock" type="Label" parent="." unique_id=58676152]
 offset_right = 40.0
 offset_bottom = 69.0
@@ -110,6 +125,43 @@ fit_content = true
 scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AllTextLog" type="ColorRect" parent="." unique_id=2110745421]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8627451)
+script = ExtResource("7_272bh")
+
+[node name="AllTextText" type="RichTextLabel" parent="AllTextLog" unique_id=1535122127]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+bbcode_enabled = true
+scroll_following = true
+
+[node name="CloseButton" type="Button" parent="AllTextLog" unique_id=46293564]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -137.0
+offset_bottom = 77.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 50
+text = "Close"
 
 [node name="ExternalScene" type="SubViewportContainer" parent="." unique_id=1804668217]
 visible = false
