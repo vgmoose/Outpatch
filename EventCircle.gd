@@ -105,6 +105,13 @@ func _enter_tree():
 		add_child(tooltip)
 		tooltip.position = Vector2(100, 0)
 		tooltip.size = Vector2(420, 140)
+		
+		# if the tooltip would go offscreen, put it below and onscreen
+		var viewport = get_viewport_rect()
+		if tooltip.global_position.x + tooltip.size.x >= viewport.size.x:
+			tooltip.position.y = self.size.y + 15
+			tooltip.global_position.x = viewport.size.x - tooltip.size.x - 10
+		
 		tooltip.z_index = 2 # above other events
 		if chosenChars.size() == 0:
 			# limit height if no chars are assigned

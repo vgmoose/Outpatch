@@ -23,6 +23,8 @@ var charBarRef = null
 var selectedPrompt = null
 var recoveryBar = null
 
+var startPositionY = null
+
 func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
@@ -49,13 +51,16 @@ func _enter_tree():
 		displayName = charBarRef.charStates[myName]["displayName"]
 	
 	csp.connect("mouse_entered", func():
+		if startPositionY == null:
+			# we set this _one time_ at the first mouse over, as our reference point for future up/down tweens
+			startPositionY = position.y
 		if curState != "READY" and curState != "ASSIGNED":
 			return
 		if selectedPrompt and charBarRef.getStatus(myName) != "ASSIGNED":
 			return # no mouse over events for mini CSP's if not on the assignment phase
 		if main.isPaused:
 			z_index = 2
-			var dest = Vector2(position.x, position.y - 20)
+			var dest = Vector2(position.x, startPositionY - 20)
 			var tween = get_tree().create_tween()
 			tween.tween_property(csp, "position", dest, 0.1)
 	)
@@ -64,9 +69,7 @@ func _enter_tree():
 			return
 		if selectedPrompt and charBarRef.getStatus(myName) != "ASSIGNED":
 			return # no mouse over events for mini CSP's if not on the assignment phase
-		var dest = Vector2(position.x, 0)
-		if selectedPrompt:
-			dest = Vector2(position.x, position.y + 20) # has to be relative, for mini icon
+		var dest = Vector2(position.x, startPositionY) # back to initial pos
 		if main.isPaused:
 			var tween = get_tree().create_tween()
 			tween.tween_property(csp, "position", dest, 0.1)

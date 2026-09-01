@@ -70,12 +70,21 @@ func adjustBounds():
 	var titleBg = get_node("TitleBg")
 	var windowBg = get_node("WindowBg")
 	# resize and update our tile layers based on teh requested size
-	resize_tilemap(Vector2(size.x, 96), titleBg)
-	resize_tilemap(Vector2(size.x, size.y), windowBg)
+	if size.y <= 64:
+		# too small to display the window contents, just draw title bar
+		# (this can also be used as a button)
+		windowBg.clear()
+		resize_tilemap(Vector2(size.x, 64), titleBg)
+		# this specifical CoolWindow instance will no longer work /needs reset after being this small
+		# TODO: fix that
+		titleText.size.y = 64 # if this isn't lessened, it looks offcenter due to the bottom bezel of the window/button
+	else:
+		resize_tilemap(Vector2(size.x, 96), titleBg)
+		resize_tilemap(Vector2(size.x, size.y), windowBg)
 	
 func tweenIn(size):
 	var windowTween = get_tree().create_tween()
-	self.size = size 
+	self.size = size
 	self.scale = Vector2(0.1, 0.1) # start at half size, half transparency
 	self.modulate.a = 0
 	windowTween.tween_property(self, "scale", Vector2(1, 1), 0.25)

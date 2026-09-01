@@ -59,7 +59,7 @@ func position_csps():
 		child.visible = true
 		child.position.x = curPos
 		curPos += size.y
-		
+
 func getChars(skipHidden=false):
 	var keys = []
 	for key in charStates.keys():
@@ -119,7 +119,6 @@ func updateStatus(charName, newStatus, checkCounterparts=true):
 			updateStatus("Toxic-Acid", counterStatus, false)
 		if charName == "Toxic-Acid":
 			updateStatus("Toxic", counterStatus, false)
-
 
 func getStats(charName):
 	return charStates[charName]["stats"]
