@@ -14,7 +14,7 @@ config/name="Outpatch"
 run/main_scene="uid://b0jysl7dtdj0t"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://images/icons/icon.svg"
 
 [display]
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c58pnbcaokh83"]
 
-[ext_resource type="Script" uid="uid://dgykr2noifwjw" path="res://hacking/Main2.gd" id="1_6sufk"]
+[ext_resource type="Script" uid="uid://dgykr2noifwjw" path="res://hacking/HackingMain.gd" id="1_6sufk"]
 [ext_resource type="PackedScene" uid="uid://dska3auftrt5e" path="res://hacking/Dice.tscn" id="1_y6ciw"]
 [ext_resource type="PackedScene" uid="uid://bos25d8yv3mbq" path="res://hacking/Map.tscn" id="2_x26nf"]
 [ext_resource type="Script" uid="uid://bekaei3rgjrx1" path="res://hacking/GestureDetector.gd" id="4_futv2"]

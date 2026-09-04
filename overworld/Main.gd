@@ -161,7 +161,7 @@ func _enter_tree() -> void:
 		isPaused = true
 		var subviewContainer = get_node("ExternalScene")
 		var subview = subviewContainer.get_node("SubViewport")
-		var hackingScene = preload("res://hacking/main2.tscn")
+		var hackingScene = preload("res://hacking/HackingMain.tscn")
 		var hacking = hackingScene.instantiate()
 		subviewContainer.visible = true
 		subview.add_child(hacking)
