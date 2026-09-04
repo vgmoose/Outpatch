@@ -1,12 +1,19 @@
 ## Outpatch
 An open source Dispatch fan game engine
 
+Play the WIP demo online at: [vgmoose.itch.io/outpatch](https://vgmoose.itch.io/outpatch)
+
 ## Features
 - Overview of incoming missions, and assigning characters to them
 - Review results with the bouncing-ball style overlay on the 5 point graph
 - 3D hacking mini game, for missions that use it
 - Text chirps on assignment and synergy pairs between characters
 - Quirks for characters like transformations or passive traits
+
+## Screenshots
+| Map | Mission |
+|---|---|
+| ![Overworld](images/overwowrld.png) | ![Mission details](images/mission_details.png) |
 
 ## TODO
 - VN style cutscenes with characters in between mission
@@ -17,7 +24,7 @@ An open source Dispatch fan game engine
 ## Usage
 Most of the customization is designed to be done by editing json text files, or adding in your own image files.
 
-### Caracters - `chars.json`
+### Characters - `chars.json`
 This file uses the character's name as a key, and their attributes as values.
 
 - `stats` - An array of their base stats, out of 10 each, in order: combat, vigor, mobility, charisma, intelligence
@@ -30,7 +37,9 @@ This file uses the character's name as a key, and their attributes as values.
 TODO: document this
 
 ### Chatter dialogue - `chatters.json`
-TODO: document this
+TODO: document this further
+
+Hybrid key names for synergies use character names in alphabetical order.
 
 ### Scene dialogue - `scene.json`
 TODO: document this
@@ -49,15 +58,15 @@ After the layout, there are lines indicating the actual password value (in direc
   - "Doors" are the connection in between two nodes, so that's why it takes a direction, indicating that's where the blocked segment will be, relative to the current node
 
 ### General game info - `game.json`
-Basic info about the game, to be displayed on the title screen
+Basic info about the game, to be displayed on the title screen. Also any color tweeks for window, button, or other themeing that is applied at runtime.
 
 ## License
 This project is available under the [GPLv3](https://choosealicense.com/licenses/gpl-3.0/).
 
 ### Human Disclosure
-The code and text in this project is 100% written "by hand" and by humans. The Godot game engine is fun and easy to use, see their [Introduction guide](https://docs.godotengine.org/en/stable/getting_started/introduction/index.html#toc-learn-introduction) for more info.
+The code and text in this project is 100% written "by hand" and by humans. The Godot game engine is fun and easy to use! See their [Getting Started guide](https://docs.godotengine.org/en/stable/getting_started/introduction/introduction_to_godot.html) for more info.
 
-There's still value in handcrafting stuff and learning new things! If every endeavor were automated, we could just get into our matrix VR pods and live out the rest of our days already.
+There's still value in handcrafting stuff and learning new things! If every endeavor were fully automated, then we could just get into our matrix VR pods and live out the rest of our days already.
 
 ### Contributing
 Likewise, if you want to make contributions back to this repository, please do not use any AI tools.

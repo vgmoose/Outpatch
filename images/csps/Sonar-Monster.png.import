@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c286uv0gsx7q0"
-path="res://.godot/imported/Khopesh.png-b00f31cf2ad7b2d0fd7029d09ba3587b.ctex"
+uid="uid://cpta6xklvvmjp"
+path="res://.godot/imported/Sonar-Monster.png-f64783970c74781097e75e29fcf5c333.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Khopesh.png"
-dest_files=["res://.godot/imported/Khopesh.png-b00f31cf2ad7b2d0fd7029d09ba3587b.ctex"]
+source_file="res://images/csps/Sonar-Monster.png"
+dest_files=["res://.godot/imported/Sonar-Monster.png-f64783970c74781097e75e29fcf5c333.ctex"]
 
 [params]
 

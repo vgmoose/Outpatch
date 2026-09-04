@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcljidrn7qm5p"
-path="res://.godot/imported/Sonar.webp.png-247b60e14ae25098e653822ac3246525.ctex"
+uid="uid://b074x4ean8b2u"
+path="res://.godot/imported/Coupé.png-100c05160d51c600f1eb36c4c208533d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Sonar.webp.png"
-dest_files=["res://.godot/imported/Sonar.webp.png-247b60e14ae25098e653822ac3246525.ctex"]
+source_file="res://images/csps/Coupé.png"
+dest_files=["res://.godot/imported/Coupé.png-100c05160d51c600f1eb36c4c208533d.ctex"]
 
 [params]
 

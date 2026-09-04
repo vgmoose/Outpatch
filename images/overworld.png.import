@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clknbud5ami3e"
-path="res://.godot/imported/Toxic-Acid.png-d7232a0ecc7546f05382e7531ad50a41.ctex"
+uid="uid://b5yhxn1ontmf5"
+path="res://.godot/imported/overworld.png-0761d2b9baf8de24a629a6bae892ebfc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Toxic-Acid.png"
-dest_files=["res://.godot/imported/Toxic-Acid.png-d7232a0ecc7546f05382e7531ad50a41.ctex"]
+source_file="res://images/overworld.png"
+dest_files=["res://.godot/imported/overworld.png-0761d2b9baf8de24a629a6bae892ebfc.ctex"]
 
 [params]
 

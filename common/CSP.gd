@@ -29,10 +29,7 @@ func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
 	self.displayName = displayName
-	myTexture = load("res://images/csps/" + charName + ".png")
-	if not myTexture:
-		# fallback
-		myTexture = load("res://images/csps/Unknown.jpg")
+	myTexture = load("res://images/csps/Unknown.jpg")
 	myWeights = charWeights
 
 func _enter_tree():
@@ -41,10 +38,24 @@ func _enter_tree():
 	charBarRef = main.get_node("CharBar")
 	csp.size.x = mySize
 	csp.size.y = mySize
+	
+	# setup the actual CSP image
+	# TODO: allow loading from an external folder, for easy customization
+	var cspImage = Image.load_from_file("res://images/csps/" + myName + ".png")
+	var bgColor = ImageTexture.create_from_image(cspImage).image
+	var charBg = charBarRef.getColor(myName)
+	bgColor.fill(charBg.darkened(0.75))
+	bgColor.blend_rect(cspImage, bgColor.get_used_rect(), Vector2(0, 0))
+	var newTexture = ImageTexture.create_from_image(bgColor)
+	if newTexture:
+		myTexture = newTexture
+	
+	# set the texture directly
+	
 	csp.texture = myTexture
 	csp.expand_mode = TextureRect.ExpandMode.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	csp.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	
+
 	if visualOnly:
 		return # no text label in this case
 	if "displayName" in charBarRef.charStates[myName]:

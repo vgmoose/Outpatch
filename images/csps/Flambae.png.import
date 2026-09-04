@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da54cltrmadj5"
-path="res://.godot/imported/Komodo.png-cb9d6d511906356c9521a9d985083cfa.ctex"
+uid="uid://ffc73ygvp0cf"
+path="res://.godot/imported/Flambae.png-4b6efdd2412bd8e31e3c6fdec37fd145.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Komodo.png"
-dest_files=["res://.godot/imported/Komodo.png-cb9d6d511906356c9521a9d985083cfa.ctex"]
+source_file="res://images/csps/Flambae.png"
+dest_files=["res://.godot/imported/Flambae.png-4b6efdd2412bd8e31e3c6fdec37fd145.ctex"]
 
 [params]
 

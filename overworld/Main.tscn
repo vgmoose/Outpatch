@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b0jysl7dtdj0t"]
 
-[ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://overworld/Main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dnujyhwayvhfy" path="res://images/Torrance.png" id="2_272bh"]
 [ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://overworld/CharBar.gd" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://images/icons/house.png" id="5_7mycd"]

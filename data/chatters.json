@@ -1,22 +1,16 @@
 {
 	"onAssign": {
-		"Toxic": [
-			"You got it, bossman",
-			"Yes, [i]sir[/i]!",
-			"Already on it.",
-			"Aww, a job? For me?",
-			"I was just thinkin' about you, boss.",
-			"I got this."
+		"Sonar": [
+			"Sure thing, man.",
+			"Don't mention it. No literally, don't mention it."
 		]
 	},
 	"synergy": {
-		"Invisigal-Toxic": [
-			[ "Invisigal", "You gonna keep up this time?", "Toxic", "What, like it's hard?" ],
-			[ "Toxic", "Hey, babe.", "Invisigal", "Hey yourself." ],
-			[ "Toxic", "Need to catch your breath?" ]
+		"Invisigal-Sonar": [
+			[ "Invisigal", "You gonna keep up this time?", "Sonar", "Of course." ],
 		],
-		"Invisigal-Toxic-Acid": [
-			["Invisigal", "Dude, watch where you're swinging that thing." ]
+		"Prism-Sonar-Monster": [
+			["Prism", "Yikes!" ]
 		]
 	}
 }

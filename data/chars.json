@@ -1,47 +1,43 @@
 {
-	"Shroud": {
-		"stats": [1, 2, 2, 3, 10],
-		"color": "darkred",
-		"altName": "Shroud"
+	"Sonar": {
+		"stats": [2, 1, 2, 3, 4],
+		"color": "darkgray"
 	},
-	"Toxic": {
-		"stats": [1, 5, 1, 6, 2],
-		"color": "green"
+	"Sonar-Monster": {
+		"stats": [4, 3, 2, 1, 2],
+		"color": "darkgray",
+		"altName": "Sonar",
+		"flying": true
 	},
-	"Toxic-Acid": {
-		"stats": [3, 5, 4, 1, 2],
-		"color": "green",
-		"altName": "Toxic",
+	"Flambae": {
+		"stats": [4, 2, 3, 2, 1],
+		"color": "orange",
 		"flying": true
 	},
 	"Invisigal": {
-		"stats": [3, 2, 5, 1, 2],
+		"stats": [3, 2, 3, 1, 2],
 		"color": "purple",
 		"trait": "lone-wolf"
 	},
-	"Komodo": {
-		"stats": [6, 6, 1, 1, 1],
-		"color": "orange"
+	"Punch Up": {
+		"stats": [3, 4, 1, 3, 1],
+		"color": "green"
 	},
-	"Whiplash": {
-		"stats": [3, 1, 5, 4, 2],
-		"color": "gray"
+	"Malevola": {
+		"stats": [3, 2, 2, 3, 2],
+		"color": "red"
 	},
-	"Mantis": {
-		"stats": [5, 2, 3, 4, 1],
-		"color": "darkgreen"
+	"Golem": {
+		"stats": [3, 4, 1, 4, 1],
+		"color": "brown"
 	},
-	"Glob": {
-		"stats": [3, 6, 1, 1, 4],
+	"Prism": {
+		"stats": [4, 1, 1, 4, 2],
 		"color": "pink"
 	},
-	"Psychic": {
-		"stats": [2, 1, 5, 2, 5],
-		"color": "lightblue",
+	"Coupé": {
+		"stats": [4, 1, 3, 1, 3],
+		"color": "silver",
 		"flying": true
-	},
-	"Khopesh": {
-		"stats": [5, 2, 2, 1, 5],
-		"color": "red"
 	}
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ulyb6uawdvf2"
-path="res://.godot/imported/Glob.png-d90a174711e4044ff2d4282ba73fd87d.ctex"
+uid="uid://cscruordetud5"
+path="res://.godot/imported/mission_details.png-8a0944d5cf0ba6d3733dd1a7a1f8775c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Glob.png"
-dest_files=["res://.godot/imported/Glob.png-d90a174711e4044ff2d4282ba73fd87d.ctex"]
+source_file="res://images/mission_details.png"
+dest_files=["res://.godot/imported/mission_details.png-8a0944d5cf0ba6d3733dd1a7a1f8775c.ctex"]
 
 [params]
 

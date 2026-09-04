@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfvbpbs1nmooo"
-path="res://.godot/imported/Psychic.png-722a4e130860152176246039412d9fce.ctex"
+uid="uid://be4wt6otgcmg0"
+path="res://.godot/imported/Sonar.png-f3db6600be5cf91b566d75bd2c0c871a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/csps/Psychic.png"
-dest_files=["res://.godot/imported/Psychic.png-722a4e130860152176246039412d9fce.ctex"]
+source_file="res://images/csps/Sonar.png"
+dest_files=["res://.godot/imported/Sonar.png-f3db6600be5cf91b566d75bd2c0c871a.ctex"]
 
 [params]
 
