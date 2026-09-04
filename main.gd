@@ -18,7 +18,18 @@ static var gameConfigData = {} # global attributes about the game
 
 func _init():
 	var gameFileData = FileAccess.get_file_as_string("res://data/game.json")
-	Main.gameConfigData = JSON.parse_string(gameFileData)		
+	Main.gameConfigData = JSON.parse_string(gameFileData)
+	
+	if "cursorTint" in Main.gameConfigData:
+		var image = Image.load_from_file("res://images/icons/cursor.png")
+		var blendMask = ImageTexture.create_from_image(image).image
+		blendMask.fill(Main.gameConfigData["cursorTint"])
+		image.fix_alpha_edges()
+		image.blend_rect_mask(blendMask, image, blendMask.get_used_rect(), Vector2(0, 0))
+		image.fix_alpha_edges()
+		image.premultiply_alpha()
+		var texture = ImageTexture.create_from_image(image)
+		Input.set_custom_mouse_cursor(texture)
 
 	# initialize event data
 	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")

@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cdd643wxw0t2m" path="res://EventCircle.gd" id="1_agga5"]
 [ext_resource type="StyleBox" uid="uid://d1rf3alwantq3" path="res://radial_crop.tres" id="1_fs1eh"]
-[ext_resource type="Texture2D" uid="uid://wco77xup7dpr" path="res://images/icons/check_round_color.png" id="3_43677"]
-[ext_resource type="Texture2D" path="res://images/icons/check_round_color.png" id="3_b6siq"]
-[ext_resource type="Texture2D" path="res://images/icons/exclaim.png" id="3_uq7yo"]
-[ext_resource type="Texture2D" path="res://images/icons/circle_mask.png" id="4_mveov"]
+[ext_resource type="Texture2D" uid="uid://wco77xup7dpr" path="res://images/icons/check_round_color.png" id="3_b6siq"]
+[ext_resource type="Texture2D" uid="uid://bj07oucqmm73c" path="res://images/icons/exclaim.png" id="3_uq7yo"]
+[ext_resource type="Texture2D" uid="uid://cobr6hedkf2mv" path="res://images/icons/circle_mask.png" id="4_mveov"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mveov"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -28,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
 theme = SubResource("Theme_agga5")
-texture_under = ExtResource("3_43677")
+texture_under = ExtResource("3_b6siq")
 texture_progress = ExtResource("3_b6siq")
 tint_under = Color(1, 0.16862746, 0.3764706, 1)
 tint_progress = Color(0, 0.88235295, 0.5137255, 1)

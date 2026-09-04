@@ -10,9 +10,8 @@ func _enter_tree():
 	if initialLabel:
 		label.text = initialLabel
 
-	#if "windowTint" in Main.gameConfigData:
-		#texture_normal.modulate = Main.gameConfigData["windowTint"]
-		#texture_normal.modulate = modulate.darkened(0.2)
+	if "windowTint" in Main.gameConfigData:
+		self_modulate = Main.gameConfigData["windowTint"]
 
 func set_text(labelText):
 	var label = get_node("Label")

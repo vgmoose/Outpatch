@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3vwxoahmfkxj"
-path="res://.godot/imported/cursor.png-96bb826a8e15a5510b159871bfdd0310.ctex"
+uid="uid://dq3us7w4mruh"
+path="res://.godot/imported/button_rectangle_flat.png-ad976b8501f1ac9d57c9e2e9e4974362.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/icons/cursor.png"
-dest_files=["res://.godot/imported/cursor.png-96bb826a8e15a5510b159871bfdd0310.ctex"]
+source_file="res://images/csps/button_rectangle_flat.png"
+dest_files=["res://.godot/imported/button_rectangle_flat.png-ad976b8501f1ac9d57c9e2e9e4974362.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
