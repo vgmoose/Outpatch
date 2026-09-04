@@ -107,7 +107,7 @@ func update_graph(weights: Array[float] = []):
 		jointPoints = []
 		for point in points:
 			var ballJoint = Sprite2D.new()
-			ballJoint.texture = preload("res://icons/check_round_color.png")
+			ballJoint.texture = preload("res://images/icons/check_round_color.png")
 			ballJoint.scale = Vector2(0.25, 0.25)
 			ballJoint.modulate = darkerColor
 			add_child(ballJoint)

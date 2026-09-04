@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6jcui1he1pe8"
-path="res://.godot/imported/Unknown.jpg-b43d5b9ce84bd4c42a392d98ce01724f.ctex"
+uid="uid://dmc8qxblhxilp"
+path="res://.godot/imported/Whiplash.png-d31eeeec0b318753e282eaa6d3e8d0a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Unknown.jpg"
-dest_files=["res://.godot/imported/Unknown.jpg-b43d5b9ce84bd4c42a392d98ce01724f.ctex"]
+source_file="res://images/csps/Whiplash.png"
+dest_files=["res://.godot/imported/Whiplash.png-d31eeeec0b318753e282eaa6d3e8d0a7.ctex"]
 
 [params]
 

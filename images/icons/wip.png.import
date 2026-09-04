@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxyulhhkf4drc"
-path="res://.godot/imported/short_button.png-2423596665837e7ae16b9bcec2203e74.ctex"
+uid="uid://cuj24rxgqw8cc"
+path="res://.godot/imported/wip.png-89d83d5dfb099fbbe12471a171a38173.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/short_button.png"
-dest_files=["res://.godot/imported/short_button.png-2423596665837e7ae16b9bcec2203e74.ctex"]
+source_file="res://images/icons/wip.png"
+dest_files=["res://.godot/imported/wip.png-89d83d5dfb099fbbe12471a171a38173.ctex"]
 
 [params]
 

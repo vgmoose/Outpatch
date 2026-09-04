@@ -63,6 +63,12 @@ func _enter_tree():
 	#size = Vector2()
 	adjustBounds()
 	
+	# apply the window tint to the tilemap layer
+	if "windowTint" in Main.gameConfigData:
+		var color = Main.gameConfigData["windowTint"]
+		windowBg.modulate = color
+		titleBg.modulate = color
+
 func adjustBounds():
 	var titleText = get_node("TitleText")
 	titleText.size.x = size.x

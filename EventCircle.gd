@@ -40,9 +40,9 @@ func updateStatus(newStatus):
 	
 	var label = get_node("TextureRect")
 	if newStatus == "COMPLETED":
-		label.texture = preload("res://icons/checked.png")
+		label.texture = preload("res://images/icons/checked.png")
 	else:
-		label.texture = preload("res://icons/wip.png") # TODO: more symbols
+		label.texture = preload("res://images/icons/wip.png") # TODO: more symbols
 		
 	curStatus = newStatus
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c286uv0gsx7q0"
-path="res://.godot/imported/Khopesh.png-0554f7b5c9f440f0e54408002e676978.ctex"
+uid="uid://d3vwxoahmfkxj"
+path="res://.godot/imported/cursor.png-96bb826a8e15a5510b159871bfdd0310.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Khopesh.png"
-dest_files=["res://.godot/imported/Khopesh.png-0554f7b5c9f440f0e54408002e676978.ctex"]
+source_file="res://images/icons/cursor.png"
+dest_files=["res://.godot/imported/cursor.png-96bb826a8e15a5510b159871bfdd0310.ctex"]
 
 [params]
 

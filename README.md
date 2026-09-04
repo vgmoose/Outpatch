@@ -48,6 +48,9 @@ After the layout, there are lines indicating the actual password value (in direc
 - `door <N> <DIR>` - Where `N` is the lock number for this door, and `<DIR>` is one of: `u`, `d`, `l`, `r`
   - "Doors" are the connection in between two nodes, so that's why it takes a direction, indicating that's where the blocked segment will be, relative to the current node
 
+### General game info - `game.json`
+Basic info about the game, to be displayed on the title screen
+
 ## License
 This project is available under the [GPLv3](https://choosealicense.com/licenses/gpl-3.0/).
 
@@ -59,4 +62,4 @@ There's still value in handcrafting stuff and learning new things! If every ende
 ### Contributing
 Likewise, if you want to make contributions back to this repository, please do not use any AI tools.
 
-If you are using it for your own fan game, that decision is up to you. (No further restrictions imposed, outside of GPLv3)
+If you are using it for your own fan game, that decision is up to you. (No restrictions imposed, outside of GPLv3)

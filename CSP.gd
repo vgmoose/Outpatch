@@ -29,10 +29,10 @@ func _init(dimen, charName, charWeights):
 	mySize = dimen
 	myName = charName
 	self.displayName = displayName
-	myTexture = load("res://csps/" + charName + ".png")
+	myTexture = load("res://images/csps/" + charName + ".png")
 	if not myTexture:
 		# fallback
-		myTexture = load("res://csps/Unknown.jpg")
+		myTexture = load("res://images/csps/Unknown.jpg")
 	myWeights = charWeights
 
 func _enter_tree():
@@ -96,7 +96,7 @@ func _enter_tree():
 			swappa.position.y = csp.size.y
 			swappa.connect("pressed", func():
 				var altName = charBarRef.charStates[myName]["altName"]
-				#csp.texture = load("res://csps/" + altName + ".png")
+				#csp.texture = load("res://images/csps/" + altName + ".png")
 				charBarRef.markSeenHidden(myName, altName)
 				
 				var chosenChars = selectedPrompt.chosenChars.duplicate()

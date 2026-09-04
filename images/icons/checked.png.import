@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://emxjukqajyfd"
-path="res://.godot/imported/button_rectangle_flat.png-e60becda2354c0e4c154c4f799e65653.ctex"
+uid="uid://bdfdatrp6ctfq"
+path="res://.godot/imported/checked.png-d1403633479acd743b19d2c82a44b11a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/button_rectangle_flat.png"
-dest_files=["res://.godot/imported/button_rectangle_flat.png-e60becda2354c0e4c154c4f799e65653.ctex"]
+source_file="res://images/icons/checked.png"
+dest_files=["res://.godot/imported/checked.png-d1403633479acd743b19d2c82a44b11a.ctex"]
 
 [params]
 

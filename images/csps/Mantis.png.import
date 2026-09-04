@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuj24rxgqw8cc"
-path="res://.godot/imported/wip.png-c2e8be77b3be3ea6b911286ed764b87c.ctex"
+uid="uid://bw742mnmxc4w"
+path="res://.godot/imported/Mantis.png-5f22e4ba5931054b006b32cabace186e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/wip.png"
-dest_files=["res://.godot/imported/wip.png-c2e8be77b3be3ea6b911286ed764b87c.ctex"]
+source_file="res://images/csps/Mantis.png"
+dest_files=["res://.godot/imported/Mantis.png-5f22e4ba5931054b006b32cabace186e.ctex"]
 
 [params]
 

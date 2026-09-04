@@ -14,7 +14,12 @@ var eventStream = [] # ibid
 
 var curTime = 0.0
 
+static var gameConfigData = {} # global attributes about the game
+
 func _init():
+	var gameFileData = FileAccess.get_file_as_string("res://data/game.json")
+	Main.gameConfigData = JSON.parse_string(gameFileData)		
+
 	# initialize event data
 	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")
 	var jsonEventData = JSON.parse_string(eventFileData)
@@ -173,6 +178,9 @@ func _enter_tree() -> void:
 	var map = get_node("Map")
 	map.size.x = screenWidth
 	map.size.y = screenHeight - charBar.size.y
+	
+	if "bgMapTint" in Main.gameConfigData:
+		map.modulate = Main.gameConfigData["bgMapTint"]
 	
 	var prompt = get_node("EventPrompt")
 	

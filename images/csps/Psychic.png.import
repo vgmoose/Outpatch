@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs6yu1fowxgoo"
-path="res://.godot/imported/Torrance.png-1d0508a2f85027e17e82ad6ac8acb095.ctex"
+uid="uid://cfvbpbs1nmooo"
+path="res://.godot/imported/Psychic.png-722a4e130860152176246039412d9fce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Torrance.png"
-dest_files=["res://.godot/imported/Torrance.png-1d0508a2f85027e17e82ad6ac8acb095.ctex"]
+source_file="res://images/csps/Psychic.png"
+dest_files=["res://.godot/imported/Psychic.png-722a4e130860152176246039412d9fce.ctex"]
 
 [params]
 

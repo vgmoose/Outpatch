@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://bkfm2sjrw6xe3"]
 
 [ext_resource type="Script" uid="uid://8hb7d6q581hq" path="res://CoolWindow.gd" id="1_8ab4l"]
-[ext_resource type="Texture2D" uid="uid://emxjukqajyfd" path="res://icons/button_rectangle_flat.png" id="2_ovaul"]
-[ext_resource type="Texture2D" uid="uid://sca3ejxn4jsu" path="res://icons/button_square_border.png" id="3_vkaf1"]
+[ext_resource type="Texture2D" uid="uid://emxjukqajyfd" path="res://images/icons/button_rectangle_flat.png" id="2_ovaul"]
+[ext_resource type="Texture2D" uid="uid://sca3ejxn4jsu" path="res://images/icons/button_square_border.png" id="3_vkaf1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_67lex"]
 texture = ExtResource("2_ovaul")

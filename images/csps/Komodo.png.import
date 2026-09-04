@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj07oucqmm73c"
-path="res://.godot/imported/exclaim.png-86895b9b8620784c12ad01eae59e3977.ctex"
+uid="uid://da54cltrmadj5"
+path="res://.godot/imported/Komodo.png-cb9d6d511906356c9521a9d985083cfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/exclaim.png"
-dest_files=["res://.godot/imported/exclaim.png-86895b9b8620784c12ad01eae59e3977.ctex"]
+source_file="res://images/csps/Komodo.png"
+dest_files=["res://.godot/imported/Komodo.png-cb9d6d511906356c9521a9d985083cfa.ctex"]
 
 [params]
 

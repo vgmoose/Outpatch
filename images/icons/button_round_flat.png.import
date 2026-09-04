@@ -2,20 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5h5qlb0mi7o1"
-path="res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"
+uid="uid://c40byybdyl4a0"
+path.s3tc="res://.godot/imported/button_round_flat.png-85a6302359ca8d8231944f63eec53e04.s3tc.ctex"
+path.etc2="res://.godot/imported/button_round_flat.png-85a6302359ca8d8231944f63eec53e04.etc2.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://csps/Toxic.png"
-dest_files=["res://.godot/imported/Toxic.png-6d95fc5d2e28e86d9d9833484f4ce413.ctex"]
+source_file="res://images/icons/button_round_flat.png"
+dest_files=["res://.godot/imported/button_round_flat.png-85a6302359ca8d8231944f63eec53e04.s3tc.ctex", "res://.godot/imported/button_round_flat.png-85a6302359ca8d8231944f63eec53e04.etc2.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -23,7 +25,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -37,4 +39,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

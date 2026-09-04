@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3vwxoahmfkxj"
-path="res://.godot/imported/cursor.png-61f7b540f046003a36145a36dd6ceaa7.ctex"
+uid="uid://bcljidrn7qm5p"
+path="res://.godot/imported/Sonar.webp.png-247b60e14ae25098e653822ac3246525.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/cursor.png"
-dest_files=["res://.godot/imported/cursor.png-61f7b540f046003a36145a36dd6ceaa7.ctex"]
+source_file="res://images/csps/Sonar.webp.png"
+dest_files=["res://.godot/imported/Sonar.webp.png-247b60e14ae25098e653822ac3246525.ctex"]
 
 [params]
 

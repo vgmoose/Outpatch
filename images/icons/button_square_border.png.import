@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmc8qxblhxilp"
-path="res://.godot/imported/Whiplash.png-50d4a34c783272a3ebc6ecd2d95ba779.ctex"
+uid="uid://sca3ejxn4jsu"
+path="res://.godot/imported/button_square_border.png-9c411bca69dd4f2526d738ad5e0d002e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://csps/Whiplash.png"
-dest_files=["res://.godot/imported/Whiplash.png-50d4a34c783272a3ebc6ecd2d95ba779.ctex"]
+source_file="res://images/icons/button_square_border.png"
+dest_files=["res://.godot/imported/button_square_border.png-9c411bca69dd4f2526d738ad5e0d002e.ctex"]
 
 [params]
 

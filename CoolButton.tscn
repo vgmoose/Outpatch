@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2e1mlcq1byjs"]
 
-[ext_resource type="Texture2D" uid="uid://bxyulhhkf4drc" path="res://csps/short_button.png" id="1_r0vv0"]
+[ext_resource type="Texture2D" uid="uid://bxyulhhkf4drc" path="res://images/csps/short_button.png" id="1_r0vv0"]
 [ext_resource type="Script" uid="uid://kyrpwr8f2ob1" path="res://CoolButton.gd" id="2_r0vv0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0vv0"]

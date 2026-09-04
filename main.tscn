@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b0jysl7dtdj0t"]
 
 [ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://bs6yu1fowxgoo" path="res://Torrance.png" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://dnujyhwayvhfy" path="res://images/Torrance.png" id="2_272bh"]
 [ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://CharBar.gd" id="3_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://icons/house.png" id="5_7mycd"]
+[ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://images/icons/house.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://d2vuhvcgkucds" path="res://ChatterBox.gd" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://c3l1yws6orhgy" path="res://AllTextLog.gd" id="7_272bh"]
@@ -14,7 +14,7 @@ script = ExtResource("1_ig7tw")
 [node name="Map" type="TextureRect" parent="." unique_id=1249873357]
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_1bvp3")
+texture = ExtResource("2_272bh")
 
 [node name="House" type="Sprite2D" parent="." unique_id=1761273818]
 position = Vector2(500, 500)

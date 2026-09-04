@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bos25d8yv3mbq"]
 
 [ext_resource type="Script" uid="uid://shsumejoj0w4" path="res://hacking/Map.gd" id="1_6mvxg"]
-[ext_resource type="Texture2D" uid="uid://c40byybdyl4a0" path="res://icons/button_round_flat.png" id="1_7sdx0"]
+[ext_resource type="Texture2D" uid="uid://c40byybdyl4a0" path="res://images/icons/button_round_flat.png" id="1_7sdx0"]
 [ext_resource type="PackedScene" uid="uid://cjaix40u31aam" path="res://hacking/Dot.tscn" id="2_gcn1o"]
 [ext_resource type="PackedScene" uid="uid://cad3lpkgkuvu7" path="res://hacking/Line.tscn" id="3_6mvxg"]
 
