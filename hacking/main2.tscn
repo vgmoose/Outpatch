@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dska3auftrt5e" path="res://hacking/Dice.tscn" id="1_y6ciw"]
 [ext_resource type="PackedScene" uid="uid://bos25d8yv3mbq" path="res://hacking/Map.tscn" id="2_x26nf"]
 [ext_resource type="Script" uid="uid://bekaei3rgjrx1" path="res://hacking/GestureDetector.gd" id="4_futv2"]
-[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://CoolWindow.tscn" id="5_ie3xe"]
+[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://common/CoolWindow.tscn" id="5_ie3xe"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ie3xe"]
 viewport_path = NodePath("Dice/Sprite2D/SubViewport")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7jcx8pl7jrf"]
 
 [ext_resource type="Texture2D" uid="uid://cari7n1cqrc0r" path="res://icon.svg" id="1_c0dwi"]
-[ext_resource type="Script" uid="uid://c2slkabvlg6b" path="res://JsonTree.gd" id="2_ax32a"]
+[ext_resource type="Script" uid="uid://c2slkabvlg6b" path="res://common/JsonTree.gd" id="2_ax32a"]
 
 [node name="Title" type="Node2D" unique_id=236249760]
 

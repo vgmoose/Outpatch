@@ -76,7 +76,7 @@ func startTravelling(chosenChars, mainEvent, fromDest, toDest):
 			newStatus = "TRAVELING" # on the way there
 		updateStatus(char, newStatus)
 		# create the actual character icon, at their current coors (TODO: don't hardcode)
-		var gridIconScene = preload("res://CharGridIcon.tscn")
+		var gridIconScene = preload("res://overworld/CharGridIcon.tscn")
 		var gridIcon: CharGridIcon = gridIconScene.instantiate()
 		gridIcon.position = fromDest
 		gridIcon.dest = toDest

@@ -261,7 +261,7 @@ func _process(delta: float):
 			event.hasFired = true # don't double process
 
 			# make an event circle from this event data
-			var eventCircleScene = preload("res://EventCircle.tscn")
+			var eventCircleScene = preload("res://overworld/EventCircle.tscn")
 			var eventCircle = eventCircleScene.instantiate()
 			eventCircle.updateEvent(event)
 			curId += 1

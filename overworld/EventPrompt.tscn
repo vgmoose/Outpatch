@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bvwyxixkaw1hg"]
 
-[ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://EventPrompt.gd" id="1_3owsw"]
-[ext_resource type="Script" uid="uid://7emhar3rl0ff" path="res://StarGraphHolder.gd" id="2_cef6o"]
-[ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://BouncyBall.tscn" id="2_m1l8p"]
-[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://CoolWindow.tscn" id="2_x5xuu"]
-[ext_resource type="PackedScene" uid="uid://c2e1mlcq1byjs" path="res://CoolButton.tscn" id="3_fvi1r"]
+[ext_resource type="Script" uid="uid://c7uky5b8w6y2t" path="res://overworld/EventPrompt.gd" id="1_3owsw"]
+[ext_resource type="Script" uid="uid://7emhar3rl0ff" path="res://overworld/StarGraphHolder.gd" id="2_cef6o"]
+[ext_resource type="PackedScene" uid="uid://by6vafkd15mbf" path="res://overworld/BouncyBall.tscn" id="2_m1l8p"]
+[ext_resource type="PackedScene" uid="uid://bkfm2sjrw6xe3" path="res://common/CoolWindow.tscn" id="2_x5xuu"]
+[ext_resource type="PackedScene" uid="uid://c2e1mlcq1byjs" path="res://common/CoolButton.tscn" id="3_fvi1r"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m1l8p"]
 

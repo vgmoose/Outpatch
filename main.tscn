@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://b4o7yxidlo3wx" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dnujyhwayvhfy" path="res://images/Torrance.png" id="2_272bh"]
-[ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://CharBar.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://dhkr14qnm20mv" path="res://overworld/CharBar.gd" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bucs5e1mhyh3u" path="res://images/icons/house.png" id="5_7mycd"]
-[ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://EventPrompt.tscn" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://d2vuhvcgkucds" path="res://ChatterBox.gd" id="6_7mycd"]
-[ext_resource type="Script" uid="uid://c3l1yws6orhgy" path="res://AllTextLog.gd" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://bvwyxixkaw1hg" path="res://overworld/EventPrompt.tscn" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://d2vuhvcgkucds" path="res://common/ChatterBox.gd" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://c3l1yws6orhgy" path="res://common/AllTextLog.gd" id="7_272bh"]
 
 [node name="Node2D" type="Node2D" unique_id=652498079]
 script = ExtResource("1_ig7tw")

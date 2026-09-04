@@ -99,7 +99,7 @@ func _enter_tree():
 			if curStatus == "COMPLETED":
 				circle.modulate = Color.DEEP_SKY_BLUE
 
-		var tooltipScene = preload("res://CoolWindow.tscn")
+		var tooltipScene = preload("res://common/CoolWindow.tscn")
 		tooltip = tooltipScene.instantiate()
 		tooltip.title = eventTitle
 		add_child(tooltip)

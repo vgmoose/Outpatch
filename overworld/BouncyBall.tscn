@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://by6vafkd15mbf"]
 
-[ext_resource type="Script" uid="uid://tdnxesch5otb" path="res://BouncyBall.gd" id="1_bc8qd"]
+[ext_resource type="Script" uid="uid://tdnxesch5otb" path="res://overworld/BouncyBall.gd" id="1_bc8qd"]
 [ext_resource type="Texture2D" uid="uid://c40byybdyl4a0" path="res://images/icons/button_round_flat.png" id="2_bc8qd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5cce5"]
