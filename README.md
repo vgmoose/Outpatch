@@ -13,7 +13,7 @@ Play the WIP demo online at: [vgmoose.itch.io/outpatch](https://vgmoose.itch.io/
 ## Screenshots
 | Map | Mission |
 |---|---|
-| ![Overworld](images/overwowrld.png) | ![Mission details](images/mission_details.png) |
+| ![Overworld](images/overworld.png) | ![Mission details](images/mission_details.png) |
 
 ## TODO
 - VN style cutscenes with characters in between mission
