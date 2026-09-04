@@ -64,7 +64,7 @@ Basic info about the game, to be displayed on the title screen. Also any color t
 This project is available under the [GPLv3](https://choosealicense.com/licenses/gpl-3.0/).
 
 ### Human Disclosure
-The code and text in this project is 100% written "by hand" and by humans. The Godot game engine is fun and easy to use! See their [Getting Started guide](https://docs.godotengine.org/en/stable/getting_started/introduction/introduction_to_godot.html) for more info.
+The code and text in this project is 100% written "by hand" and by humans. The Godot game engine is fun and easy to use, see their [Getting Started guide](https://docs.godotengine.org/en/stable/getting_started/introduction/introduction_to_godot.html) for more info.
 
 There's still value in handcrafting stuff and learning new things! If every endeavor were fully automated, then we could just get into our matrix VR pods and live out the rest of our days already.
 

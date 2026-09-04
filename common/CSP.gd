@@ -40,15 +40,7 @@ func _enter_tree():
 	csp.size.y = mySize
 	
 	# setup the actual CSP image
-	# TODO: allow loading from an external folder, for easy customization
-	var cspImage = Image.load_from_file("res://images/csps/" + myName + ".png")
-	var bgColor = ImageTexture.create_from_image(cspImage).image
-	var charBg = charBarRef.getColor(myName)
-	bgColor.fill(charBg.darkened(0.75))
-	bgColor.blend_rect(cspImage, bgColor.get_used_rect(), Vector2(0, 0))
-	var newTexture = ImageTexture.create_from_image(bgColor)
-	if newTexture:
-		myTexture = newTexture
+	myTexture = CSP.loadCharTexture(charBarRef, myName)
 	
 	# set the texture directly
 	
@@ -153,6 +145,17 @@ func _enter_tree():
 	recoveryBar.visible = false
 	
 	
+static func loadCharTexture(charBar, charName):
+	# TODO: allow loading from an external folder, for easy customization
+	var cspImage = Image.load_from_file("res://images/csps/" + charName + ".png")
+	var bgColor = ImageTexture.create_from_image(cspImage).image
+	var charBg = charBar.getColor(charName)
+	bgColor.fill(charBg.darkened(0.75))
+	bgColor.blend_rect(cspImage, bgColor.get_used_rect(), Vector2(0, 0))
+	var texture = ImageTexture.create_from_image(bgColor)
+	if texture:
+		return texture
+	return load("res://images/csps/Unknown.jpg") # placeholder
 
 
 func updateStatus():

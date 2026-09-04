@@ -9,10 +9,7 @@ var isWalker = true
 
 func updateImg(charBar: CharBar, charName: String, chosenChars):
 	var inner: TextureRect = get_node("CharGridIcon/Texture2D")
-	var texture = load("res://images/csps/" + charName + ".png")
-	if not texture:
-		texture = load("res://images/csps/Unknown.jpg")
-	inner.texture = texture
+	inner.texture = CSP.loadCharTexture(charBar, charName)
 	var border = get_node("Border")
 	border.modulate = charBar.getColor(charName).darkened(0.2)
 	
