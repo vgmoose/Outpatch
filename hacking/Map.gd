@@ -86,6 +86,11 @@ func _enter_tree():
 		var circleScene = preload("res://hacking/Dot.tscn")
 		var circle = circleScene.instantiate()
 		add_child(circle)
+		
+		if "hackingTint" in Main.gameConfigData:
+			circle.mesh.material.albedo_color = Main.gameConfigData["hackingTint"]
+			circle.mesh.material.albedo_color = circle.mesh.material.albedo_color.darkened(0.5)
+		
 		if "pass" in conns[curId]:
 			circle.mesh = circle.mesh.duplicate()
 			circle.mesh.material = circle.mesh.material.duplicate()
@@ -94,6 +99,7 @@ func _enter_tree():
 			circle.mesh = circle.mesh.duplicate()
 			circle.mesh.material = circle.mesh.material.duplicate()
 			circle.mesh.material.albedo_color = Color.DARK_BLUE
+		
 		var pos = cur["pos"]
 		circle.position = Vector3(pos.x, 0, pos.y) * 2
 		# link up neighbors

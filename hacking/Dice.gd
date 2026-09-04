@@ -26,6 +26,11 @@ var targetDoorId = "" # pass/door id that goes with it
 
 func _enter_tree():
 	model = get_node("Model")
+	
+	if "hackingTint" in Main.gameConfigData:
+		model.mesh.material.albedo_color = Main.gameConfigData["hackingTint"]
+		model.mesh.material.albedo_color = model.mesh.material.albedo_color.darkened(0.5)
+
 
 var speed = 12
 

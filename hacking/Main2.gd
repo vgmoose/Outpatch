@@ -13,6 +13,11 @@ func _enter_tree():
 	
 	dice = get_node("Dice")
 	
+	if "hackingTint" in Main.gameConfigData:
+		var floor = get_node("StaticBody3D/MeshInstance3D")
+		floor.mesh.material.albedo_color = Main.gameConfigData["hackingTint"]
+		floor.mesh.material.albedo_color = floor.mesh.material.albedo_color.darkened(0.75)
+	
 	var fullCodeText = FileAccess.get_file_as_string("res://generated/main.gd.csv")
 	for line in fullCodeText.split("\n"):
 		var lineStripped = line.strip_edges(true, true)

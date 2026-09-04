@@ -2,5 +2,6 @@
 	"title": "Wacky Wild Wayside W-adventure",
 	"windowTint": "#2200ffee",
 	"bgMapTint": "#22cccc88",
-	"cursorTint": "#ff00ff55"
+	"cursorTint": "#ff00ff55",
+	"hackingTint": "#ff00ff"
 }
