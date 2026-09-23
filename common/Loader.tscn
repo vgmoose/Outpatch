@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dl5wrgftiq4y8"]
+
+[ext_resource type="Script" uid="uid://ce47t5jk51137" path="res://common/Loader.gd" id="1_8cg0x"]
+
+[node name="Loader" type="Node2D" unique_id=1250086234]
+script = ExtResource("1_8cg0x")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=1674218601]
+offset_left = 188.0
+offset_top = 60.0
+offset_right = 2360.0
+offset_bottom = 139.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=145229801]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0

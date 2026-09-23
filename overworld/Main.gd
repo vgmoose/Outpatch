@@ -17,11 +17,11 @@ var curTime = 0.0
 static var gameConfigData = {} # global attributes about the game
 
 func _init():
-	var gameFileData = FileAccess.get_file_as_string("res://data/game.json")
+	var gameFileData = Loader.getDataFileContents("game.json")
 	Main.gameConfigData = JSON.parse_string(gameFileData)
 	
 	if "cursorTint" in Main.gameConfigData:
-		var image = Image.load_from_file("res://images/icons/cursor.png")
+		var image = Image.load_from_file("res://images/icons/cursor.png") # load from file is a workaround just for cursor
 		var blendMask = ImageTexture.create_from_image(image).image
 		blendMask.fill(Main.gameConfigData["cursorTint"])
 		image.fix_alpha_edges()
@@ -32,7 +32,7 @@ func _init():
 		Input.set_custom_mouse_cursor(texture)
 
 	# initialize event data
-	var eventFileData = FileAccess.get_file_as_string("res://data/events.json")
+	var eventFileData = Loader.getDataFileContents("events.json")
 	var jsonEventData = JSON.parse_string(eventFileData)
 	var curId = 0
 	for event in jsonEventData["events"]:
@@ -116,13 +116,13 @@ func _init():
 
 func _enter_tree() -> void:
 	# initialize character data
-	var charFileData = FileAccess.get_file_as_string("res://data/chars.json")
+	var charFileData = Loader.getDataFileContents("chars.json")
 	var jsonCharData = JSON.parse_string(charFileData)
 	var charBar: Control = get_node("CharBar")
 	charBar.loadChars(jsonCharData)
 	
 	# initialzie chatter data
-	var chatterFileData = FileAccess.get_file_as_string("res://data/chatters.json")
+	var chatterFileData = Loader.getDataFileContents("chatters.json")
 	var jsonChatterData = JSON.parse_string(chatterFileData)
 	var chatterBox = get_node("ChatterBox")
 	chatterBox.ogData = jsonChatterData

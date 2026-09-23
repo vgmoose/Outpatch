@@ -19,10 +19,11 @@ Play the WIP demo online at: [vgmoose.itch.io/outpatch](https://vgmoose.itch.io/
 - VN style cutscenes with characters in between mission
 - Support for multiple mission maps, and paths on those maps
 - Character exp and menu's to manage and view their stats
-- Easier ability to modify game files without rebuilding
 
 ## Usage
 Most of the customization is designed to be done by editing json text files, or adding in your own image files.
+
+Edit files in the `data ` folder, and ensure that it is placed next to the binary/launcher, or served on the same URL for web exports. The folder in this repo can be used as a base or example.
 
 ### Characters - `chars.json`
 This file uses the character's name as a key, and their attributes as values.

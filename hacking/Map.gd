@@ -9,8 +9,7 @@ func _enter_tree():
 	var doorData = {}
 		
 	# TODO:  load appropriate file for current mission
-	var mapFile = FileAccess.open("res://data/hacking1.csv", FileAccess.READ)
-	var content = mapFile.get_as_text()
+	var content = Loader.getDataFileContents("hacking1.csv")
 	var y = 0
 	var x = 0
 	var id = 0

@@ -146,8 +146,7 @@ func _enter_tree():
 	
 	
 static func loadCharTexture(charBar, charName):
-	# TODO: allow loading from an external folder, for easy customization
-	var cspImage = Image.load_from_file("res://images/csps/" + charName + ".png")
+	var cspImage = Loader.getDataFileImage("csps/" + charName + ".png")
 	var bgColor = ImageTexture.create_from_image(cspImage).image
 	var charBg = charBar.getColor(charName)
 	bgColor.fill(charBg.darkened(0.75))
@@ -155,7 +154,7 @@ static func loadCharTexture(charBar, charName):
 	var texture = ImageTexture.create_from_image(bgColor)
 	if texture:
 		return texture
-	return load("res://images/csps/Unknown.jpg") # placeholder
+	return load("res://images/icons/Unknown.jpg") # placeholder
 
 
 func updateStatus():

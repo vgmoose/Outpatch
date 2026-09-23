@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2e1mlcq1byjs"]
 
-[ext_resource type="Texture2D" uid="uid://bxyulhhkf4drc" path="res://images/csps/short_button.png" id="1_r0vv0"]
+[ext_resource type="Texture2D" uid="uid://2eemx2hrexk0" path="res://images/icons/short_button.png" id="1_xeybb"]
 [ext_resource type="Script" uid="uid://kyrpwr8f2ob1" path="res://common/CoolButton.gd" id="2_r0vv0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0vv0"]
@@ -12,7 +12,7 @@ bg_color = Color(2.203555, 2.203555, 2.203555, 0.19215687)
 [node name="TextureButton" type="TextureButton" unique_id=499889202]
 offset_right = 278.0
 offset_bottom = 78.0
-texture_normal = ExtResource("1_r0vv0")
+texture_normal = ExtResource("1_xeybb")
 script = ExtResource("2_r0vv0")
 
 [node name="Label" type="Button" parent="." unique_id=516416462]
