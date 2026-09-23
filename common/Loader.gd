@@ -8,6 +8,7 @@ static var cachedData = {} # map of file name -> data (bytes or string)
 static var cachedImages = {} # double the caching fun, for the actual Image objects
 
 var baseUrl = "" # loaded via js bridge
+var baseFolder = "" # used on mac, path to .app file
 
 var finishedCount = 0
 var totalCount = 0
@@ -16,6 +17,22 @@ func _ready():
 	if OS.get_name() == "Web":
 		var locationHref = JavaScriptBridge.eval("location.href")
 		baseUrl = locationHref.get_base_dir()
+	
+	elif OS.get_name() == "macOS":
+		var fullPath = OS.get_executable_path()
+		var parts = fullPath.split(".app")
+		baseFolder = parts[0].get_base_dir()
+	else:
+		# windows and linux, next to executable
+		var path = OS.get_executable_path()
+		baseFolder = path.get_base_dir()
+	
+	if OS.is_debug_build():
+		# if we're in the editor, use it as a resource
+		baseFolder = "res:/"
+	
+	print("Using base URL as: ", baseUrl)
+	print("Using base folder as: ", baseFolder)
 	
 	# okay, so we're going to manually load the files we need first
 	# and then on the return callback, if it's the char data, use that to
@@ -43,7 +60,8 @@ func loadFile(filePath):
 		req.request(url, [], HTTPClient.METHOD_GET)
 		return
 	# load from disk (sync, but fine)
-	cachedData[filePath] = FileAccess.get_file_as_bytes("res:/" + path)
+	print("Loading ", baseFolder + path)
+	cachedData[filePath] = FileAccess.get_file_as_bytes(baseFolder + path)
 	loadAnyAdditionalData(filePath)
 	countUp()
 
